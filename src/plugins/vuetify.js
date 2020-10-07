@@ -4,4 +4,14 @@ import Vuetify from 'vuetify/lib';
 Vue.use(Vuetify);
 
 export default new Vuetify({
+    theme: {
+        options: {
+            customProperties: true
+        },
+        themes: {
+            light: {
+                sharkyPurple: '#5A00E0'
+            }
+        }
+    }
 });
