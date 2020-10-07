@@ -10,7 +10,8 @@ export default new Vuetify({
         },
         themes: {
             light: {
-                sharkyPurple: '#5A00E0'
+                sharkyPurple: '#5A00E0',
+                sharkyLight: '#9752FF'
             }
         }
     }
