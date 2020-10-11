@@ -13,7 +13,7 @@
       <v-col cols="10">
         <v-toolbar-items>
           <v-row dense align="center" justify="end">
-            <v-text-field filled dense clearable shaped class="mt-6 mr-6 font-weight-regular rounded-lg" placeholder="Busca entrenadores y rutinas" append-icon="mdi-magnify" @click:append="search"></v-text-field>
+            <v-text-field filled dense clearable shaped class="mt-6 mr-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
             <v-btn outlined class="menuBtn mr-6 custom-transform-class text-none font-weight-bold rounded-lg" v-for="item in barItems" :key="item.title">{{item.title}}</v-btn>
             <v-menu flat rounded="lg" offset-y nudge-bottom="5">
               <template v-slot:activator="{ on, attrs }">
@@ -21,7 +21,7 @@
               </template>
               <v-list>
                 <v-list-item v-for="(item, i) in accItems" :key="i">
-                  <v-btn :class="`custom-transform-class text-none ${item.mode} font-weight-medium rounded-lg`" block depressed :color="item.color" item.mode>{{ item.title }}</v-btn>
+                  <v-btn :class="`custom-transform-class text-none ${item.mode} font-weight-medium rounded-lg`" block depressed :color="item.color" item.mode :to="`${item.link}`" >{{ item.title }}</v-btn>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -31,14 +31,15 @@
     </v-toolbar>
 
     <v-toolbar flat app dark class="hidden-md-and-up">
+      <v-col cols="4">
         <v-row align="center" justify="start">
           <router-link to="/">
             <v-img contain height="30" width="50" src="../assets/logo.png"/>
           </router-link>
-          <v-toolbar-title class="d-flex font-weight-bold">Sharki</v-toolbar-title>
+          <v-toolbar-title class="font-weight-bold">Sharki</v-toolbar-title>
         </v-row>
-        <v-spacer/>
-        <v-text-field filled dense clearable shaped class="mt-6 ml-3 font-weight-regular rounded-lg" placeholder="Busca entrenadores y rutinas" append-icon="mdi-magnify" @click:append="search"></v-text-field>
+      </v-col>
+        <v-text-field filled dense clearable shaped class="mt-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
         <v-app-bar-nav-icon @click.stop="navDraw=!navDraw;"></v-app-bar-nav-icon>
     </v-toolbar>
 
