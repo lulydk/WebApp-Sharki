@@ -1,7 +1,6 @@
 <template>
   <v-app>
-    <!--Aca iria la Nav bar-->
-
+    <Navbar></Navbar>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -12,10 +11,13 @@
 
 <script>
 
+import Navbar from "./components/Navbar";
+
 export default {
   name: 'App',
 
   components: {
+    Navbar,
   },
 
   data: () => ({
@@ -23,3 +25,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+  * {
+    font-family: 'Open Sans', sans-serif;
+  }
+</style>

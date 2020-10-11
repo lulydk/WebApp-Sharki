@@ -1,0 +1,107 @@
+<template>
+  <v-container fluid pa-0>
+
+    <v-toolbar flat app dark class="hidden-sm-and-down">
+      <v-col cols="2">
+        <v-row align="center" justify="start">
+          <router-link to="/">
+            <v-img contain height="30" width="50" src="../assets/logo.png"/>
+          </router-link>
+          <v-toolbar-title class="d-flex font-weight-bold">Sharki</v-toolbar-title>
+        </v-row>
+      </v-col>
+      <v-col cols="10">
+        <v-toolbar-items>
+          <v-row dense align="center" justify="end">
+            <v-text-field filled dense clearable shaped class="mt-6 mr-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
+            <v-btn outlined class="menuBtn mr-6 custom-transform-class text-none font-weight-bold rounded-lg" v-for="item in barItems" :key="item.title">{{item.title}}</v-btn>
+            <v-menu flat rounded="lg" offset-y nudge-bottom="5">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn depressed fab small color="white" v-bind="attrs" v-on="on"><v-icon color="#9752ff">mdi-account</v-icon></v-btn>
+              </template>
+              <v-list>
+                <v-list-item v-for="(item, i) in accItems" :key="i">
+                  <v-btn :class="`custom-transform-class text-none ${item.mode} font-weight-medium rounded-lg`" block depressed :color="item.color" item.mode :to="`${item.link}`" >{{ item.title }}</v-btn>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-row>
+        </v-toolbar-items>
+      </v-col>
+    </v-toolbar>
+
+    <v-toolbar flat app dark class="hidden-md-and-up">
+      <v-col cols="4">
+        <v-row align="center" justify="start">
+          <router-link to="/">
+            <v-img contain height="30" width="50" src="../assets/logo.png"/>
+          </router-link>
+          <v-toolbar-title class="font-weight-bold">Sharki</v-toolbar-title>
+        </v-row>
+      </v-col>
+        <v-text-field filled dense clearable shaped class="mt-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
+        <v-app-bar-nav-icon @click.stop="navDraw=!navDraw;"></v-app-bar-nav-icon>
+    </v-toolbar>
+
+    <v-navigation-drawer dark hide-overlay right color="#5a00e0" app v-model="navDraw" class="hidden-md-and-up">
+      <v-list dense nav>
+        <v-list-item v-for="item in barItems" :key="item.title" link>
+          <v-list-item-icon><v-icon>{{ item.icon }}</v-icon></v-list-item-icon>
+          <v-list-item-content @click="navBar=false;">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-divider></v-divider>
+      <v-subheader>Mi cuenta</v-subheader>
+      <v-list dense nav>
+        <v-list-item v-for="item in accItems" :key="item.title" link>
+          <v-list-item-icon><v-icon>{{ item.icon }}</v-icon></v-list-item-icon>
+          <v-list-item-content color="white">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: "Navbar",
+  data () {
+    return {
+      dialog: false,
+      navDraw: false,
+      barItems: [
+        { title: 'Rutinas', link: '', icon: 'mdi-compass-outline'},
+        { title: 'Crear una rutina', link: '', icon: 'mdi-plus-circle-multiple-outline'}
+      ],
+      accItems: [
+        { title: 'Mi perfil', link: '', color: '#eee5fc', icon: 'mdi-account'},
+        { title: 'Rutinas creadas', link: '', color: '#eee5fc', icon: 'mdi-timer-outline'},
+        { title: 'Ejercicios creados', link: '', color: '#eee5fc', icon: 'mdi-dumbbell'},
+        { title: 'Cerrar sesión', link:'', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}
+      ]
+    }
+  },
+  methods: {
+    search () {
+
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+  .v-toolbar {
+    background-image: linear-gradient(to right, #5a00e0, #9752ff);
+  }
+  
+  .menuBtn {
+    border: 2px solid; 
+  }
+
+</style>
