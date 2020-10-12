@@ -7,7 +7,7 @@
     <div class="sharkyPurple white--text">
       <v-card-title class="d-inline-block pa-3">Ejercicio i</v-card-title>
       <v-card-actions class="d-inline-block float-right pt-2">
-        <v-btn>
+        <v-btn icon>
           <v-icon>mdi-trash-can</v-icon>
         </v-btn>
       </v-card-actions>

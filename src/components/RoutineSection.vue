@@ -9,29 +9,28 @@
           hide-details
           single-line
           type="number"
-          class="d-inline-block"
+          class="repes d-inline-block"
+          id="repes"
       />
     </span>
     </div>
 
     <!--Ejercicios-->
-    <v-container fluid class="sharkyBack">
-      <v-row dense>
-        <v-col v-for="n in 5" :key="n">
-          <ExerciseCard/>
-        </v-col>
-        <v-col>
-          <v-card width="300px" height="150px" rounded>
-            <v-card-title>
-              <v-btn class="ml-8 mt-9">
-                Añadir ejecicio
-                <v-icon class="ml-3">mdi-plus-circle</v-icon>
-              </v-btn>
-            </v-card-title>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-slide-group class="sharkyBack" show-arrows>
+      <v-slide-item v-for="n in cards" :key="n">
+        <ExerciseCard class="ma-4"/>
+      </v-slide-item>
+      <v-slide-item>
+        <v-card width="300px" height="150px"
+                rounded class="ma-4 sharkyBack"
+                @click="cards++">
+          <v-card-title class="ml-10 mt-10">
+            <v-icon class="mr-3">mdi-plus-circle</v-icon>
+            Añadir ejecicio
+          </v-card-title>
+        </v-card>
+      </v-slide-item>
+    </v-slide-group>
 
 
   </div>
@@ -45,9 +44,20 @@ export default {
   components: {
     ExerciseCard
   },
-  props: ['name']
+  props: ['name'],
+  data: function () {
+    return {
+      cards: 0
+    }
+  }
 }
 </script>
 
 <style scoped>
+.repes {
+  width: 50px;
+}
+#repes {
+  width: 50px;
+}
 </style>

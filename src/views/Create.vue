@@ -1,5 +1,5 @@
 <template>
-  <div class="create ma-8 ">
+  <div class="create mx-8 my-4">
 
     <!--Heading y botones-->
     <div class="mb-2">
@@ -12,27 +12,31 @@
 
     <!--Ingreso de datos-->
     <div>
-      <v-text-field outlined label="Nombre de la rutina" class="nameInput d-inline-block"></v-text-field>
+      <v-text-field outlined clearable
+                    label="Nombre de la rutina"
+                    class="nameInput d-inline-block"/>
       <span class="ml-4">
-          <v-text-field outlined label="Tags" class="tagInput d-inline-block"></v-text-field>
-          <v-btn icon>
-            <v-icon>mdi-menu-down</v-icon>
-          </v-btn>
+          <v-text-field outlined clearable
+                        label="Tags"
+                        class="tagInput d-inline-block"
+                        append-icon="mdi-menu-down"
+                        @click:append="tags"/>
         </span>
     </div>
 
     <!--Secciones de la rutina-->
-    <RoutineSection name="Entrada en calor" class="my-4 mt-0"></RoutineSection>
-    <RoutineSection name="Ejercitacion principal" class="my-4"></RoutineSection>
-    <RoutineSection name="Enfriamiento" class="my-4"></RoutineSection>
+    <RoutineSection name="Seccion 1" class="my-8 mt-0"></RoutineSection>
+    <RoutineSection v-for="n in secciones" :key="n"
+        name="Seccion" class="my-8"/>
 
-    <div class="my-8">
+    <div class="my-4">
       <v-btn
           class="addButton v-size--x-large"
           id="addButton"
           color="sharkyPurple"
           elevation="2"
-          outlined>
+          outlined
+          @click="secciones++">
         <v-icon>mdi-plus</v-icon>
         Añadir bloque de ejercicios
       </v-btn>
@@ -55,6 +59,16 @@ export default {
   components: {
     RoutineSection,
     CreateButtons
+  },
+  data: function () {
+    return {
+      secciones: 0,
+    }
+  },
+  methods: {
+    tags () {
+
+    }
   }
 }
 </script>
