@@ -6,7 +6,7 @@
         <v-col>
           <v-row>
             <h1>
-              <v-icon>person</v-icon>Mi Perfil
+              <v-icon>mdi-human</v-icon>Mi Perfil
             </h1>
           </v-row>
           <v-row>
@@ -14,10 +14,12 @@
                    src="https://runnersexperiencedotcom.files.wordpress.com/2013/12/profile.jpg"
             ></v-img>
           </v-row>
-          <v-row>
-            <v-col cols="6"><h1>Diego Rodriguez</h1></v-col>
-            <v-col><v-btn><v-icon>share</v-icon></v-btn></v-col>
-            <v-col><v-btn><v-icon>create</v-icon></v-btn></v-col>
+          <v-row class="flex-row align-center">
+            <h1>Diego Rodriguez</h1>
+            <v-spacer></v-spacer>
+            <v-btn icon><v-icon>mdi-share</v-icon></v-btn>
+            <v-btn icon><v-icon>mdi-pencil</v-icon></v-btn>
+            <v-spacer></v-spacer>
           </v-row>
           <p> <strong>Biografia: </strong> Hombre, 50 años, Argentina</p>
           <p>
@@ -30,28 +32,26 @@
             <v-row>
               <v-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTzMeHgrzEr_9A-KwQyktlpd9HIuMGJFEn5xg&usqp=CAU"></v-img>
             </v-row>
-            <v-row >
-              <v-col cols="2">
+            <v-row class="flex-row justify-center">
+                <v-spacer></v-spacer>
                 <v-btn
                     class="sharkyPurple--text"
                     elevation="2"
                     small
                 >Peso</v-btn>
-              </v-col>
-              <v-col>
+                <v-spacer></v-spacer>
                 <v-btn
                     class="sharkyPurple--text"
                     elevation="2"
                     small
                 >Ejercicios por dia</v-btn>
-              </v-col>
-              <v-col>
+                <v-spacer></v-spacer>
                 <v-btn
                     class="sharkyPurple--text"
                     elevation="2"
                     small
                 >Calorias Consumidas</v-btn>
-              </v-col>
+                <v-spacer></v-spacer>
             </v-row>
           </v-container>
         </v-col>
