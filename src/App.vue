@@ -1,9 +1,10 @@
 <template>
   <v-app>
-    <!--Aca iria la Nav bar-->
-
+    <Navbar></Navbar>
     <v-main>
-      <router-view></router-view>
+      <router-view>
+        <Home></Home>
+      </router-view>
     </v-main>
 
     <!--Aca iria el Footer-->
@@ -12,10 +13,14 @@
 
 <script>
 
+import Home from './views/Home';
+import Navbar from "./components/Navbar";
+
 export default {
   name: 'App',
 
   components: {
+    Home, Navbar,
   },
 
   data: () => ({
@@ -23,3 +28,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+  * {
+    font-family: 'Open Sans', sans-serif;
+  }
+</style>
