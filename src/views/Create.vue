@@ -15,9 +15,9 @@
       <v-text-field outlined label="Nombre de la rutina" class="nameInput d-inline-block"></v-text-field>
       <span class="ml-4">
           <v-text-field outlined label="Tags" class="tagInput d-inline-block"></v-text-field>
-          <button>
+          <v-btn icon>
             <v-icon>mdi-menu-down</v-icon>
-          </button>
+          </v-btn>
         </span>
     </div>
 
@@ -26,7 +26,23 @@
     <RoutineSection name="Ejercitacion principal" class="my-4"></RoutineSection>
     <RoutineSection name="Enfriamiento" class="my-4"></RoutineSection>
 
+    <div class="my-8">
+      <v-btn
+          class="addButton v-size--x-large"
+          id="addButton"
+          color="sharkyPurple"
+          elevation="2"
+          outlined>
+        <v-icon>mdi-plus</v-icon>
+        Añadir bloque de ejercicios
+      </v-btn>
+    </div>
+
+
+    <div>
     <CreateButtons class="mb-4"/>
+    </div>
+
   </div>
 </template>
 
@@ -59,5 +75,12 @@ h1 {
 
 .tagInput {
   width: 30%;
+}
+
+.addButton {
+  border-width: 3px;
+}
+#addButton {
+  border-width: 3px;
 }
 </style>

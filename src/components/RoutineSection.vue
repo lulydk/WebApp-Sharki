@@ -16,15 +16,17 @@
 
     <!--Ejercicios-->
     <v-container fluid class="sharkyBack">
-      <v-row>
+      <v-row dense>
         <v-col v-for="n in 5" :key="n">
           <ExerciseCard/>
         </v-col>
         <v-col>
           <v-card width="300px" height="150px" rounded>
-            <v-card-title class="pa-15">
-              Añadir ejecicio
-              <v-icon class="ml-3">mdi-plus-circle</v-icon>
+            <v-card-title>
+              <v-btn class="ml-8 mt-9">
+                Añadir ejecicio
+                <v-icon class="ml-3">mdi-plus-circle</v-icon>
+              </v-btn>
             </v-card-title>
           </v-card>
         </v-col>

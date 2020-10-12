@@ -4,6 +4,9 @@
     <v-btn to="/about">
       About
     </v-btn>
+    <v-btn to="/create">
+      Create
+    </v-btn>
 
   </div>
 </template>

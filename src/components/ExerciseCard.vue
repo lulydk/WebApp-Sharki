@@ -1,5 +1,5 @@
 <template>
-  <v-card width="300px" rounded>
+  <v-card width="300px" height="150px" rounded>
     <v-img
         src="https://www.t-nation.com/system/publishing/articles/10001096/original/Unconventional-Workout-Abs.jpg?1515713332"
         height="100px"
