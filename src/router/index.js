@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Create from '../views/Create.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import Contact from '../views/Contact.vue'
+import RoutineDetails from '../views/RoutineDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/contact',
     name: 'Contactanos',
     component: Contact
+  },
+  {
+    path: '/routine',
+    name: 'Routine Details',
+    component: RoutineDetails
   },
   {
     path: '*',
