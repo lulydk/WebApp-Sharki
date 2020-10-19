@@ -1,6 +1,6 @@
 <template>
   <v-container mb-12 fluid>
-    <v-layout id="cards" class="mx-auto" row wrap>
+    <v-layout class="mx-auto" row wrap>
       <v-flex xs12 md12>
         <h2 class="mb-5">Rutinas Populares</h2>
       </v-flex>
@@ -64,9 +64,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  #cards {
-    border: 3px solid red;
-  }
-</style>
