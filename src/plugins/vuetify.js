@@ -11,7 +11,8 @@ export default new Vuetify({
         themes: {
             light: {
                 sharkyPurple: '#5A00E0',
-                sharkyLight: '#9752FF'
+                sharkyLight: '#9752FF',
+                sharkyBack: '#eee5fc'
             }
         }
     }
