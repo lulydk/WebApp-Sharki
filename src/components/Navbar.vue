@@ -79,7 +79,7 @@ export default {
         { title: 'Crear una rutina', link: '/create', icon: 'mdi-plus-circle-multiple-outline'}
       ],
       accItems: [
-        { title: 'Mi perfil', link: '', color: '#eee5fc', icon: 'mdi-account'},
+        { title: 'Mi perfil', link: '/profile', color: '#eee5fc', icon: 'mdi-account'},
         { title: 'Rutinas creadas', link: '', color: '#eee5fc', icon: 'mdi-timer-outline'},
         { title: 'Ejercicios creados', link: '', color: '#eee5fc', icon: 'mdi-dumbbell'},
         { title: 'Cerrar sesión', link:'', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}
