@@ -52,9 +52,6 @@
           <MyRoutines></MyRoutines>
         </v-col>
       </v-row>
-      <v-spacer></v-spacer>
-
-
       <v-footer
           absolute
           color='sharkyPurple'
