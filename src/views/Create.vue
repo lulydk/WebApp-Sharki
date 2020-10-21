@@ -12,29 +12,68 @@
 
     <!--Ingreso de datos-->
     <div>
-      <v-text-field outlined clearable
+      <v-text-field class="nameInput d-inline-block mt-1 ml-5" clearable
                     label="Nombre de la rutina"
-                    class="nameInput d-inline-block"/>
-      <span class="ml-4">
-          <v-text-field outlined clearable
-                        label="Tags"
-                        class="tagInput d-inline-block"
-                        append-icon="mdi-menu-down"
-                        @click:append="tags"/>
-        </span>
+                    outlined/>
+
+      <!--Boton de Toggle para publica/privada-->
+      <span class="float-right">
+        <v-switch
+            class="mr-5"
+            v-model="publicSwitch"
+            inset
+            color="sharkyPurple"
+            :label="'Pública'"
+        ></v-switch>
+      </span>
+    </div>
+    <!--Lista de Categorias-->
+    <div>
+      <h3 class="d-inline-block ml-5 sharkyPurple--text">Categoría:</h3>
+    <v-overflow-btn
+        class="ml-5 categoryBar d-inline-block"
+        id="categoryBar"
+        filled
+        :items="categorias"
+        label="Seleccionar"
+    />
     </div>
 
+        <!--v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+        <v-btn class="custom-transform-class text-none pa-5 mb-2"
+               color="sharkyPurple"
+               dark
+               depressed
+               v-bind="attrs"
+               v-on="on">
+          Categoría
+          <v-icon class="pl-2">mdi-menu-down</v-icon>
+        </v-btn>
+        </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in categorias"
+              :key="index"
+            >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+             </v-list-item>
+          </v-list>
+        </v-menu-->
+
     <!--Secciones de la rutina-->
-    <RoutineSection name="Seccion 1" class="my-8 mt-0"></RoutineSection>
+    <RoutineSection class="my-8 mt-0" name="Entrada en calor"></RoutineSection>
+
+    <RoutineSection class="my-8" name="Seccion 1"></RoutineSection>
+
     <RoutineSection v-for="n in secciones" :key="n"
-        name="Seccion" class="my-8"/>
+                    class="my-8" name="Seccion"/>
 
     <div class="my-4">
       <v-btn
-          class="addButton v-size--x-large"
           id="addButton"
+          class="addButton v-size--x-large"
           color="sharkyPurple"
-          elevation="2"
           outlined
           @click="secciones++">
         <v-icon>mdi-plus</v-icon>
@@ -42,9 +81,10 @@
       </v-btn>
     </div>
 
+    <RoutineSection class="my-8" name="Enfriamiento"></RoutineSection>
 
     <div>
-    <CreateButtons class="mb-4"/>
+      <CreateButtons class="mb-4"/>
     </div>
 
   </div>
@@ -63,13 +103,11 @@ export default {
   data: function () {
     return {
       secciones: 0,
+      categorias: ['Cat 1', 'Cat 2', 'Cat 3', 'Cat 4'],
+      publicSwitch: false
     }
   },
-  methods: {
-    tags () {
-
-    }
-  }
+  methods: {}
 }
 </script>
 
@@ -84,17 +122,22 @@ h1 {
 }
 
 .nameInput {
-  width: 40%;
-}
-
-.tagInput {
-  width: 30%;
+  width: 1000px;
 }
 
 .addButton {
   border-width: 3px;
 }
+
 #addButton {
   border-width: 3px;
+}
+
+.categoryBar {
+  width: 880px;
+}
+
+#categoryBar {
+  width: 880px;
 }
 </style>
