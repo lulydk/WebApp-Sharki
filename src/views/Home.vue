@@ -1,11 +1,12 @@
 <template>
   <v-container mb-12 fluid>
     <v-layout class="mx-auto" row wrap>
+      <LogIn/>
       <v-flex xs12 md12>
         <h2 class="mb-5">Rutinas Populares</h2>
       </v-flex>
       <v-flex class="mb-6" v-for="routine in routines" :key="routine.name">
-            <RoutineCard :routine="routine"/>
+        <RoutineCard :routine="routine"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -14,11 +15,13 @@
 <script>
 // @ is an alias to /src
 import RoutineCard from "../components/RoutineCard";
+import LogIn from "../components/LogIn";
 
 export default {
   name: 'Home',
   components: {
-    RoutineCard
+    RoutineCard,
+    LogIn
   },
   data () {
     return {
