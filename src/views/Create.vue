@@ -4,7 +4,7 @@
     <!--Heading y botones-->
     <div class="mb-2">
       <h1 class="d-inline-block">
-        <v-icon class="pb-1" color="sharkyLight">mdi-plus-circle</v-icon>
+        <v-icon class="pb-1" color="sharkyPurple">mdi-plus-circle</v-icon>
         Crear Rutina
       </h1>
       <CreateButtons/>
@@ -12,79 +12,91 @@
 
     <!--Ingreso de datos-->
     <div>
-      <v-text-field class="nameInput d-inline-block mt-1 ml-5" clearable
+      <v-text-field class="nameInput d-inline-block mt-1" clearable
+                    hide-details
                     label="Nombre de la rutina"
                     outlined/>
 
       <!--Boton de Toggle para publica/privada-->
       <span class="float-right">
         <v-switch
-            class="mr-5"
             v-model="publicSwitch"
-            inset
-            color="sharkyPurple"
             :label="'Pública'"
+            class="mr-5"
+            color="sharkyPurple"
+            inset
         ></v-switch>
       </span>
     </div>
-    <!--Lista de Categorias-->
-    <div>
-      <h3 class="d-inline-block ml-5 sharkyPurple--text">Categoría:</h3>
-    <v-overflow-btn
-        class="ml-5 categoryBar d-inline-block"
-        id="categoryBar"
-        filled
-        :items="categorias"
-        label="Seleccionar"
-    />
-    </div>
-
-        <!--v-menu offset-y>
-        <template v-slot:activator="{ on, attrs }">
-        <v-btn class="custom-transform-class text-none pa-5 mb-2"
-               color="sharkyPurple"
-               dark
-               depressed
-               v-bind="attrs"
-               v-on="on">
-          Categoría
-          <v-icon class="pl-2">mdi-menu-down</v-icon>
-        </v-btn>
-        </template>
-          <v-list>
-            <v-list-item
-              v-for="(item, index) in categorias"
-              :key="index"
-            >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-             </v-list-item>
-          </v-list>
-        </v-menu-->
 
     <!--Secciones de la rutina-->
-    <RoutineSection class="my-8 mt-0" name="Entrada en calor"></RoutineSection>
-
-    <RoutineSection class="my-8" name="Seccion 1"></RoutineSection>
-
-    <RoutineSection v-for="n in secciones" :key="n"
-                    class="my-8" name="Seccion"/>
-
-    <div class="my-4">
-      <v-btn
-          id="addButton"
-          class="addButton v-size--x-large"
-          color="sharkyPurple"
-          outlined
-          @click="secciones++">
-        <v-icon>mdi-plus</v-icon>
-        Añadir bloque de ejercicios
-      </v-btn>
+    <div v-for="type in types" :key="type"
+         class="mt-0">
+      <h2 class="ma-4 sharkyPurple--text">{{ getSectionName(type) }}</h2>
+      <!--Carrusel de Ejercicios-->
+      <div v-for="c in cycles" :key="c.id">
+        <RoutineSection v-if="c.type === type"
+                        :cycle=c
+                        class="mb-8"
+                        v-on:trashClicked="deleteSection($event)"
+        />
+      </div>
+      <!--Boton para agregar seccion-->
+      <div class="my-4">
+        <v-btn
+            id="addButton"
+            class="addButton v-size--x-large ml-5"
+            color="sharkyPurple"
+            outlined
+            @click="addSection(type)">
+          <v-icon>mdi-plus</v-icon>
+          {{ "Agregar sección de " + getSectionName(type) }}
+        </v-btn>
+      </div>
     </div>
 
-    <RoutineSection class="my-8" name="Enfriamiento"></RoutineSection>
+    <!--Lista de Categorias-->
+    <div class="mt-7">
+      <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
+        Categoría de la rutina:
+      </h3>
+      <v-overflow-btn
+          v-if="category!==addCatString"
+          id="categoryBar"
+          v-model="category"
+          :items="categorias"
+          class="ml-5 categoryBar d-inline-block"
+          filled
+          hide-details
+          label="Seleccionar"
+      />
+      <span v-if="category===addCatString">
+      <v-text-field
+          class="ml-5 categoryBar d-inline-block"
+          filled
+          hide-details
+          label="Nueva categoría"
+          v-model="new_cat"
+      />
+      <v-btn class="mb-5 ml-3" color="red"
+             icon
+             large
+             @click="category=null"
+      >
+        <v-icon>mdi-cancel</v-icon>
+      </v-btn>
+      <v-btn class="mb-5" color="green"
+             icon
+             large
+             @click="addCategory()"
+      >
+        <v-icon>mdi-check</v-icon>
+      </v-btn>
+      </span>
+    </div>
 
     <div>
-      <CreateButtons class="mb-4"/>
+      <CreateButtons class="mb-10"/>
     </div>
 
   </div>
@@ -101,14 +113,82 @@ export default {
     CreateButtons
   },
   data: function () {
+    const ADD_CAT = 'Añadir...';
     return {
-      secciones: 0,
-      categorias: ['Cat 1', 'Cat 2', 'Cat 3', 'Cat 4'],
-      publicSwitch: false
+      //Las siguientes variables son para probar el diseño de la pagina
+      categorias: [ADD_CAT, 'Brazos'],
+      // Posta:
+      publicSwitch: false,
+      types: ['warmup', 'exercise', 'cooldown'],
+      category: null,
+      addCatString: ADD_CAT,
+      new_cat: "",
+      // Datos de prueba
+      globalID: 4,
+      cycles: [
+        {
+          "id": 1,
+          "name": "Fast Warmup",
+          "detail": "",
+          "type": "warmup",
+          "order": 1,
+          "repetitions": 2
+        },
+        {
+          "id": 2,
+          "name": "Jumping Exercises",
+          "detail": "",
+          "type": "exercise",
+          "order": 1,
+          "repetitions": 5
+        },
+        {
+          "id": 3,
+          "name": "Long Cooling",
+          "detail": "",
+          "type": "cooldown",
+          "order": 1,
+          "repetitions": 3
+        }
+      ]
     }
   },
-  methods: {}
+  methods: {
+    addSection: function (type) {
+      console.log(this.globalID);
+      this.cycles.push({
+        "id": this.globalID++,
+        "name": "Another Section",
+        "detail": "",
+        "type": type,
+        "order": 1,
+        "repetitions": 1
+      })
+    },
+    deleteSection: function (id) {
+      console.log(id);
+      this.cycles = this.cycles.filter(function (cycle) {
+        return cycle.id !== id;
+      });
+    },
+    getSectionName: function (type) {
+      switch (type) {
+        case 'warmup':
+          return "Calentamiento"
+        case 'exercise':
+          return "Ejercitación"
+        case 'cooldown':
+          return "Enfriamiento"
+      }
+    },
+    addCategory: function () {
+      this.categorias.push(this.new_cat);
+      this.category = this.new_cat;
+      this.new_cat = null;
+    }
+  },
 }
+
 </script>
 
 <style scoped>
@@ -122,7 +202,7 @@ h1 {
 }
 
 .nameInput {
-  width: 1000px;
+  width: 50%;
 }
 
 .addButton {
@@ -134,10 +214,10 @@ h1 {
 }
 
 .categoryBar {
-  width: 880px;
+  width: 30%;
 }
 
 #categoryBar {
-  width: 880px;
+  width: 30%;
 }
 </style>
