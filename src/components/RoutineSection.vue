@@ -30,18 +30,35 @@
 
     <!--Ejercicios-->
     <v-slide-group class="sharkyBack" show-arrows>
-      <v-slide-item v-for="exc in exercises" :key="exc.id">
-        <ExerciseCard class="ma-4"
-                      :exercise=exc
-                      :image=getImage(exc.id)
+
+      <!--lista de ejercicios ya agregados a la seccion-->
+      <v-slide-item v-for="exc in exercises_db" :key="exc.id">
+        <ExerciseCard :exercise=exc
+                      :exercises_db=exercises_db
+                      :images_db=images_db
+                      class="ma-4"
+                      clearable
                       v-on:trashClicked="deleteCard($event)"/>
       </v-slide-item>
+
+      <!--Boton para agregar nuevo ejercicio a la seccion-->
       <v-slide-item>
-        <v-btn id="agregar" class="ma-4 sharkyPurple--text"
-               outlined>
-          <v-icon class="mr-3">mdi-plus-circle</v-icon>
-          Añadir ejercicio
-        </v-btn>
+        <v-dialog v-model="dialog" max-width="60%">
+          <template v-slot:activator="{on}">
+          <v-btn id="agregar"
+                 class="ma-4 sharkyPurple--text"
+                 v-on="on"
+                 outlined
+          >
+            <v-icon class="mr-3">mdi-plus-circle</v-icon>
+            Añadir ejercicio
+          </v-btn>
+          </template>
+          <ExercisePopup :exercise_db=exercises_db
+                         :images_db=images_db
+                         v-on:cancelClicked="dialog=false"
+          />
+        </v-dialog>
       </v-slide-item>
 
     </v-slide-group>
@@ -51,64 +68,18 @@
 
 <script>
 import ExerciseCard from "@/components/ExerciseCard";
+import ExercisePopup from "@/components/ExercisePopup";
 
 export default {
   name: "RoutineSection",
   components: {
+    ExercisePopup,
     ExerciseCard
   },
   props: {
-    cycle: Object
-  },
-  data: function () {
-    return {
-      //Data de prueba
-      exercises: [
-        {
-          "id": 1,
-          "name": "Plancha",
-          "detail": "",
-          "type": "exercise",
-          "duration": 30,
-          "repetitions": 0,
-          "order": 1
-        },
-        {
-          "id": 2,
-          "name": "Push-up",
-          "detail": "",
-          "type": "exercise",
-          "duration": 0,
-          "repetitions": 15,
-          "order": 1
-        },
-        {
-          "id": 3,
-          "name": "Sentadilla",
-          "detail": "",
-          "type": "exercise",
-          "duration": 0,
-          "repetitions": 10,
-          "order": 1
-        },
-      ],
-      images: [
-        {
-          "id": 1,
-          "number": 1,
-          "url": "https://www.t-nation.com/system/publishing/articles/10001096/original/Unconventional-Workout-Abs.jpg?1515713332"
-        },
-        {
-          "id": 2,
-          "number": 1,
-          "url": "https://lmimirror3pvr.azureedge.net/static/media/12867/2d5a7ea5-1c56-40e1-aba6-dbbfe959f35a/pushup-study_960x540.jpg"
-        },
-        {
-          "id": 3,
-          "number": 1,
-          "url": "https://www.inposture.com/wp-content/uploads/2020/05/Sit-ups.jpg"
-        }]
-    }
+    cycle: Object,
+    exercises_db: Array,
+    images_db: Array
   },
   methods: {
     //  Handler de card a borrar
@@ -118,10 +89,11 @@ export default {
     //  Evento para eliminar esta rutine section
     trashClicked: function () {
       this.$emit('trashClicked', this.cycle.id)
-    },
-    //  Devuelve la imagen correspondiente al ejercicio
-    getImage: function (id) {
-      return this.images.find(im => im.id === id);
+    }
+  },
+  data: function () {
+    return {
+      dialog: false
     }
   }
 }

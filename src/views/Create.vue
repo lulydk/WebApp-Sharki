@@ -37,6 +37,8 @@
       <div v-for="c in cycles" :key="c.id">
         <RoutineSection v-if="c.type === type"
                         :cycle=c
+                        :exercises_db=exercises
+                        :images_db=images
                         class="mb-8"
                         v-on:trashClicked="deleteSection($event)"
         />
@@ -150,7 +152,52 @@ export default {
           "order": 1,
           "repetitions": 3
         }
-      ]
+      ],
+      exercises: [
+        {
+          "id": 1,
+          "name": "Plancha",
+          "detail": "",
+          "type": "exercise",
+          "duration": 30,
+          "repetitions": 0,
+          "order": 1
+        },
+        {
+          "id": 2,
+          "name": "Push-up",
+          "detail": "",
+          "type": "exercise",
+          "duration": 0,
+          "repetitions": 15,
+          "order": 1
+        },
+        {
+          "id": 3,
+          "name": "Sentadilla",
+          "detail": "",
+          "type": "exercise",
+          "duration": 0,
+          "repetitions": 10,
+          "order": 1
+        },
+      ],
+      images: [
+        {
+          "id": 1,
+          "number": 1,
+          "url": "https://www.t-nation.com/system/publishing/articles/10001096/original/Unconventional-Workout-Abs.jpg?1515713332"
+        },
+        {
+          "id": 2,
+          "number": 1,
+          "url": "https://lmimirror3pvr.azureedge.net/static/media/12867/2d5a7ea5-1c56-40e1-aba6-dbbfe959f35a/pushup-study_960x540.jpg"
+        },
+        {
+          "id": 3,
+          "number": 1,
+          "url": "https://www.inposture.com/wp-content/uploads/2020/05/Sit-ups.jpg"
+        }]
     }
   },
   methods: {
