@@ -14,7 +14,7 @@
         <v-toolbar-items>
           <v-row dense align="center" justify="end">
             <v-text-field filled dense clearable shaped class="mt-6 mr-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
-            <v-btn outlined class="menuBtn mr-6 custom-transform-class text-none font-weight-bold rounded-lg" v-for="item in barItems" :key="item.title">{{item.title}}</v-btn>
+            <v-btn outlined class="menuBtn mr-6 custom-transform-class text-none font-weight-bold rounded-lg" v-for="item in barItems" :key="item.title" :to="`${item.link}`">{{item.title}}</v-btn>
             <v-menu flat rounded="lg" offset-y nudge-bottom="5">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn depressed fab small color="white" v-bind="attrs" v-on="on"><v-icon color="#9752ff">mdi-account</v-icon></v-btn>
@@ -76,10 +76,10 @@ export default {
       navDraw: false,
       barItems: [
         { title: 'Rutinas', link: '', icon: 'mdi-compass-outline'},
-        { title: 'Crear una rutina', link: '', icon: 'mdi-plus-circle-multiple-outline'}
+        { title: 'Crear una rutina', link: '/create', icon: 'mdi-plus-circle-multiple-outline'}
       ],
       accItems: [
-        { title: 'Mi perfil', link: '', color: '#eee5fc', icon: 'mdi-account'},
+        { title: 'Mi perfil', link: '/profile', color: '#eee5fc', icon: 'mdi-account'},
         { title: 'Rutinas creadas', link: '', color: '#eee5fc', icon: 'mdi-timer-outline'},
         { title: 'Ejercicios creados', link: '', color: '#eee5fc', icon: 'mdi-dumbbell'},
         { title: 'Cerrar sesión', link:'', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}

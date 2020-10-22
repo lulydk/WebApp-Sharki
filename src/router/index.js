@@ -2,7 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
+import Profile from '../views/Profile.vue'
 import Create from '../views/Create.vue'
+import PageNotFound from '../views/PageNotFound.vue'
+import Contact from '../views/Contact.vue'
+import Explore from '../views/Explore.vue'
 
 Vue.use(VueRouter)
 
@@ -18,9 +22,29 @@ const routes = [
     component: About
   },
   {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
+  },
+  {
     path: '/create',
     name: 'Create',
     component: Create
+  },
+  {
+    path: '/contact',
+    name: 'Contactanos',
+    component: Contact
+  },
+  {
+    path: '*',
+    name: 'Page Not Found',
+    component: PageNotFound
+  },
+  {
+    path: '/explore',
+    name: 'Explore',
+    component: Explore
   }
 ]
 
