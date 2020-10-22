@@ -2114,14 +2114,13 @@ export const CategoriesApiFp = function(configuration?: Configuration) {
          */
         addCategory(body: Category, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullCategory> {
             const localVarFetchArgs = CategoriesApiFetchParamCreator(configuration).addCategory(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2133,14 +2132,13 @@ export const CategoriesApiFp = function(configuration?: Configuration) {
          */
         deleteCategory(categoryId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = CategoriesApiFetchParamCreator(configuration).deleteCategory(categoryId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2155,14 +2153,13 @@ export const CategoriesApiFp = function(configuration?: Configuration) {
          */
         findCategories(page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Categories> {
             const localVarFetchArgs = CategoriesApiFetchParamCreator(configuration).findCategories(page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2174,14 +2171,13 @@ export const CategoriesApiFp = function(configuration?: Configuration) {
          */
         getCategory(categoryId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullCategory> {
             const localVarFetchArgs = CategoriesApiFetchParamCreator(configuration).getCategory(categoryId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2194,14 +2190,13 @@ export const CategoriesApiFp = function(configuration?: Configuration) {
          */
         updateCategory(categoryId: number, body: Category, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullCategory> {
             const localVarFetchArgs = CategoriesApiFetchParamCreator(configuration).updateCategory(categoryId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -2609,14 +2604,13 @@ export const CyclesApiFp = function(configuration?: Configuration) {
          */
         addCycle(routineId: number, body: Cycle, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullCycle> {
             const localVarFetchArgs = CyclesApiFetchParamCreator(configuration).addCycle(routineId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2629,14 +2623,13 @@ export const CyclesApiFp = function(configuration?: Configuration) {
          */
         deleteCycle(routineId: number, cycleId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = CyclesApiFetchParamCreator(configuration).deleteCycle(routineId, cycleId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2652,14 +2645,13 @@ export const CyclesApiFp = function(configuration?: Configuration) {
          */
         findCycles(routineId: number, page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'type' | 'order' | 'repetitions', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Cycles> {
             const localVarFetchArgs = CyclesApiFetchParamCreator(configuration).findCycles(routineId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2672,14 +2664,13 @@ export const CyclesApiFp = function(configuration?: Configuration) {
          */
         findSingleCycle(routineId: number, cycleId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullCycle> {
             const localVarFetchArgs = CyclesApiFetchParamCreator(configuration).findSingleCycle(routineId, cycleId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -2693,14 +2684,13 @@ export const CyclesApiFp = function(configuration?: Configuration) {
          */
         updateCycle(routineId: number, cycleId: number, body: Cycle, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Cycle> {
             const localVarFetchArgs = CyclesApiFetchParamCreator(configuration).updateCycle(routineId, cycleId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -2980,14 +2970,13 @@ export const ExecutionsApiFp = function(configuration?: Configuration) {
          */
         addExecution(routineId: number, body: Execution, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullExecution> {
             const localVarFetchArgs = ExecutionsApiFetchParamCreator(configuration).addExecution(routineId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -3003,14 +2992,13 @@ export const ExecutionsApiFp = function(configuration?: Configuration) {
          */
         findExecutions(routineId: number, page?: number, size?: number, orderBy?: 'id' | 'date' | 'duration' | 'wasModified', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Executions> {
             const localVarFetchArgs = ExecutionsApiFetchParamCreator(configuration).findExecutions(routineId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -3385,14 +3373,13 @@ export const ExercisesApiFp = function(configuration?: Configuration) {
          */
         addExercise(routineId: number, cycleId: number, body: Exercise, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullExercise> {
             const localVarFetchArgs = ExercisesApiFetchParamCreator(configuration).addExercise(routineId, cycleId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -3406,14 +3393,13 @@ export const ExercisesApiFp = function(configuration?: Configuration) {
          */
         deleteExercise(routineId: number, cycleId: number, exerciseId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = ExercisesApiFetchParamCreator(configuration).deleteExercise(routineId, cycleId, exerciseId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -3430,14 +3416,13 @@ export const ExercisesApiFp = function(configuration?: Configuration) {
          */
         findExercises(routineId: number, cycleId: number, page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'type' | 'repetitions' | 'duration', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Exercises> {
             const localVarFetchArgs = ExercisesApiFetchParamCreator(configuration).findExercises(routineId, cycleId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -3451,14 +3436,13 @@ export const ExercisesApiFp = function(configuration?: Configuration) {
          */
         findSingleExercise(routineId: number, cycleId: number, exerciseId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullExercise> {
             const localVarFetchArgs = ExercisesApiFetchParamCreator(configuration).findSingleExercise(routineId, cycleId, exerciseId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -3473,14 +3457,13 @@ export const ExercisesApiFp = function(configuration?: Configuration) {
          */
         updateExercise(routineId: number, cycleId: number, exerciseId: number, body: Exercise, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullExercise> {
             const localVarFetchArgs = ExercisesApiFetchParamCreator(configuration).updateExercise(routineId, cycleId, exerciseId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -3970,14 +3953,13 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          */
         addExerciseImage(routineId: number, cycleId: number, exerciseId: number, body: Image, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullImage> {
             const localVarFetchArgs = ImagesApiFetchParamCreator(configuration).addExerciseImage(routineId, cycleId, exerciseId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -3992,14 +3974,13 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          */
         deleteExerciseImage(routineId: number, cycleId: number, exerciseId: number, imageId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = ImagesApiFetchParamCreator(configuration).deleteExerciseImage(routineId, cycleId, exerciseId, imageId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -4017,14 +3998,13 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          */
         findExerciseImages(routineId: number, cycleId: number, exerciseId: number, page?: number, size?: number, orderBy?: 'id' | 'number' | 'url', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Images> {
             const localVarFetchArgs = ImagesApiFetchParamCreator(configuration).findExerciseImages(routineId, cycleId, exerciseId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -4039,14 +4019,13 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          */
         findSingleExerciseImage(routineId: number, cycleId: number, exerciseId: number, imageId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullImage> {
             const localVarFetchArgs = ImagesApiFetchParamCreator(configuration).findSingleExerciseImage(routineId, cycleId, exerciseId, imageId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -4062,14 +4041,13 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          */
         updateExerciseImage(routineId: number, cycleId: number, exerciseId: number, imageId: number, body: Image, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullImage> {
             const localVarFetchArgs = ImagesApiFetchParamCreator(configuration).updateExerciseImage(routineId, cycleId, exerciseId, imageId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -4369,14 +4347,13 @@ export const RatingsApiFp = function(configuration?: Configuration) {
          */
         addRating(routineId: number, body: Rating, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullRating> {
             const localVarFetchArgs = RatingsApiFetchParamCreator(configuration).addRating(routineId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -4392,14 +4369,13 @@ export const RatingsApiFp = function(configuration?: Configuration) {
          */
         findRatings(routineId: number, page?: number, size?: number, orderBy?: 'id' | 'date' | 'score', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Ratings> {
             const localVarFetchArgs = RatingsApiFetchParamCreator(configuration).findRatings(routineId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -5067,14 +5043,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         addExecution(routineId: number, body: Execution, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullExecution> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).addExecution(routineId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5087,14 +5062,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         addRating(routineId: number, body: Rating, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullRating> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).addRating(routineId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5106,14 +5080,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         addRoutine(body: Routine, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullRoutine> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).addRoutine(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5126,14 +5099,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         associateRoutineSport(routineId: number, sportId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).associateRoutineSport(routineId, sportId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5145,14 +5117,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         deleteRoutine(routineId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).deleteRoutine(routineId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5165,14 +5136,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         dissociateRoutineSport(routineId: number, sportId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).dissociateRoutineSport(routineId, sportId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5188,14 +5158,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         findExecutions(routineId: number, page?: number, size?: number, orderBy?: 'id' | 'date' | 'duration' | 'wasModified', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Executions> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).findExecutions(routineId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5211,14 +5180,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         findRatings(routineId: number, page?: number, size?: number, orderBy?: 'id' | 'date' | 'score', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Ratings> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).findRatings(routineId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5234,14 +5202,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         findRoutines(difficulty?: 'rookie' | 'beginner' | 'intermediate' | 'advanced' | 'expert', page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Routines>> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).findRoutines(difficulty, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5253,14 +5220,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         getRoutine(routineId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullRoutine> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).getRoutine(routineId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5276,14 +5242,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         getRoutineSports(routineId: number, page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Sports> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).getRoutineSports(routineId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5296,14 +5261,13 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          */
         updateRoutine(routineId: number, body: Routine, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullRoutine> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).updateRoutine(routineId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -5911,14 +5875,13 @@ export const SportsApiFp = function(configuration?: Configuration) {
          */
         addSport(body: Sport, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullSport> {
             const localVarFetchArgs = SportsApiFetchParamCreator(configuration).addSport(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5930,14 +5893,13 @@ export const SportsApiFp = function(configuration?: Configuration) {
          */
         deleteSport(sportId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = SportsApiFetchParamCreator(configuration).deleteSport(sportId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5950,14 +5912,13 @@ export const SportsApiFp = function(configuration?: Configuration) {
          */
         dissociateRoutineSport(routineId: number, sportId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = SportsApiFetchParamCreator(configuration).dissociateRoutineSport(routineId, sportId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5972,14 +5933,13 @@ export const SportsApiFp = function(configuration?: Configuration) {
          */
         findSports(page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Sports> {
             const localVarFetchArgs = SportsApiFetchParamCreator(configuration).findSports(page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -5991,14 +5951,13 @@ export const SportsApiFp = function(configuration?: Configuration) {
          */
         getSport(sportId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullSport> {
             const localVarFetchArgs = SportsApiFetchParamCreator(configuration).getSport(sportId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -6011,14 +5970,13 @@ export const SportsApiFp = function(configuration?: Configuration) {
          */
         updateSport(sportId: number, body: Sport, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullSport> {
             const localVarFetchArgs = SportsApiFetchParamCreator(configuration).updateSport(sportId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -7062,14 +7020,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         addWeighting(body: Weighting, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullWeighting> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).addWeighting(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7081,14 +7038,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         createUser(body: User, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullUser> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).createUser(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7099,14 +7055,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         deleteUser(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).deleteUser(options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7118,14 +7073,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         deleteWeighting(weightingId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).deleteWeighting(weightingId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7137,14 +7091,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         favRoutine(routineId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).favRoutine(routineId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7159,14 +7112,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         favRoutines(page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Favourites> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).favRoutines(page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7182,14 +7134,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         findCurrentUserRoutines(difficulty?: 'rookie' | 'beginner' | 'intermediate' | 'advanced' | 'expert', page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Routines> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).findCurrentUserRoutines(difficulty, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7204,14 +7155,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         findExecutionsForUser(page?: number, size?: number, orderBy?: 'id' | 'date' | 'duration' | 'wasModified', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Executions> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).findExecutionsForUser(page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7226,14 +7176,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         findRatingsForUser(page?: number, size?: number, orderBy?: 'id' | 'date' | 'score', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Ratings> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).findRatingsForUser(page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7245,14 +7194,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         findSingleWeighting(weightingId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).findSingleWeighting(weightingId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7269,14 +7217,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         findUserRoutines(userId: number, difficulty?: 'rookie' | 'beginner' | 'intermediate' | 'advanced' | 'expert', page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Routines> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).findUserRoutines(userId, difficulty, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7291,14 +7238,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         findWeightings(page?: number, size?: number, orderBy?: 'id' | 'date' | 'weight' | 'height', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Weightings> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).findWeightings(page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7309,14 +7255,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         getLoggedUser(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullUser> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).getLoggedUser(options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7328,14 +7273,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         getUserById(userId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<PublicUser> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).getUserById(userId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7347,14 +7291,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         loginUser(body: Credentials, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<AuthenticationToken> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).loginUser(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7365,14 +7308,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         logoutUser(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).logoutUser(options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7384,14 +7326,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         resendUserVerificationEmail(body: EmailResend, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).resendUserVerificationEmail(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7403,14 +7344,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         unfavRoutine(routineId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).unfavRoutine(routineId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7422,14 +7362,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         updateUser(body: User, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullUser> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).updateUser(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7442,14 +7381,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         updateWeighting(weightingId: number, body: Weighting, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).updateWeighting(weightingId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -7461,14 +7399,13 @@ export const UsersApiFp = function(configuration?: Configuration) {
          */
         verifyUserEmail(body: EmailConfirmation, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = UsersApiFetchParamCreator(configuration).verifyUserEmail(body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
     }
@@ -8322,14 +8259,13 @@ export const VideosApiFp = function(configuration?: Configuration) {
          */
         addExerciseVideo(routineId: number, cycleId: number, exerciseId: number, body: Video, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullVideo> {
             const localVarFetchArgs = VideosApiFetchParamCreator(configuration).addExerciseVideo(routineId, cycleId, exerciseId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -8344,14 +8280,13 @@ export const VideosApiFp = function(configuration?: Configuration) {
          */
         deleteExerciseVideo(routineId: number, cycleId: number, exerciseId: number, videoId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
             const localVarFetchArgs = VideosApiFetchParamCreator(configuration).deleteExerciseVideo(routineId, cycleId, exerciseId, videoId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response;
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -8369,14 +8304,13 @@ export const VideosApiFp = function(configuration?: Configuration) {
          */
         findExerciseVideos(routineId: number, cycleId: number, exerciseId: number, page?: number, size?: number, orderBy?: 'id' | 'number' | 'url', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Videos> {
             const localVarFetchArgs = VideosApiFetchParamCreator(configuration).findExerciseVideos(routineId, cycleId, exerciseId, page, size, orderBy, direction, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -8391,14 +8325,13 @@ export const VideosApiFp = function(configuration?: Configuration) {
          */
         findSingleExerciseVideo(routineId: number, cycleId: number, exerciseId: number, videoId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullVideo> {
             const localVarFetchArgs = VideosApiFetchParamCreator(configuration).findSingleExerciseVideo(routineId, cycleId, exerciseId, videoId, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
         /**
@@ -8414,14 +8347,13 @@ export const VideosApiFp = function(configuration?: Configuration) {
          */
         updateExerciseVideo(routineId: number, cycleId: number, exerciseId: number, videoId: number, body: Video, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FullVideo> {
             const localVarFetchArgs = VideosApiFetchParamCreator(configuration).updateExerciseVideo(routineId, cycleId, exerciseId, videoId, body, options);
-            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
+            return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
             };
         },
     }
