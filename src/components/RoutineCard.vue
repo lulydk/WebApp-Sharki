@@ -98,7 +98,7 @@
     },
     methods: {
       getCycles () {
-
+        return null;
       }
     }
   }

@@ -185,7 +185,7 @@ export interface Category {
  * @export
  * @interface Credentials
  */
-export interface Credentials {
+export class Credentials {
     /**
      * 
      * @type {string}
@@ -198,6 +198,11 @@ export interface Credentials {
      * @memberof Credentials
      */
     password: string;
+
+    constructor(username: string, password: string) {
+        this.username = username;
+        this.password = password;
+    }
 }
 
 /**
@@ -973,19 +978,19 @@ export namespace FullRoutine {
  * @export
  * @interface FullSport
  */
-export interface FullSport {
+export interface FullSport extends Sport {
     /**
      * 
      * @type {number}
      * @memberof FullSport
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {string}
      * @memberof FullSport
      */
-    name?: string;
+    name: string;
     /**
      * 
      * @type {string}
@@ -1554,9 +1559,9 @@ export namespace Routines {
 /**
  * 
  * @export
- * @interface Sport
+ * @class Sport
  */
-export interface Sport {
+export class Sport {
     /**
      * 
      * @type {string}
@@ -1569,6 +1574,11 @@ export interface Sport {
      * @memberof Sport
      */
     detail?: string;
+
+    constructor(name: string, detail?: string) {
+        this.name = name;
+        this.detail = detail;
+    }
 }
 
 /**
