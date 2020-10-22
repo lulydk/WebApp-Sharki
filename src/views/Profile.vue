@@ -18,7 +18,12 @@
             <h1>Diego Rodriguez</h1>
             <v-spacer></v-spacer>
             <v-btn depressed><v-icon>mdi-share</v-icon></v-btn>
-            <v-btn depressed><v-icon>mdi-pencil</v-icon></v-btn>
+            <v-dialog  v-model="dialog" persistent max-width="80%">
+              <template v-slot:activator="{on}">
+                <v-btn depressed v-on="on"><v-icon>mdi-pencil</v-icon></v-btn>
+              </template>
+              <ProfileEdit/>
+            </v-dialog>
             <v-spacer></v-spacer>
 
           </v-row>
@@ -74,11 +79,19 @@
 <script>
 import Favorites from "@/components/Favorites.vue";
 import MyRoutines from "@/components/MyRoutines";
+import ProfileEdit from "@/components/ProfileEdit";
 export default {
   name: "Profile",
   components: {
+    ProfileEdit,
     MyRoutines,
     Favorites
+  },
+  data(){
+    return{
+      dialog: false
+    }
   }
+
 }
 </script>
