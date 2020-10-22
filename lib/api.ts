@@ -18,6 +18,7 @@ import * as portableFetch from "portable-fetch";
 import { Configuration } from "./configuration";
 
 const BASE_PATH = "http://localhost:3000/api".replace(/\/+$/, "");
+const TOKEN_STORAGE = 'token';
 
 /**
  *
@@ -58,10 +59,12 @@ export class BaseAPI {
     protected configuration: Configuration;
 
     constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected fetch: FetchAPI = portableFetch) {
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = configuration.basePath || this.basePath;
+        if (!configuration) {
+            let token = window.localStorage.getItem(TOKEN_STORAGE) || "";
+            configuration = new Configuration({accessToken: token})
         }
+        this.configuration = configuration;
+        this.basePath = configuration.basePath || this.basePath;
     }
 };
 
@@ -72,7 +75,7 @@ export class BaseAPI {
  * @extends {Error}
  */
 export class RequiredError extends Error {
-    name: "RequiredError"
+    name = "RequiredError";
     constructor(public field: string, msg?: string) {
         super(msg);
     }
@@ -7911,8 +7914,9 @@ export class UsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public loginUser(body: Credentials, options?: any) {
-        return UsersApiFp(this.configuration).loginUser(body, options)(this.fetch, this.basePath);
+    public async loginUser(body: Credentials, options?: any) {
+        let auth = await UsersApiFp(this.configuration).loginUser(body, options)(this.fetch, this.basePath);
+        window.localStorage.setItem(TOKEN_STORAGE, auth.token);
     }
 
     /**
@@ -7922,8 +7926,9 @@ export class UsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public logoutUser(options?: any) {
-        return UsersApiFp(this.configuration).logoutUser(options)(this.fetch, this.basePath);
+    public async logoutUser(options?: any) {
+        let response = await UsersApiFp(this.configuration).logoutUser(options)(this.fetch, this.basePath);
+        return response;
     }
 
     /**
