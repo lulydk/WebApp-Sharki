@@ -4,7 +4,7 @@
     <!--Heading y botones-->
     <div class="mb-2">
       <h1 class="d-inline-block">
-        <v-icon class="pb-1" color="sharkyPurple">mdi-plus-circle</v-icon>
+        <v-icon class="pb-1" color="sharkyPurple" large>mdi-plus-circle</v-icon>
         Crear Rutina
       </h1>
       <CreateButtons/>
