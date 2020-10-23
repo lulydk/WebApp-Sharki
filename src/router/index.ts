@@ -8,6 +8,7 @@ import PageNotFound from '../views/PageNotFound.vue'
 import Contact from '../views/Contact.vue'
 import Explore from '../views/Explore.vue'
 import ExerciseLibrary from '../views/ExerciseLibrary.vue'
+import RoutineLibrary from '../views/RoutineLibrary.vue'
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/library',
     name: 'Library',
     component: ExerciseLibrary
+  },
+  {
+    path: '/routines',
+    name: 'Routines',
+    component: RoutineLibrary
   }
 ]
 
