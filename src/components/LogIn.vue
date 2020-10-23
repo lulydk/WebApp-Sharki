@@ -6,7 +6,6 @@
           <v-text-field class="pa-md-4 mx-lg-auto"
               v-model="first"
               label="Usuario"
-              filled
           ></v-text-field>
           <v-text-field class="pa-md-4 mx-lg-auto"
               v-model="password"
@@ -20,7 +19,7 @@
           </div>
           <div class="d-flex justify-center py-md-4">
 
-            <v-dialog v-model="dialog2" persistent max-width="45%">
+            <v-dialog v-model="dialog2" persistent max-width="60%">
               <template v-slot:activator="{on}">
                 <v-btn class="sharkyLight white--text"
                        depressed small

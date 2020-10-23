@@ -18,26 +18,74 @@
             ></v-text-field>
             <v-text-field class="pa-md-4 mx-lg-auto"
                           v-model="first"
-                          :rules="rules"
-                          label="Apellido"
+                          :rules="rules2"
+                          label="Usuario"
             ></v-text-field>
           </v-col>
           <v-col>
             <v-text-field class="pa-md-4 mx-lg-auto"
                           v-model="first"
                           :rules="rules"
-                          label="Mail"
+                          label="Apellido"
             ></v-text-field>
             <v-text-field class="pa-md-4 mx-lg-auto"
                           v-model="first"
-                          :rules="rules2"
-                          label="Usuario"
+                          :rules="rules"
+                          label="Mail"
             ></v-text-field>
           </v-col>
+          <v-col>
+            <v-menu
+                class="pa-md-4 mx-lg-auto"
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                :return-value.sync="date"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                    class="pa-md-4 mx-lg-auto"
+                    v-model="date"
+                    label="Fecha de nacimiento"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                  v-model="date"
+                  no-title
+                  scrollable
+              >
+                <v-spacer></v-spacer>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="menu = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.menu.save(date)"
+                >
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-menu>
+            <v-overflow-btn
+                class="my-2"
+                :items="generos"
+                label="Género"
+                item-value="text"
+            ></v-overflow-btn>
+          </v-col>
         </v-row>
-
-
-
         <v-text-field class="pa-md-4 mx-lg-auto"
                       v-model="password"
                       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -69,6 +117,7 @@ export default {
   name: "Register",
   data(){
     return{
+      generos: ['Masculino', 'Femenino', 'Otro'],
       rules: [
         value => !!value || 'Campo obligatorio.',
         value => (value && value.length >= 3) || 'Min 3 characters',
