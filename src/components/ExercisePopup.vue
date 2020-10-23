@@ -16,7 +16,9 @@
         <v-btn class="custom-transform-class text-none"
                color="sharkyPurple"
                dark
-               depressed>
+               depressed
+               @click="acceptClicked"
+        >
           Aceptar
         </v-btn>
       </span>
@@ -33,6 +35,7 @@
                       :exercises_db=exercise_db
                       :images_db=images_db
                       class="mx-2 my-2"
+                      v-on:cardClicked="changeCard($event)"
         />
       </v-slide-item>
     </v-slide-group>
@@ -46,15 +49,18 @@
       <v-text-field class="mx-10"
                     filled
                     label="Nombre"
+                    v-model="current_exercise.name"
       />
       <v-text-field class="mx-10"
                     filled
                     label="Descripción"
+                    v-model="current_exercise.detail"
       />
       <v-text-field class="mx-10"
                     filled
                     hide-details
                     label="Link a imagen"
+                    v-model="current_image.url"
       />
     </v-container>
 
@@ -67,25 +73,30 @@
         />
       </v-radio-group>
       <v-container>
+        <!-- Text field de Repeticiones-->
         <v-text-field
             id="repes"
             class="repes"
             hide-details
             single-line
             solo
+            v-model="current_exercise.repetitions"
         />
+        <!--Text Field de Segundos -->
         <v-text-field
             id="repes"
             class="repes mt-5"
             hide-details
             single-line
             solo
+            v-model="current_exercise.duration"
         />
       </v-container>
       <!--Imagen-->
       <v-img
+          v-if="current_image.url !== ''"
           class="mr-15"
-          src="https://www.65ymas.com/uploads/s1/21/05/60/como-deben-practicar-ejercicio-fisico-con-seguridad-los-mayores.jpeg"
+          :src=current_image.url
           width="50%"
 
       />
@@ -110,6 +121,13 @@ export default {
     images_db: Array
   },
   methods: {
+    changeCard: function (cardToChange) {
+      this.current_exercise = cardToChange.exercise;
+      this.current_image = cardToChange.image;
+    },
+    acceptClicked: function () {
+      this.$emit('acceptClicked', {'exercise': this.current_exercise, 'image': this.current_image});
+    },
     cancelClicked: function () {
       this.$emit('cancelClicked');
     }

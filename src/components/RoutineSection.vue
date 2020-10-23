@@ -32,31 +32,33 @@
     <v-slide-group class="sharkyBack" show-arrows>
 
       <!--lista de ejercicios ya agregados a la seccion-->
-      <v-slide-item v-for="exc in exercises_db" :key="exc.id">
-        <ExerciseCard :exercise=exc
-                      :exercises_db=exercises_db
-                      :images_db=images_db
-                      class="ma-4"
-                      clearable
-                      v-on:trashClicked="deleteCard($event)"/>
+      <v-slide-item v-for="exc in section_exercises" :key="exc.id">
+        <EditableExcCard :exercise=exc
+                         :exercises_db=exercises_db
+                         :images_db=images_db
+                         v-on:trashClicked="deleteCard($event)"
+        />
       </v-slide-item>
 
       <!--Boton para agregar nuevo ejercicio a la seccion-->
       <v-slide-item>
         <v-dialog v-model="dialog" max-width="60%">
           <template v-slot:activator="{on}">
-          <v-btn id="agregar"
-                 class="ma-4 sharkyPurple--text"
-                 v-on="on"
-                 outlined
-          >
-            <v-icon class="mr-3">mdi-plus-circle</v-icon>
-            Añadir ejercicio
-          </v-btn>
+            <v-btn id="agregar"
+                   v-on="on"
+                   class="my-4 mx-2 sharkyPurple--text"
+                   outlined
+            >
+              <v-icon class="mr-3">mdi-plus-circle</v-icon>
+              Añadir ejercicio
+            </v-btn>
           </template>
-          <ExercisePopup :exercise_db=exercises_db
+          <ExercisePopup :current_exercise=new_exercise
+                         :current_image=new_image
+                         :exercise_db=exercises_db
                          :images_db=images_db
                          v-on:cancelClicked="dialog=false"
+                         v-on:acceptClicked="addCard($event)"
           />
         </v-dialog>
       </v-slide-item>
@@ -67,14 +69,14 @@
 </template>
 
 <script>
-import ExerciseCard from "@/components/ExerciseCard";
 import ExercisePopup from "@/components/ExercisePopup";
+import EditableExcCard from "@/components/EditableExcCard";
 
 export default {
   name: "RoutineSection",
   components: {
-    ExercisePopup,
-    ExerciseCard
+    EditableExcCard,
+    ExercisePopup
   },
   props: {
     cycle: Object,
@@ -82,9 +84,15 @@ export default {
     images_db: Array
   },
   methods: {
+    addCard: function (data) {
+      this.dialog = false;
+      this.section_exercises.push(data.exercise);
+      this.exercises_db.push(data.exercise);
+      this.images_db.push(data.image);
+    },
     //  Handler de card a borrar
     deleteCard: function (id) {
-      this.exercises = this.exercises.filter(exc => exc.id !== id);
+      this.section_exercises = this.section_exercises.filter(exc => exc.id !== id);
     },
     //  Evento para eliminar esta rutine section
     trashClicked: function () {
@@ -93,7 +101,30 @@ export default {
   },
   data: function () {
     return {
-      dialog: false
+      dialog: false,
+      new_exercise: {
+        "id": 10,
+        "name": "",
+        "detail": "",
+        "type": "exercise",
+        "duration": 0,
+        "repetitions": 0,
+        "order": 1
+      },
+      new_image: {
+        "id": 10,
+        "number": 1,
+        "url": ""
+      },
+      section_exercises: [{
+        "id": 1,
+        "name": "Plancha",
+        "detail": "",
+        "type": "exercise",
+        "duration": 30,
+        "repetitions": 0,
+        "order": 1
+      }],
     }
   }
 }
