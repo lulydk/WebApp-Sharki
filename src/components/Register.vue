@@ -2,7 +2,13 @@
   <v-container>
       <v-card>
         <!--Datos para el registro-->
-        <v-card-title  class="sharkyPurple white--text font-weight-bold">Registro</v-card-title>
+        <v-card-title  class="sharkyPurple white--text font-weight-bold">
+          Registro
+          <v-spacer/>
+          <v-btn icon @click="closeRegister()">
+            <v-icon class="white--text font-weight-bold">mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
         <v-row>
           <v-col>
             <v-text-field class="pa-md-4 mx-lg-auto"
@@ -73,8 +79,10 @@ export default {
       ],
     }
   },
-  props:{
-
+  methods: {
+    closeRegister: function (){
+      this.$emit('closeRegister');
+    }
   }
 }
 </script>

@@ -19,7 +19,8 @@
               <v-btn class="sharkyPurple white--text" depressed large>Iniciar sesion</v-btn>
           </div>
           <div class="d-flex justify-center py-md-4">
-            <v-dialog v-model="dialog2" max-width="45%">
+
+            <v-dialog v-model="dialog2" persistent max-width="45%">
               <template v-slot:activator="{on}">
                 <v-btn class="sharkyLight white--text"
                        depressed small
@@ -28,7 +29,7 @@
                 >Registrate
                 </v-btn>
               </template>
-              <Register/>
+              <Register  v-on:closeRegister="dialog2 = false; dialog = true"/>
             </v-dialog>
           </div>
         </v-card>
