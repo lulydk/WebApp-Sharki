@@ -17,10 +17,5 @@ export default {
 </script>
 
 <style scoped>
-.repes {
-  width: 50px;
-}
-#repes {
-  width: 50px;
-}
+
 </style>
