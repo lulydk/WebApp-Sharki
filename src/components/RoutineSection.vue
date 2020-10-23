@@ -37,6 +37,7 @@
                          :exercises_db=exercises_db
                          :images_db=images_db
                          v-on:trashClicked="deleteCard($event)"
+                         library modify
         />
       </v-slide-item>
 
@@ -59,6 +60,7 @@
                          :images_db=images_db
                          v-on:cancelClicked="dialog=false"
                          v-on:acceptClicked="addCard($event)"
+                         library
           />
         </v-dialog>
       </v-slide-item>
