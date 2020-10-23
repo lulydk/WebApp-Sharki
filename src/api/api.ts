@@ -60,13 +60,13 @@ export class BaseAPI {
 
     constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected fetch: FetchAPI = portableFetch) {
         if (!configuration) {
-            let token = window.localStorage.getItem(TOKEN_STORAGE) || "";
+            const token = window.localStorage.getItem(TOKEN_STORAGE) || "";
             configuration = new Configuration({apiKey: token})
         }
         this.configuration = configuration;
         this.basePath = configuration.basePath || this.basePath;
     }
-};
+}
 
 /**
  *
@@ -7862,7 +7862,7 @@ export class UsersApi extends BaseAPI {
      * @memberof UsersApi
      */
     public async loginUser(body: Credentials, options?: any) {
-        let auth = await UsersApiFp(this.configuration).loginUser(body, options)(this.fetch, this.basePath);
+        const auth = await UsersApiFp(this.configuration).loginUser(body, options)(this.fetch, this.basePath);
         window.localStorage.setItem(TOKEN_STORAGE, `bearer ${auth.token}`);
     }
 
@@ -7874,7 +7874,7 @@ export class UsersApi extends BaseAPI {
      * @memberof UsersApi
      */
     public async logoutUser(options?: any) {
-        let response = await UsersApiFp(this.configuration).logoutUser(options)(this.fetch, this.basePath);
+        const response = await UsersApiFp(this.configuration).logoutUser(options)(this.fetch, this.basePath);
         return response;
     }
 
