@@ -2,7 +2,9 @@
   <v-app>
     <Navbar></Navbar>
     <v-main>
-      <router-view></router-view>
+      <router-view>
+        <Home></Home>
+      </router-view>
     </v-main>
 
     <!--Aca iria el Footer-->
@@ -11,13 +13,14 @@
 
 <script>
 
+import Home from './views/Home';
 import Navbar from "./components/Navbar";
 
 export default {
   name: 'App',
 
   components: {
-    Navbar,
+    Home, Navbar,
   },
 
   data: () => ({
