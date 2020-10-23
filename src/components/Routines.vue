@@ -1,11 +1,13 @@
 <template>
-  <RoutinesBlock name="Mis Rutinas"/>
+  <v-container>
+    <RoutinesBlock name="Mis Rutinas"/>
+  </v-container>
 </template>
 
 <script>
 import RoutinesBlock from "@/components/RoutinesBlock";
 export default {
-  name: "MyRoutines",
+  name: "Routines",
   components: {
     RoutinesBlock
   },
@@ -23,4 +25,4 @@ export default {
 #repes {
   width: 50px;
 }
-</style
+</style>
