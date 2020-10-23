@@ -61,7 +61,7 @@ export class BaseAPI {
     constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected fetch: FetchAPI = portableFetch) {
         if (!configuration) {
             let token = window.localStorage.getItem(TOKEN_STORAGE) || "";
-            configuration = new Configuration({accessToken: token})
+            configuration = new Configuration({apiKey: token})
         }
         this.configuration = configuration;
         this.basePath = configuration.basePath || this.basePath;
@@ -645,7 +645,7 @@ export namespace Favourites {
  * @export
  * @interface FullCategory
  */
-export interface FullCategory {
+export interface FullCategory extends Category{
     /**
      * 
      * @type {number}
@@ -657,7 +657,7 @@ export interface FullCategory {
      * @type {string}
      * @memberof FullCategory
      */
-    name?: string;
+    name: string;
     /**
      * 
      * @type {string}
@@ -7863,7 +7863,7 @@ export class UsersApi extends BaseAPI {
      */
     public async loginUser(body: Credentials, options?: any) {
         let auth = await UsersApiFp(this.configuration).loginUser(body, options)(this.fetch, this.basePath);
-        window.localStorage.setItem(TOKEN_STORAGE, auth.token);
+        window.localStorage.setItem(TOKEN_STORAGE, `bearer ${auth.token}`);
     }
 
     /**

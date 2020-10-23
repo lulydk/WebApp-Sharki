@@ -104,11 +104,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import RoutineSection from "@/components/RoutineSection.vue";
-import CreateButtons from "@/components/CreateButtons";
+import CreateButtons from "@/components/CreateButtons.vue";
+import { CategoriesApi } from "@/api"
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   name: "Create",
   components: {
     RoutineSection,
@@ -118,11 +120,11 @@ export default {
     const ADD_CAT = 'Añadir...';
     return {
       //Las siguientes variables son para probar el diseño de la pagina
-      categorias: [ADD_CAT, 'Brazos'],
+      categorias: [ADD_CAT],
       // Posta:
       publicSwitch: false,
       types: ['warmup', 'exercise', 'cooldown'],
-      category: null,
+      category: "",
       addCatString: ADD_CAT,
       new_cat: "",
       // Datos de prueba
@@ -200,8 +202,11 @@ export default {
         }]
     }
   },
+  mounted() : void{
+    this.fetch();
+  },
   methods: {
-    addSection: function (type) {
+    addSection: function (type: string) {
       console.log(this.globalID);
       this.cycles.push({
         "id": this.globalID++,
@@ -212,13 +217,13 @@ export default {
         "repetitions": 1
       })
     },
-    deleteSection: function (id) {
+    deleteSection: function (id: number) {
       console.log(id);
       this.cycles = this.cycles.filter(function (cycle) {
         return cycle.id !== id;
       });
     },
-    getSectionName: function (type) {
+    getSectionName: function (type: string) {
       switch (type) {
         case 'warmup':
           return "Calentamiento"
@@ -231,10 +236,17 @@ export default {
     addCategory: function () {
       this.categorias.push(this.new_cat);
       this.category = this.new_cat;
-      this.new_cat = null;
+      this.new_cat = "";
+    },
+    async fetch() : Promise<void> {
+      let categories = new CategoriesApi().findCategories();
+      let cats = (await categories).results || [];
+      for(let cat of cats) {
+        this.categorias.push(cat.name);
+      }
     }
   },
-}
+})
 
 </script>
 
