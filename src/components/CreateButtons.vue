@@ -1,7 +1,9 @@
 <template>
   <span class="float-right mt-1">
       <v-btn depressed
-             class="mr-6 sharkyBack sharkyPurple--text custom-transform-class text-none">
+             class="mr-6 sharkyBack sharkyPurple--text custom-transform-class text-none"
+             @click="$router.back()"
+      >
         Cancelar
       </v-btn>
       <v-btn depressed
