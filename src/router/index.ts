@@ -7,6 +7,7 @@ import Create from '../views/Create.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import Contact from '../views/Contact.vue'
 import Explore from '../views/Explore.vue'
+import ExerciseLibrary from '../views/ExerciseLibrary.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/explore',
     name: 'Explore',
     component: Explore
+  },
+  {
+    path: '/library',
+    name: 'Library',
+    component: ExerciseLibrary
   }
 ]
 
