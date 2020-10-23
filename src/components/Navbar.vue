@@ -74,7 +74,7 @@ export default {
       dialog: false,
       navDraw: false,
       barItems: [
-        { title: 'Rutinas', link: '', icon: 'mdi-compass-outline'},
+        { title: 'Rutinas', link: '/explore', icon: 'mdi-compass-outline'},
         { title: 'Crear una rutina', link: '/create', icon: 'mdi-plus-circle-multiple-outline'}
       ],
       accItems: [
