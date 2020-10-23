@@ -97,6 +97,22 @@
       </span>
     </div>
 
+    <!--Lista de dificultad-->
+    <div>
+      <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
+        Dificultad de la rutina:
+      </h3>
+      <v-overflow-btn
+          id="categoryBar"
+          v-model="dificulty"
+          :items="dificultades"
+          class="ml-5 categoryBar d-inline-block"
+          filled
+          hide-details
+          label="Seleccionar"
+      />
+    </div>
+
     <div>
       <CreateButtons class="mb-10"/>
     </div>
@@ -121,10 +137,12 @@ export default Vue.extend({
     return {
       //Las siguientes variables son para probar el diseño de la pagina
       categorias: [ADD_CAT],
+      dificultades: [ 'rookie', 'beginner', 'intermediate', 'advanced', 'expert' ],
       // Posta:
       publicSwitch: false,
       types: ['warmup', 'exercise', 'cooldown'],
       category: "",
+      dificulty: "",
       addCatString: ADD_CAT,
       new_cat: "",
       // Datos de prueba
