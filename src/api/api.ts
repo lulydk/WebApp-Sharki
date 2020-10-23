@@ -155,8 +155,8 @@ export namespace Categories {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -253,9 +253,9 @@ export namespace Cycle {
      * @enum {string}
      */
     export enum TypeEnum {
-        Warmup = <any> 'warmup',
-        Exercise = <any> 'exercise',
-        Cooldown = <any> 'cooldown'
+        Warmup = 'warmup',
+        Exercise = 'exercise',
+        Cooldown = 'cooldown'
     }
 }
 
@@ -319,8 +319,8 @@ export namespace Cycles {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -452,8 +452,8 @@ export namespace Executions {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -505,8 +505,8 @@ export namespace Exercise {
      * @enum {string}
      */
     export enum TypeEnum {
-        Exercise = <any> 'exercise',
-        Rest = <any> 'rest'
+        Exercise = 'exercise',
+        Rest = 'rest'
     }
 }
 
@@ -570,8 +570,8 @@ export namespace Exercises {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -635,8 +635,8 @@ export namespace Favourites {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -720,9 +720,9 @@ export namespace FullCycle {
      * @enum {string}
      */
     export enum TypeEnum {
-        Warmup = <any> 'warmup',
-        Exercise = <any> 'exercise',
-        Cooldown = <any> 'cooldown'
+        Warmup = 'warmup',
+        Exercise = 'exercise',
+        Cooldown = 'cooldown'
     }
 }
 
@@ -824,8 +824,8 @@ export namespace FullExercise {
      * @enum {string}
      */
     export enum TypeEnum {
-        Exercise = <any> 'exercise',
-        Rest = <any> 'rest'
+        Exercise = 'exercise',
+        Rest = 'rest'
     }
 }
 
@@ -965,11 +965,11 @@ export namespace FullRoutine {
      * @enum {string}
      */
     export enum DifficultyEnum {
-        Rookie = <any> 'rookie',
-        Beginner = <any> 'beginner',
-        Intermediate = <any> 'intermediate',
-        Advanced = <any> 'advanced',
-        Expert = <any> 'expert'
+        Rookie = 'rookie',
+        Beginner = 'beginner',
+        Intermediate = 'intermediate',
+        Advanced = 'advanced',
+        Expert = 'expert'
     }
 }
 
@@ -1089,9 +1089,9 @@ export namespace FullUser {
      * @enum {string}
      */
     export enum GenderEnum {
-        Male = <any> 'male',
-        Female = <any> 'female',
-        Other = <any> 'other'
+        Male = 'male',
+        Female = 'female',
+        Other = 'other'
     }
 }
 
@@ -1233,8 +1233,8 @@ export namespace Images {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -1318,9 +1318,9 @@ export namespace PublicUser {
      * @enum {string}
      */
     export enum GenderEnum {
-        Male = <any> 'male',
-        Female = <any> 'female',
-        Other = <any> 'other'
+        Male = 'male',
+        Female = 'female',
+        Other = 'other'
     }
 }
 
@@ -1404,8 +1404,8 @@ export namespace Ratings {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -1469,11 +1469,11 @@ export namespace Routine {
      * @enum {string}
      */
     export enum DifficultyEnum {
-        Rookie = <any> 'rookie',
-        Beginner = <any> 'beginner',
-        Intermediate = <any> 'intermediate',
-        Advanced = <any> 'advanced',
-        Expert = <any> 'expert'
+        Rookie = 'rookie',
+        Beginner = 'beginner',
+        Intermediate = 'intermediate',
+        Advanced = 'advanced',
+        Expert = 'expert'
     }
 }
 
@@ -1551,8 +1551,8 @@ export namespace Routines {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -1641,8 +1641,8 @@ export namespace Sports {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -1712,9 +1712,9 @@ export namespace User {
      * @enum {string}
      */
     export enum GenderEnum {
-        Male = <any> 'male',
-        Female = <any> 'female',
-        Other = <any> 'other'
+        Male = 'male',
+        Female = 'female',
+        Other = 'other'
     }
 }
 
@@ -1778,9 +1778,9 @@ export namespace UserWithoutPassword {
      * @enum {string}
      */
     export enum GenderEnum {
-        Male = <any> 'male',
-        Female = <any> 'female',
-        Other = <any> 'other'
+        Male = 'male',
+        Female = 'female',
+        Other = 'other'
     }
 }
 
@@ -1864,8 +1864,8 @@ export namespace Videos {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
@@ -1949,8 +1949,8 @@ export namespace Weightings {
      * @enum {string}
      */
     export enum DirectionEnum {
-        Asc = <any> 'asc',
-        Desc = <any> 'desc'
+        Asc = 'asc',
+        Desc = 'desc'
     }
 }
 
