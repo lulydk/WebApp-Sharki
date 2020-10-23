@@ -57,8 +57,11 @@
       </div>
     </div>
 
+
+    <v-row class="mb-5">
+      <v-col>
     <!--Lista de Categorias-->
-    <div class="mt-7">
+    <div>
       <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
         Categoría de la rutina:
       </h3>
@@ -74,7 +77,7 @@
       />
       <span v-if="category===addCatString">
       <v-text-field
-          class="ml-5 categoryBar d-inline-block"
+          class="ml-5 pt-4 categoryBar d-inline-block"
           filled
           hide-details
           label="Nueva categoría"
@@ -96,7 +99,8 @@
       </v-btn>
       </span>
     </div>
-
+      </v-col>
+      <v-col>
     <!--Lista de dificultad-->
     <div>
       <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
@@ -112,6 +116,9 @@
           label="Seleccionar"
       />
     </div>
+      </v-col>
+    </v-row>
+
 
     <div>
       <CreateButtons class="mb-10"/>
@@ -291,10 +298,10 @@ h1 {
 }
 
 .categoryBar {
-  width: 30%;
+  width: 50%;
 }
 
 #categoryBar {
-  width: 30%;
+  width: 50%;
 }
 </style>
