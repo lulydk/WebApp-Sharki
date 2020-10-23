@@ -1,9 +1,15 @@
 <template>
   <v-container>
       <v-card>
-        <v-card-title  class="sharkyPurple white--text font-weight-bold">Editar Perfil</v-card-title>
+        <v-card-title  class="sharkyPurple white--text font-weight-bold">
+          Editar Perfil
+          <v-spacer/>
+          <v-btn icon @click="closeEdit()">
+            <v-icon class="white--text font-weight-bold">mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
         <v-row>
-          <v-col class="pa-md-8">
+          <v-col class="px-md-8">
               <v-img src="https://runnersexperiencedotcom.files.wordpress.com/2013/12/profile.jpg"
                      max-width="550"
                      class=" flex align-md-center rounded-xl"
@@ -85,12 +91,16 @@
                 counter
                 maxlength="200"
             ></v-textarea>
-            <div class="d-flex justify-center pa-md-4" >
-              <v-btn class="pa-md-4 sharkyPurple white--text" depressed large>
-                Guardar
-              </v-btn>
-            </div>
           </v-col>
+        </v-row>
+        <v-row>
+          <v-spacer/>
+          <div class="d-flex justify-center pa-md-4" >
+            <v-btn class="pa-md-4 sharkyPurple white--text" depressed large>
+              Guardar
+            </v-btn>
+          </div>
+          <v-spacer/>
         </v-row>
       </v-card>
   </v-container>
@@ -106,6 +116,11 @@ export default {
       value => (value && value.length >= 3) || 'Min 3 characters',
     ],
   }),
+  methods: {
+    closeEdit: function (){
+      this.$emit('closeEdit');
+    }
+  }
 }
 
 </script>

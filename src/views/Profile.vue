@@ -16,13 +16,21 @@
           </v-row>
           <v-row class="flex-row align-center">
             <h1>Diego Rodriguez</h1>
-            <v-spacer></v-spacer>
-            <v-btn depressed><v-icon>mdi-share</v-icon></v-btn>
+            <v-spacer/>
+            <v-dialog v-model="routines" max-width="80%">
+              <template v-slot:activator="{on}">
+                <v-btn small outlined color="sharkyPurple" v-on="on">Mis Rutinas</v-btn>
+              </template>
+              <Routines></Routines>
+            </v-dialog>
+            <v-btn depressed icon color="sharkyPurple"><v-icon>mdi-share</v-icon></v-btn>
             <v-dialog  v-model="dialog" persistent max-width="80%">
               <template v-slot:activator="{on}">
-                <v-btn depressed v-on="on"><v-icon>mdi-pencil</v-icon></v-btn>
+                <v-btn depressed icon color="sharkyPurple" v-on="on"><v-icon>mdi-pencil</v-icon></v-btn>
               </template>
-              <ProfileEdit/>
+              <ProfileEdit
+                  v-on:closeEdit="dialog=false"
+              />
             </v-dialog>
             <v-spacer></v-spacer>
 
@@ -51,47 +59,34 @@
           </v-container>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
           <Favorites class="my-8 mt-0"></Favorites>
-          <MyRoutines></MyRoutines>
-        </v-col>
-      </v-row>
-      <v-footer
-          absolute
-          color='sharkyPurple'
-      >
-        <v-col>
-          Copyright
-        </v-col>
-        <v-col>
-          Terminos y condiciones
-        </v-col>
-        <v-col>
-          Preguntas Frecuentes
-        </v-col>
-      </v-footer>
     </v-container>
-
   </div>
 </template>
 
 <script>
 import Favorites from "@/components/Favorites.vue";
-import MyRoutines from "@/components/MyRoutines";
 import ProfileEdit from "@/components/ProfileEdit";
+import Routines from "@/components/Routines";
 export default {
   name: "Profile",
   components: {
+    Routines,
     ProfileEdit,
-    MyRoutines,
     Favorites
   },
   data(){
     return{
-      dialog: false
+      dialog: false,
+      routines: false
     }
   }
 
 }
 </script>
+
+<style scoped>
+  .profileBtns {
+    padding: 4px;
+  }
+</style>
