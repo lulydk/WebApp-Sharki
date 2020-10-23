@@ -17,6 +17,8 @@
                    :images_db=images_db
                    v-on:cancelClicked="dialog=false"
                    v-on:acceptClicked="dialog=false"
+                   :library="library"
+                   :modify="modify"
     />
   </v-dialog>
 </template>
@@ -32,6 +34,8 @@ export default {
     exercise: Object,
     exercises_db: Array,
     images_db: Array,
+    library: Boolean,
+    modify: Boolean
   },
   data: function () {
     return {
@@ -44,7 +48,6 @@ export default {
       return this.images_db.find(im => im.id === id);
     },
     trashClicked: function () {
-      this.dialog = false;
       this.$emit('trashClicked', this.exercise.id)
     }
   }

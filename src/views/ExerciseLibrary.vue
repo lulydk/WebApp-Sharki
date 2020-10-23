@@ -19,6 +19,8 @@
           <EditableExcCard :exercise=exc
                            :exercises_db=exercises_db
                            :images_db=images_db
+                           v-on:trashClicked="deleteExercise($event)"
+                           modify
           />
         </v-col>
       </v-row>
@@ -65,6 +67,9 @@ export default {
       this.dialog = false;
       this.exercises_db.push(data.exercise);
       this.images_db.push(data.image);
+    },
+    deleteExercise: function (id) {
+      this.exercises_db = this.exercises_db.filter(exc => exc.id !== id);
     }
   },
   data: function () {
