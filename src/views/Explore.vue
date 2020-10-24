@@ -68,7 +68,7 @@
               <v-overflow-btn
                   id="categoryBar"
                   v-model="category"
-                  :items="categorias"
+                  :items="categories"
                   class="ml-5 categoryBar d-inline-block"
                   filled
                   hide-details
@@ -93,14 +93,51 @@
               />
             </div>
           </v-col>
-
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-spacer/>
+          </v-col>
+          <v-col>
+            <v-spacer/>
+          </v-col>
+          <v-col>
+            <v-spacer/>
+          </v-col>
+          <v-col>
+            <v-spacer/>
+          </v-col>
+          <v-col>
+            <v-btn color="sharkyPurple"
+                   dark
+                   depressed
+                   x-large
+                   @click="searchClicked"
+            >
+              Buscar
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
     </div>
-    <v-layout class="mx-auto" row wrap>
 
-      <v-flex v-for="routine in routines" :key="routine.name" class="mb-6">
-        <RoutineCard :routine="routine"/>
+    <h1 v-if="!loaded" align="center">
+      <v-progress-circular
+          color="sharkyPurple"
+          indeterminate
+      ></v-progress-circular>
+    </h1>
+
+    <h4 v-if="error" align="center" class="red--text">
+      NO SE HAN PODIDO CARGAR LAS RUTINAS
+    </h4>
+
+    <v-layout v-if="loaded" class="mx-auto" row wrap>
+      <v-flex v-for="routine in resultRoutines" :key="routine.id" class="mb-6 ml-15">
+        <RoutineCard
+            :routine="routine"
+            :routine_id=routine.id
+        />
       </v-flex>
     </v-layout>
 
@@ -120,7 +157,8 @@
 import RoutineCard from "@/components/RoutineCard.vue";
 import RoutinePopup from "@/components/RoutinePopup.vue";
 import Vue from 'vue';
-import {CategoriesApi, Routine} from "@/api";
+import {CategoriesApi, FullRoutine, Routine, RoutinesApi} from "@/api";
+import DifficultyEnum = FullRoutine.DifficultyEnum;
 
 export default Vue.extend({
   name: "Explore",
@@ -129,128 +167,41 @@ export default Vue.extend({
     RoutineCard
   },
   props: {id: String},
-  async mounted(){
-    this.categorias = (await CategoriesApi.findCategories()).results.map(cat => cat.name);
+  async mounted() {
+    try {
+      this.categories = (await CategoriesApi.findCategories(0, 100)).results.map(cat => cat.name);
+      this.resultRoutines = (await RoutinesApi.findRoutines(undefined, undefined, 0, 100))
+          .results.filter(routine => routine.isPublic);
+      this.loaded = true;
+    } catch (e) {
+      console.log('ERROR AL CARGAR RUTINAS');
+    }
   },
   data() {
     return {
       dialog: true,
-      category: "",
-      dificulty: "",
-      dificultades: Object.keys(Routine.DifficultyEnum),
-      categorias: [] as string[],
-      //Datos de prueba
-      routines: [
-        {
-          id: 1,
-          image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=794&q=80',
-          name: 'Rutina 1',
-          equipment: '-',
-          isPublic: true,
-          rating: '3',
-          difficulty: 'Facil',
-          duration: '00:30:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est set. Porin mattis tellus, rutrum cursuretal et era.'
-        },
-        {
-          id: 2,
-          image: '',
-          name: 'Rutina 2',
-          equipment: 'Pesas',
-          isPublic: true,
-          rating: '4',
-          difficulty: 'Media',
-          duration: '01:00:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-        {
-          id: 3,
-          image: '',
-          name: 'Rutina 3',
-          equipment: '-',
-          isPublic: false,
-          rating: '2',
-          difficulty: 'Dificil',
-          duration: '01:30:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-        {
-          id: 4,
-          image: '',
-          name: 'Rutina 3',
-          equipment: '-',
-          isPublic: false,
-          rating: '2',
-          difficulty: 'Dificil',
-          duration: '01:30:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-        {
-          id: 5,
-          image: '',
-          name: 'Rutina 3',
-          equipment: '-',
-          isPublic: false,
-          rating: '2',
-          difficulty: 'Dificil',
-          duration: '01:30:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-        {
-          id: 6,
-          image: '',
-          name: 'Rutina 3',
-          equipment: '-',
-          isPublic: false,
-          rating: '2',
-          difficulty: 'Dificil',
-          duration: '01:30:00',
-          description: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-      ],
-      cycles: [
-        {name: 'Warmup', id: '1', repetitions: 1},
-        {name: 'Exercises', id: '2', repetitions: 2},
-        {name: 'Cooldown', id: '3', repetitions: 1}
-      ],
-      exercises: [
-        {
-          name: 'Ejercicio 1',
-          id: '1',
-          repetitions: 0,
-          duration: 30,
-          img: 'https://images.unsplash.com/flagged/photo-1573556291531-a5d957d7e4e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60',
-          detail: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est set. Porin mattis tellus, rutrum cursuretal et era.'
-        },
-        {
-          name: 'Ejercicio 2',
-          id: '2',
-          repetitions: 2,
-          duration: 0,
-          detail: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est set. Porin mattis tellus, rutrum cursuretal et era. Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-        {
-          name: 'Ejercicio 3',
-          id: '3',
-          repetitions: 0,
-          duration: 15,
-          detail: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est set. Porin mattis tellus, rutrum cursuretal et era. Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-        {
-          name: 'Ejercicio 5',
-          id: '5',
-          repetitions: 0,
-          duration: 20,
-          detail: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est set. Porin mattis tellus, rutrum cursuretal et era. Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        },
-        {
-          name: 'Ejercicio 6',
-          id: '6',
-          repetitions: 1,
-          duration: 0,
-          detail: 'Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est set. Porin mattis tellus, rutrum cursuretal et era. Lorem ipsum dolor sit amet, consectetur et a edipiscing elit. Nullam dignissim magna neque, nec auctori est sempera. Porin mattis tellus, rutrum cursuretal.'
-        }
-      ]
+      error: false,
+      category: "" as string,
+      dificulty: undefined as DifficultyEnum | undefined,
+      dificultades: Object.values(Routine.DifficultyEnum),
+      categories: [] as string[],
+      resultRoutines: [] as FullRoutine[],
+      loaded: false
+    }
+  },
+  methods: {
+    async searchClicked() {
+      this.loaded = false;
+      try {
+        this.resultRoutines = (await RoutinesApi.findRoutines(undefined, this.dificulty, 0, 100))
+            .results.filter(routine => routine.isPublic);
+        if (this.category != "")
+          this.resultRoutines = this.resultRoutines.filter(routine => routine.category.name == this.category);
+        this.loaded = true;
+      } catch (e) {
+        this.error = true;
+
+      }
     }
   }
 })
