@@ -5,10 +5,8 @@
       <v-btn depressed rounded class="sharkyPurple white--text">
         <h2>{{name}}</h2>
       </v-btn>
-
     </div>
 
-    <!--Ejercicios-->
     <v-layout class="mx-auto" row wrap>
       <v-flex class="mb-6" v-for="routine in routines" :key="routine.name">
         <RoutineCard :routine="routine"/>

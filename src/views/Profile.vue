@@ -17,12 +17,7 @@
           <v-row class="flex-row align-center">
             <h1>Diego Rodriguez</h1>
             <v-spacer/>
-            <v-dialog v-model="routines" max-width="80%">
-              <template v-slot:activator="{on}">
-                <v-btn small outlined color="sharkyPurple" v-on="on">Mis Rutinas</v-btn>
-              </template>
-              <Routines></Routines>
-            </v-dialog>
+                <v-btn small outlined color="sharkyPurple" :to="'/routines'">Mis Rutinas</v-btn>
             <v-btn depressed icon color="sharkyPurple"><v-icon>mdi-share</v-icon></v-btn>
             <v-dialog  v-model="dialog" persistent max-width="80%">
               <template v-slot:activator="{on}">
@@ -67,11 +62,10 @@
 <script>
 import Favorites from "@/components/Favorites.vue";
 import ProfileEdit from "@/components/ProfileEdit";
-import Routines from "@/components/Routines";
+
 export default {
   name: "Profile",
   components: {
-    Routines,
     ProfileEdit,
     Favorites
   },
