@@ -1815,43 +1815,43 @@ export interface Videos {
      * @type {number}
      * @memberof Videos
      */
-    totalCount?: number;
+    totalCount: number;
     /**
      * 
      * @type {string}
      * @memberof Videos
      */
-    orderBy?: string;
+    orderBy: string;
     /**
      * 
      * @type {string}
      * @memberof Videos
      */
-    direction?: Videos.DirectionEnum;
+    direction: Videos.DirectionEnum;
     /**
      * 
      * @type {Array<FullVideo>}
      * @memberof Videos
      */
-    results?: Array<FullVideo>;
+    results: Array<FullVideo>;
     /**
      * 
      * @type {number}
      * @memberof Videos
      */
-    size?: number;
+    size: number;
     /**
      * 
      * @type {number}
      * @memberof Videos
      */
-    page?: number;
+    page: number;
     /**
      * 
      * @type {boolean}
      * @memberof Videos
      */
-    isLastPage?: boolean;
+    isLastPage: boolean;
 }
 
 /**
@@ -2879,7 +2879,11 @@ export class CyclesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CyclesApi
      */
-    public static deleteCycle(routineId: number, cycleId: number, options?: any) {
+    public static async deleteCycle(routineId: number, cycleId: number, options?: any) {
+        await Promise.all((await ExercisesApi.findExercises(routineId, cycleId, undefined, 10000))
+            .results
+            .map(e => ExercisesApi.deleteExercise(routineId, cycleId, e.id))
+        );
         return CyclesApiFp(this.configuration).deleteCycle(routineId, cycleId, options)(this.fetch, this.basePath);
     }
 
@@ -3659,7 +3663,15 @@ export class ExercisesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExercisesApi
      */
-    public static deleteExercise(routineId: number, cycleId: number, exerciseId: number, options?: any) {
+    public static async deleteExercise(routineId: number, cycleId: number, exerciseId: number, options?: any) {
+        await Promise.all((await ImagesApi.findExerciseImages(routineId, cycleId, exerciseId, undefined, 10000))
+            .results
+            .map(i => ImagesApi.deleteExerciseImage(routineId, cycleId, exerciseId, i.id))
+        );
+        await Promise.all((await VideosApi.findExerciseVideos(routineId, cycleId, exerciseId, undefined, 10000))
+            .results
+            .map(v => VideosApi.deleteExerciseVideo(routineId, cycleId, exerciseId, v.id))
+        );
         return ExercisesApiFp(this.configuration).deleteExercise(routineId, cycleId, exerciseId, options)(this.fetch, this.basePath);
     }
 
@@ -5582,7 +5594,11 @@ export class RoutinesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RoutinesApi
      */
-    public static deleteRoutine(routineId: number, options?: any) {
+    public static async deleteRoutine(routineId: number, options?: any) {
+        await Promise.all((await CyclesApi.findCycles(routineId, undefined, 10000))
+            .results
+            .map(c => CyclesApi.deleteCycle(routineId, c.id))
+        );
         return RoutinesApiFp(this.configuration).deleteRoutine(routineId, options)(this.fetch, this.basePath);
     }
 
@@ -7781,7 +7797,11 @@ export class UsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public static deleteUser(options?: any) {
+    public static async deleteUser(options?: any) {
+        await Promise.all((await UsersApi.findCurrentUserRoutines(undefined, 10000))
+            .results
+            .map(r => RoutinesApi.deleteRoutine(r.id))
+        );
         return UsersApiFp(this.configuration).deleteUser(options)(this.fetch, this.basePath);
     }
 
