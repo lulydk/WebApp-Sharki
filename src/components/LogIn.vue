@@ -90,9 +90,7 @@ export default Vue.extend({
   async mounted(){
     try {
       await UsersApi.getLoggedUser();
-      console.log("HAY USUARIO");
     } catch (e) {
-      console.log("NO HAY USUARIO");
       this.dialog = true;
     }
   },

@@ -124,7 +124,10 @@
 
 
     <div>
-      <CreateButtons class="mb-10"/>
+      <CreateButtons class="mb-10"
+                     v-on:cancelClicked="cancelEdit()"
+                     v-on:acceptClicked="publishRoutine()"
+      />
     </div>
 
   </div>
@@ -138,25 +141,25 @@ import Vue from 'vue';
 
 const defaultCycles : Cycle[] = [
   {
-    "name": "Fast Warmup",
+    "name": "Calentamiento",
     "detail": "",
     "type": Cycle.TypeEnum.Warmup,
     "order": 1,
-    "repetitions": 2
+    "repetitions": 0
   },
   {
-    "name": "Jumping Exercises",
+    "name": "Ejercitación",
     "detail": "",
     "type": Cycle.TypeEnum.Exercise,
     "order": 2,
-    "repetitions": 5
+    "repetitions": 0
   },
   {
-    "name": "Long Cooling",
+    "name": "Enfriamiento",
     "detail": "",
     "type": Cycle.TypeEnum.Cooldown,
     "order": 3,
-    "repetitions": 3
+    "repetitions": 0
 }];
 
 // eslint-disable-next-line no-unused-vars
@@ -213,10 +216,10 @@ export default Vue.extend({
   methods: {
     addSection: function (type: Cycle.TypeEnum) {
       let cycle: Cycle = {
-        name: "Another Section",
+        name: "Nueva sección",
         detail: "",
         type: type,
-        repetitions: 1,
+        repetitions: 0,
         order: 0
       };
       let index = this.cycles.reverse().findIndex(c => c.type == type);

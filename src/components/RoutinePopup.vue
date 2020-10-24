@@ -38,7 +38,7 @@
       </v-card-title>
       <v-spacer/>
 
-      <v-card-text class="ma-3" v-if="link">Link: {{"direccion.com/explore/" + routine.id}} (direccion.com sería la dirección final de la pagina)</v-card-text>
+      <v-card-text class="ma-3" v-if="link">Link: {{"server.com/explore/" + routine.id}} (server.com sería la dirección final de la pagina)</v-card-text>
 
       <!--Info Rutina-->
       <v-card-subtitle>
