@@ -1,7 +1,6 @@
 <template>
   <v-container mb-12 fluid>
     <v-layout class="mx-auto" row wrap>
-      <LogIn/>
       <v-flex xs12 md12>
         <h2 class="mb-5">Rutinas Populares</h2>
       </v-flex>

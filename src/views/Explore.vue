@@ -1,98 +1,145 @@
 <template>
-	<div>
-		<div>
-			<h1 class="mx-8 my-4">
-				<v-icon class="icon" size=33px>mdi-compass-outline</v-icon>
-				Explorar Rutinas
-			</h1>
-		</div>
-		<div class="search-options">
-			<v-container>
-				<v-row>
-					<v-col class="d-flex flex-column">
-							<span>
-								<v-icon>mdi-menu-down</v-icon>
-								Búsqueda avanzada
-							</span>
-							<v-textarea class="search-text"
-								rows=2
-								color="sharkyPurple"
-								background-color="white"
-								outlined
-								no-resize
-								hint="Ej.: Cardio, piernas"
-							></v-textarea>
-							<v-textarea class="search-text"
-								rows=1
-								color="sharkyPurple"
-								background-color="white"
-								outlined
-								no-resize
-								hint="Ej.: En casa, bicicleta"
-							></v-textarea>
-					</v-col>
-					<v-col>
-						Duración
-					</v-col>
-					<v-col class="d-flex flex-column">
-						Equipamiento
-						<v-checkbox
-							label="Sin equipamiento"
-						></v-checkbox>
-						<v-checkbox
-							label="Colchoneta"
-						></v-checkbox>
-						<v-checkbox
-							label="Elemento 2"
-						></v-checkbox>
-					</v-col>
-					<v-col>
-						Dificultad
-						<v-checkbox
-							label="Fácil"
-						></v-checkbox>
-						<v-checkbox
-							label="Medio"
-						></v-checkbox>
-						<v-checkbox
-							label="Difícil"
-						></v-checkbox>
-					</v-col>
-				</v-row>
-			</v-container>
-		</div>
-		<v-layout class="mx-auto" row wrap>
+  <div>
+    <div>
+      <h1 class="mx-8 mb-4">
+        <v-icon class="icon" size=33px>mdi-compass-outline</v-icon>
+        Explorar Rutinas
+      </h1>
+    </div>
+    <div class="search-options">
+      <v-container>
+        <v-row>
+          <!--v-col class="d-flex flex-column">
+              <span>
+                <v-icon>mdi-menu-down</v-icon>
+                Búsqueda avanzada
+              </span>
+              <v-textarea class="search-text"
+                rows=2
+                color="sharkyPurple"
+                background-color="white"
+                outlined
+                no-resize
+                hint="Ej.: Cardio, piernas"
+              ></v-textarea>
+              <v-textarea class="search-text"
+                rows=1
+                color="sharkyPurple"
+                background-color="white"
+                outlined
+                no-resize
+                hint="Ej.: En casa, bicicleta"
+              ></v-textarea>
+          </v-col-->
+          <!--v-col>
+            Duración
+          </v-col-->
+          <!--v-col class="d-flex flex-column">
+            Equipamiento
+            <v-checkbox
+              label="Sin equipamiento"
+            ></v-checkbox>
+            <v-checkbox
+              label="Colchoneta"
+            ></v-checkbox>
+            <v-checkbox
+              label="Elemento 2"
+            ></v-checkbox>
+          </v-col-->
+          <!--v-col>
+            Dificultad
+            <v-checkbox
+              label="Fácil"
+            ></v-checkbox>
+            <v-checkbox
+              label="Medio"
+            ></v-checkbox>
+            <v-checkbox
+              label="Difícil"
+            ></v-checkbox>
+          </v-col-->
 
-			<v-flex class="mb-6" v-for="routine in routines" :key="routine.name">
-				<RoutineCard :routine="routine"/>
-			</v-flex>
-		</v-layout>
-    <v-dialog v-if="id!=0" v-model="dialog" max-width="800">
+          <v-col>
+            <!--Lista de Categorias-->
+            <div>
+              <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
+                Categoría de la rutina:
+              </h3>
+              <v-overflow-btn
+                  id="categoryBar"
+                  v-model="category"
+                  :items="categorias"
+                  class="ml-5 categoryBar d-inline-block"
+                  filled
+                  hide-details
+                  label="Seleccionar"
+              />
+            </div>
+          </v-col>
+          <v-col>
+            <!--Lista de dificultad-->
+            <div>
+              <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
+                Dificultad de la rutina:
+              </h3>
+              <v-overflow-btn
+                  id="categoryBar"
+                  v-model="dificulty"
+                  :items="dificultades"
+                  class="ml-5 categoryBar d-inline-block"
+                  filled
+                  hide-details
+                  label="Seleccionar"
+              />
+            </div>
+          </v-col>
+
+        </v-row>
+      </v-container>
+    </div>
+    <v-layout class="mx-auto" row wrap>
+
+      <v-flex v-for="routine in routines" :key="routine.name" class="mb-6">
+        <RoutineCard :routine="routine"/>
+      </v-flex>
+    </v-layout>
+
+    <!--Popup cuando se llegó a la pagina por compartir una rutina-->
+    <v-dialog v-if="id!=='0'" v-model="dialog" max-width="800">
       <template/>
       <!-- Cambiar para que Routine Popup reciba sólo la info/id de la rutina-->
-      <RoutinePopup :cycles=cycles
-                    :exercises=exercises
-                    :routine="routines.find(e => e.id == id)"
+      <RoutinePopup :routine_id=+id
                     v-on:closePop="dialog=false"
       />
     </v-dialog>
-	</div>
+
+  </div>
 </template>
 
-<script>
+<script lang="ts">
 import RoutineCard from "@/components/RoutineCard.vue";
-import RoutinePopup from "@/components/RoutinePopup";
+import RoutinePopup from "@/components/RoutinePopup.vue";
+import Vue from 'vue';
+import {CategoriesApi, Routine} from "@/api";
 
-export default {
+export default Vue.extend({
   name: "Explore",
   components: {
     RoutinePopup,
     RoutineCard
   },
-  props: {id: Number},
+  props: {id: String},
+  async mounted(){
+    this.categorias = (await CategoriesApi.findCategories()).results.map(cat => cat.name);
+  },
   data() {
     return {
       dialog: true,
+      category: "",
+      dificulty: "",
+      dificultades: Object.keys(Routine.DifficultyEnum),
+      categorias: [] as string[],
+      //Datos de prueba
       routines: [
         {
           id: 1,
@@ -206,8 +253,7 @@ export default {
       ]
     }
   }
-}
-
+})
 </script>
 
 <style scoped>
@@ -216,10 +262,18 @@ h1 {
 }
 
 .icon {
-	color: var(--v-sharkyPurple-base);
+  color: var(--v-sharkyPurple-base);
 }
 
 .search-options {
   background-color: var(--v-sharkyBack-base);
+}
+
+.categoryBar {
+  width: 50%;
+}
+
+#categoryBar {
+  width: 50%;
 }
 </style>

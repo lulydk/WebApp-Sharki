@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <Navbar></Navbar>
+    <LogIn/>
     <v-main>
       <router-view>
         <Home></Home>
@@ -11,22 +12,23 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Home from './views/Home.vue';
+import Navbar from "./components/Navbar.vue";
+import LogIn from "./components/LogIn.vue"
 
-import Home from './views/Home';
-import Navbar from "./components/Navbar";
-
-export default {
+export default Vue.extend({
   name: 'App',
 
   components: {
-    Home, Navbar,
+    Home, Navbar, LogIn
   },
 
   data: () => ({
     //
   }),
-};
+});
 </script>
 
 <style scoped>

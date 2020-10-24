@@ -19,18 +19,17 @@
     
     <!--PopUp Detail-->
     <RoutinePopup :routine_id=routine_id
-                  :routine=routine
-                  :exercises=exercises
-                  :cycles=cycles
                   v-on:closePop="dialog=false"  />
     
   </v-dialog>
 </v-container>
 </template>
 
-<script>
-  import RoutinePopup from "./RoutinePopup";
-  export default {
+<script lang="ts">
+  import RoutinePopup from "./RoutinePopup.vue";
+  import Vue from 'vue';
+
+  export default Vue.extend({
     props: {
       routine_id: Number,
       routine: Object,
@@ -58,7 +57,7 @@
     methods: {
       
     }
-  }
+  })
 </script>
 
 <style scoped>
