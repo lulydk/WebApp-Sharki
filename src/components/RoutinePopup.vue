@@ -4,7 +4,12 @@
       <v-img max-height="150" :src="routine.image" class="deg">
         <v-layout row>
           <v-spacer></v-spacer>
-          <v-btn icon class="mr-6 mt-3 white--text closeBtn" @click="closePop()"><v-icon>mdi-close</v-icon></v-btn>
+          <v-tooltip bottom>
+          <template v-slot:activator="{on}">
+            <v-btn v-on="on" icon class="mr-6 mt-3 white--text closeBtn" @click="closePop()"><v-icon>mdi-close</v-icon></v-btn>
+          </template>
+          <span>Cerrar</span>
+        </v-tooltip>
         </v-layout>
       </v-img>
       <v-card-title class="deg white--text font-weight-bold">
