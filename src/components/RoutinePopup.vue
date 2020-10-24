@@ -18,7 +18,7 @@
         <!-- <v-rating hover length="5" size="25" background-color="white" color="white" :value="routine.rating" empty-icon="mdi-star-outline" full-icon="mdi-star" half-icon="mdi-star-half-full"/> -->
         <v-tooltip bottom>
           <template v-slot:activator="{on}">
-            <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)"><v-icon>mdi-share-variant-outline</v-icon></v-btn>
+            <v-btn @click="link=true" v-on="on" fab small dark depressed color="rgb(0,0,0,0)"><v-icon>mdi-share-variant-outline</v-icon></v-btn>
           </template>
           <span>Compartir rutina</span>
         </v-tooltip>
@@ -37,6 +37,8 @@
         </v-tooltip>
       </v-card-title>
       <v-spacer/>
+
+      <v-card-text class="ma-3" v-if="link">Link: {{"direccion.com/explore/" + routine_id}} (direccion.com sería la dirección final de la pagina)</v-card-text>
 
       <!--Info Rutina-->
       <v-card-subtitle>
@@ -104,6 +106,8 @@
 export default {
     name: 'RoutinePopup',
     props: {
+        routine_id: Number,
+      //Cambiar para que Routine Popup reciba sólo la info/id de la rutina
         routine: Object,
         cycles: Array,
         exercises: Array,
@@ -111,6 +115,7 @@ export default {
     data () {
         return {
             favorite: false,
+            link: false
         }
     },
     methods: {

@@ -18,7 +18,11 @@
     </template>
     
     <!--PopUp Detail-->
-    <RoutinePopup :routine=routine :exercises=exercises :cycles=cycles v-on:closePop="dialog=false"  />
+    <RoutinePopup :routine_id=routine_id
+                  :routine=routine
+                  :exercises=exercises
+                  :cycles=cycles
+                  v-on:closePop="dialog=false"  />
     
   </v-dialog>
 </v-container>
@@ -28,6 +32,7 @@
   import RoutinePopup from "./RoutinePopup";
   export default {
     props: {
+      routine_id: Number,
       routine: Object,
     },
     components: {
