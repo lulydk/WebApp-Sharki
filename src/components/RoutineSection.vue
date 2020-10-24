@@ -32,9 +32,9 @@
     <v-slide-group class="sharkyBack" show-arrows>
 
       <!--lista de ejercicios ya agregados a la seccion-->
-      <v-slide-item v-for="(exc, index) in exercises_db" :key="exc.id">
-        <EditableExcCard :exercise=exc
-                         :image=images_db[index]
+      <v-slide-item v-for="e in exercises" :key="e.exercise.id">
+        <EditableExcCard :exercise=e.exercise
+                         :image=e.image
                          v-on:trashClicked="deleteCard($event)"
         />
       </v-slide-item>
@@ -73,7 +73,19 @@
 import ExercisePopup from "@/components/ExercisePopup.vue";
 import EditableExcCard from "@/components/EditableExcCard.vue";
 import Vue from 'vue';
-import {Cycle, CyclesApi, ExercisesApi, FullExercise, FullImage, Image, ImagesApi} from '@/api';
+import {Cycle, CyclesApi, ExercisesApi, FullExercise, FullExerciseImageCombo, FullImage, ImagesApi} from '@/api';
+
+interface RoutineEntry extends FullExerciseImageCombo {
+  exercise: FullExercise
+  image: FullImage | null
+  exists: boolean
+}
+
+export interface SectionCallback {
+  // eslint-disable-next-line no-unused-vars
+  callback: (id: number) => Promise<void>
+  cycle: Cycle
+}
 
 export default Vue.extend({
   name: "RoutineSection",
@@ -83,8 +95,7 @@ export default Vue.extend({
   },
   data: function () {
     return {
-      exercises_db: [] as FullExercise[],
-      images_db: [] as (FullImage | undefined)[],
+      exercises: [] as RoutineEntry[],
       dialog: false,
       loaded: false,
       repetitions: "0" as string
@@ -92,30 +103,40 @@ export default Vue.extend({
   },
   props: {
     cycle: Object,
-    routineId: Number
+    routineId: Number,
+    exists: Boolean
   },
   async mounted() {
-    if(this.routineId != 0) {
+    if(this.exists) {
       this.repetitions = this.cycle.repetitions;
-      this.exercises_db = (await ExercisesApi.findExercises(this.routineId, this.cycle.id)).results;
-      for(let exc of this.exercises_db) {
-        this.images_db.push((await ImagesApi.findExerciseImages(this.routineId,this.cycle.id,exc.id)).results.pop());
-      }
+      this.exercises = await Promise.all((await ExercisesApi.findExercises(this.routineId, this.cycle.id))
+        .results
+        .map(async exc => {
+          const image = (await ImagesApi.findExerciseImages(this.routineId,this.cycle.id,exc.id)).results;
+          return {exercise: exc, image: (image.length > 0 ? image[0] : null), exists: true};
+        })
+      );
     }
     this.loaded = true;
-    this.$emit('register', this.upload);
+    this.$emit('register', { cycle: this.cycle, callback: this.upload } as SectionCallback);
   },
   methods: {
-    addCard: async function (data: { exercise: FullExercise, image: FullImage | undefined }) {
+    addCard: async function (data: FullExerciseImageCombo) {
       this.dialog = false;
-      this.exercises_db.push(data.exercise);
-      this.images_db.push(data.image);
+      this.exercises.push({
+        exercise: data.exercise,
+        image: data.image,
+        exists: false
+      });
     },
     //  Handler de card a borrar
     deleteCard: function (id: number) {
-      const index = this.exercises_db.findIndex(e => e.id == id);
-      this.exercises_db.splice(index, 1);
-      this.images_db.splice(index, 1);
+      const index = this.exercises.findIndex(e => e.exercise.id == id);
+      const entry = this.exercises[index];
+      this.exercises.splice(index, 1);
+      if(entry.exists) {
+        ExercisesApi.deleteExercise(this.routineId, this.cycle.id, entry.exercise.id);
+      }
     },
     //  Evento para eliminar esta rutine section
     trashClicked: function () {
@@ -127,11 +148,24 @@ export default Vue.extend({
       //Si el usuario ingresó 0, se le asigna 1 a la variable
       if (this.cycle.repetitions == '0')
         this.cycle.repetitions = 1;
-      const cycle = await CyclesApi.addCycle(routineId, this.cycle as Cycle)
-      await Promise.all(this.exercises_db.map(async (e, index) => {
-        const exercise = await ExercisesApi.addExercise(routineId, cycle.id, e);
-        if (this.images_db[index])
-          await ImagesApi.addExerciseImage(routineId, cycle.id, exercise.id, this.images_db[index] as Image);
+      let cycleId: number = this.cycle.id;
+      if(!this.exists)
+        cycleId = (await CyclesApi.addCycle(routineId, this.cycle as Cycle)).id;
+      else
+        await CyclesApi.updateCycle(routineId, cycleId, this.cycle);
+
+      await Promise.all(this.exercises.map(async e => {
+        let exercise;
+        if(!e.exists) {
+          exercise = await ExercisesApi.addExercise(routineId, cycleId, e.exercise);
+          if (e.image)
+            await ImagesApi.addExerciseImage(routineId, cycleId, exercise.id, e.image);
+        }
+        else {
+          exercise = await ExercisesApi.updateExercise(routineId, cycleId, e.exercise.id, e.exercise);
+          if (e.image)
+            await ImagesApi.updateExerciseImage(routineId, cycleId, exercise.id, e.image.id, e.image);
+        }
       }))
 
     }

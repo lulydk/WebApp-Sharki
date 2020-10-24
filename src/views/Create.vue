@@ -38,10 +38,11 @@
          class="mt-0">
       <h2 class="ma-4 sharkyPurple--text">{{ getSectionName(type) }}</h2>
       <!--Carrusel de Ejercicios-->
-      <div v-for="c in cycles" :key="c.order">
-        <RoutineSection v-if="c.type === type"
-                        :cycle=c
+      <div v-for="c in cycles" :key="c.cycle.order">
+        <RoutineSection v-if="c.cycle.type === type"
+                        :cycle=c.cycle
                         :routine-id=realRoutineId
+                        :exists=c.exists
                         class="mb-8"
                         v-on:register="registerSection($event)"
                         v-on:trashClicked="deleteSection($event)"
@@ -73,7 +74,7 @@
               v-if="category!==addCatString"
               id="categoryBar"
               v-model="category"
-              :items="categorias"
+              :items="categories_label"
               class="ml-5 categoryBar d-inline-block"
               filled
               hide-details
@@ -112,7 +113,7 @@
           </h3>
           <v-overflow-btn
               id="categoryBar"
-              v-model="dificulty"
+              v-model="routine.difficulty"
               :items="dificultades"
               class="ml-5 categoryBar d-inline-block"
               filled
@@ -136,8 +137,9 @@
 
 <script lang="ts">
 import RoutineSection from "@/components/RoutineSection.vue";
+import { SectionCallback } from "@/components/RoutineSection.vue";
 import CreateButtons from "@/components/CreateButtons.vue";
-import {CategoriesApi, Cycle, CyclesApi, Routine, RoutinesApi} from "@/api"
+import {CategoriesApi, Cycle, CyclesApi, FullCategory, FullCycle, Routine, RoutinesApi} from "@/api"
 import Vue from 'vue';
 
 const defaultCycles: Cycle[] = [
@@ -163,8 +165,10 @@ const defaultCycles: Cycle[] = [
     "repetitions": 0
   }];
 
-// eslint-disable-next-line no-unused-vars
-type SectionCallback = (id: number) => Promise<void>;
+interface RoutineEntry {
+  cycle: Cycle
+  exists: boolean
+}
 
 export default Vue.extend({
   name: "Create",
@@ -179,14 +183,14 @@ export default Vue.extend({
     const ADD_CAT = 'Añadir...';
     return {
       //Las siguientes variables son para probar el diseño de la pagina
-      categorias: [ADD_CAT],
-      dificultades: Object.keys(Routine.DifficultyEnum),
+      categories_label: [ADD_CAT],
+      categories: [] as FullCategory[],
+      dificultades: Object.values(Routine.DifficultyEnum),
       types: Object.values(Cycle.TypeEnum),
       category: "",
-      dificulty: "",
       addCatString: ADD_CAT,
       new_cat: "",
-      cycles: [] as Cycle[],
+      cycles: [] as RoutineEntry[],
       callbacks: [] as SectionCallback[],
       routine: {} as Routine,
       realRoutineId: 0 as number
@@ -194,26 +198,24 @@ export default Vue.extend({
   },
   async mounted() {
     this.realRoutineId = +this.routineId;
-    let categories = CategoriesApi.findCategories();
-    let cats = (await categories).results || [];
-    for (let cat of cats) {
-      this.categorias.push(cat.name);
-    }
+    this.categories = (await CategoriesApi.findCategories()).results;
+    this.categories_label = this.categories.map(c => c.name);
 
     if (this.realRoutineId === 0) {
       //Si estoy haciendo una rutina nueva
       this.routine = {
-        name: "",
+        name: "New routine",
         detail: "",
         isPublic: false,
-        category: cats[0],
+        category: this.categories[0],
         difficulty: Routine.DifficultyEnum.Rookie
       };
-      this.cycles = defaultCycles;
+      this.cycles = defaultCycles.map(c => ({ cycle: c, exists: false}));
     } else {
       //Si quiero acceder a una rutina que ya existe
       this.routine = await RoutinesApi.getRoutine(this.realRoutineId);
-      this.cycles = (await CyclesApi.findCycles(this.realRoutineId)).results;
+      this.cycles = (await CyclesApi.findCycles(this.realRoutineId)).results
+                    .map(c => ({ cycle: c, exists: true}));
     }
   },
   methods: {
@@ -225,17 +227,21 @@ export default Vue.extend({
         repetitions: 0,
         order: 0
       };
-      let index = this.cycles.reverse().findIndex(c => c.type == type);
-      this.cycles.splice(index, 0, cycle);
+      let index = this.cycles.reverse().findIndex(c => c.cycle.type == type);
+      this.cycles.splice(index, 0, ({cycle: cycle, exists: false}));
       this.cycles.reverse();
       this.reorderSections();
     },
     reorderSections() {
-      this.cycles.forEach((c, i) => c.order = i + 1);
+      this.cycles.forEach((c, i) => c.cycle.order = i + 1);
     },
-    deleteSection: function (order: number) {
-      let index = this.cycles.findIndex(c => c.order == order);
+    deleteSection: async function (order: number) {
+      let index = this.cycles.findIndex(c => c.cycle.order == order);
+      const entry = this.cycles[index];
       this.cycles.splice(index, 1);
+      this.callbacks.filter(c => c.cycle !== entry.cycle);
+      if(entry.exists)
+        await CyclesApi.deleteCycle(this.realRoutineId, (entry.cycle as FullCycle).id)
     },
     getSectionName: function (type: Cycle.TypeEnum) {
       switch (type) {
@@ -249,24 +255,26 @@ export default Vue.extend({
     },
     addCategory: async function () {
       const cat = await CategoriesApi.addCategory({name: this.new_cat});
-      this.categorias.push(cat.name);
+      this.categories_label.push(cat.name);
+      this.categories.push(cat);
       this.category = cat.name;
       this.new_cat = "";
     },
     async cancelEdit() {
       await this.$router.push("/");
     },
-    registerSection(callback: () => Promise<void>) {
+    registerSection(callback: SectionCallback) {
       this.callbacks.push(callback);
     },
     async publishRoutine() {
       let id = this.realRoutineId;
+      this.routine.category = this.categories.find(c => c.name == this.category) ?? {id: 0};
       if (this.routineId == '0')
         id = (await RoutinesApi.addRoutine(this.routine)).id;
       else
         await RoutinesApi.updateRoutine(this.realRoutineId, this.routine);
 
-      await Promise.all(this.callbacks.map(c => c(id)))
+      await Promise.all(this.callbacks.map(c => c.callback(id)))
       await this.$router.push("/");
 
     }

@@ -1493,7 +1493,7 @@ export interface RoutineCategory {
      * @type {number}
      * @memberof RoutineCategory
      */
-    id?: number;
+    id: number;
 }
 
 /**
