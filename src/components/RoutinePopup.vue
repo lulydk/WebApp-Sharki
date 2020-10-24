@@ -32,7 +32,9 @@
         </v-tooltip>
         <v-tooltip bottom v-if="routine.creator.id === currentUser.id">
           <template v-slot:activator="{on}">
-            <v-btn v-on="on" class="mx-2" color="rgb(0,0,0,0)" dark depressed fab small>
+            <v-btn v-on="on" class="mx-2" color="rgb(0,0,0,0)" dark depressed fab small
+                   :to="'/create/'+ routine_id"
+            >
               <v-icon>mdi-circle-edit-outline</v-icon>
             </v-btn>
           </template>
@@ -67,12 +69,16 @@
           <span class="font-weight-bold">Duracion: </span>{{ routine.duration }}
         </v-flex> -->
           <v-flex class="mb-3" md4 xs6>
-            <v-icon left small>{{ routine.isPublic ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}</v-icon>
-            <span class="font-weight-bold">{{ routine.isPublic ? 'Pública' : 'Privada' }}</span>
+            <span class="font-weight-bold">Categoria:</span>
+            <span> {{routine.category.name}}</span>
           </v-flex>
           <v-flex class="mb-3" md4 xs6>
             <span class="font-weight-bold">Creador:</span>
             <span> {{routine.creator.username}}</span>
+          </v-flex>
+          <v-flex class="mb-3" md4 xs6>
+            <v-icon left small>{{ routine.isPublic ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}</v-icon>
+            <span class="font-weight-bold">{{ routine.isPublic ? 'Pública' : 'Privada' }}</span>
           </v-flex>
           <!--v-flex class="text-justify" md12 xs12>
           <v-icon left small>mdi-information-outline</v-icon>
