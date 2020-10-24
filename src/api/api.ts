@@ -1954,6 +1954,16 @@ export namespace Weightings {
     }
 }
 
+export interface ExerciseImageCombo {
+    exercise: Exercise;
+    image: Image | null;
+}
+
+export interface FullExerciseImageCombo extends ExerciseImageCombo{
+    exercise: FullExercise;
+    image: FullImage | null;
+}
+
 
 /**
  * CategoriesApi - fetch parameter creator
@@ -8048,16 +8058,25 @@ export class UsersApi extends BaseAPI {
         else return this.createLibraryExercises();
     }
 
-    public static async findLibraryExercises(page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'type' | 'repetitions' | 'duration', direction?: 'asc' | 'desc', options?: any) : Promise<Exercises> {
+    public static async findLibraryExercises(page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'type' | 'repetitions' | 'duration', direction?: 'asc' | 'desc', options?: any) : Promise<FullExerciseImageCombo[]> {
         const library = await this.getExerciseLibrary();
 
-        return ExercisesApi.findExercises(library.routine.id, library.cycle.id, page, size, orderBy, direction, options);
+        const exercises = (await ExercisesApi.findExercises(library.routine.id, library.cycle.id, page, size, orderBy, direction, options)).results;
+        return await Promise.all(exercises.map(async e => {
+            const images = (await ImagesApi.findExerciseImages(library.routine.id, library.cycle.id, e.id)).results;
+            return { exercise: e, image: (images.length > 0 ? images[0] : null)} as FullExerciseImageCombo;
+          }));
     }
 
-    public static async addLibraryExercise(exercise: Exercise) {
+    public static async addLibraryExercise(exercise: Exercise, image?: Image): Promise<FullExerciseImageCombo>{
         const library = await this.getExerciseLibrary();
 
-        return ExercisesApi.addExercise(library.routine.id, library.cycle.id, exercise);
+        const exc = ExercisesApi.addExercise(library.routine.id, library.cycle.id, exercise);
+        let img = null;
+        if(image) {
+            img = await ImagesApi.addExerciseImage(library.routine.id, library.cycle.id, (await exc).id, image);
+        }
+        return { exercise: await exc, image: img};
     }
 
     public static async deleteLibraryExercise(exerciseId: number) {
