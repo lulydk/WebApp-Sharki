@@ -44,7 +44,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{on}">
           <!-- Cambiar por addFav en @click e isFav en condicional ? -->
-          <v-btn v-on="on" color="rgb(0,0,0,0)" dark depressed fab small @click="favorite=!favorite">
+          <v-btn v-on="on" color="rgb(0,0,0,0)" dark depressed fab small @click="changeFavorite()">
             <v-icon>{{ favorite ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
           </v-btn>
         </template>
@@ -71,6 +71,10 @@
         <v-flex class="mb-3" md4 xs6>
           <v-icon left small>{{ routine.isPublic ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}</v-icon>
           <span class="font-weight-bold">{{ routine.isPublic ? 'Pública' : 'Privada' }}</span>
+        </v-flex>
+        <v-flex class="mb-3" md4 xs6>
+          <span class="font-weight-bold">Creador:</span>
+          <span> {{routine.creator.username}}</span>
         </v-flex>
         <!-- <v-flex xs6 md4 class="mb-3" v-show="routine.equipment">
           <v-icon small left>mdi-dumbbell</v-icon>
@@ -143,15 +147,21 @@ export default Vue.extend({
     routine_id: Number,
   },
   async mounted() {
+    let favourites : FullRoutine[] | undefined;
     try {
       this.routine = await RoutinesApi.getRoutine(this.routine_id);
       this.currentUser = await UsersApi.getLoggedUser();
-      this.cycles = (await CyclesApi.findCycles(this.routine_id)).results;
+
+      if( !this.routine.isPublic && this.routine.creator.id !== this.currentUser.id)
+        this.closePop();
+
+      favourites = (await UsersApi.favRoutines(0, 100)).results;
+      this.cycles = (await CyclesApi.findCycles(this.routine_id, 0, 100)).results;
       for(let cyc of this.cycles) {
-        this.exercises[cyc.order] = (await ExercisesApi.findExercises(this.routine_id, cyc.id)).results;
+        this.exercises[cyc.order] = (await ExercisesApi.findExercises(this.routine_id, cyc.id, 0, 100)).results;
         this.execImageCombo[cyc.order] = [];
         for(let exc of this.exercises[cyc.order]){
-          let image = (await ImagesApi.findExerciseImages(this.routine_id, cyc.id, exc.id)).results.pop();
+          let image = (await ImagesApi.findExerciseImages(this.routine_id, cyc.id, exc.id, 0, 100)).results.pop();
           this.execImageCombo[cyc.order][exc.id] = {exercise: exc, image: image?.url};
           if(cyc.type == 'exercise' && this.routine_image == "" && image !== undefined)
             this.routine_image = image.url;
@@ -162,8 +172,9 @@ export default Vue.extend({
       this.closePop();
     }
 
-    if( !this.routine.isPublic && this.routine.creator.id !== this.currentUser.id)
-      this.closePop();
+    //Veo si la rutina es favorita
+    if (favourites?.filter(routine => routine.id === this.routine_id).pop() !== undefined)
+      this.favorite = true;
 
     this.loaded = true;
   },
@@ -186,6 +197,17 @@ export default Vue.extend({
     },
     getExerciseImage(cycleOrder: number, execID: number) : string | undefined{
       return this.execImageCombo[cycleOrder][execID].image;
+    },
+    async changeFavorite() {
+      try {
+        if (this.favorite)
+          await UsersApi.unfavRoutine(this.routine_id);
+        else
+          await UsersApi.favRoutine(this.routine_id);
+        this.favorite = !this.favorite;
+      } catch (e) {
+        console.log('NO SE PUDO CAMBIAR EL FAVORITO');
+      }
     }
   }
 })
