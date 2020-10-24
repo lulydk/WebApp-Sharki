@@ -1,41 +1,42 @@
 <template>
     <v-card scrollable>
       <!--Header-->
-      <v-img max-height="150" :src="routine.image" class="deg">
-        <v-layout row>
-          <v-spacer></v-spacer>
+        <v-img max-height="150" :src="routine.image" class="deg">
+          <v-layout row>
+            <v-spacer></v-spacer>
+            <v-tooltip bottom>
+            <template v-slot:activator="{on}">
+              <v-btn v-on="on" icon class="mr-6 mt-3 white--text closeBtn" @click="closePop()"><v-icon>mdi-close</v-icon></v-btn>
+            </template>
+            <span>Cerrar</span>
+          </v-tooltip>
+          </v-layout>
+        </v-img>
+        <v-card-title class="deg white--text font-weight-bold">
+          <span>{{ routine.name }}</span>
+          <v-spacer/>
+          <!-- <v-rating hover length="5" size="25" background-color="white" color="white" :value="routine.rating" empty-icon="mdi-star-outline" full-icon="mdi-star" half-icon="mdi-star-half-full"/> -->
           <v-tooltip bottom>
-          <template v-slot:activator="{on}">
-            <v-btn v-on="on" icon class="mr-6 mt-3 white--text closeBtn" @click="closePop()"><v-icon>mdi-close</v-icon></v-btn>
-          </template>
-          <span>Cerrar</span>
-        </v-tooltip>
-        </v-layout>
-      </v-img>
-      <v-card-title class="deg white--text font-weight-bold">
-        <span>{{ routine.name }}</span>
-        <v-spacer/>
-        <!-- <v-rating hover length="5" size="25" background-color="white" color="white" :value="routine.rating" empty-icon="mdi-star-outline" full-icon="mdi-star" half-icon="mdi-star-half-full"/> -->
-        <v-tooltip bottom>
-          <template v-slot:activator="{on}">
-            <v-btn @click="link=true" v-on="on" fab small dark depressed color="rgb(0,0,0,0)"><v-icon>mdi-share-variant-outline</v-icon></v-btn>
-          </template>
-          <span>Compartir rutina</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template v-slot:activator="{on}">
-            <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)" class="mx-2"><v-icon>mdi-circle-edit-outline</v-icon></v-btn>
-          </template>
-          <span>Editar rutina</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <template v-slot:activator="{on}">
-            <!-- Cambiar por addFav en @click e isFav en condicional ? -->
-            <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)" @click="favorite=!favorite"><v-icon>{{ favorite ? 'mdi-heart':'mdi-heart-outline' }}</v-icon></v-btn>
-          </template>
-          <span>Añadir a favoritos</span>
-        </v-tooltip>
-      </v-card-title>
+            <template v-slot:activator="{on}">
+              <v-btn @click="link=true" v-on="on" fab small dark depressed color="rgb(0,0,0,0)"><v-icon>mdi-share-variant-outline</v-icon></v-btn>
+            </template>
+            <span>Compartir rutina</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{on}">
+              <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)" class="mx-2"><v-icon>mdi-circle-edit-outline</v-icon></v-btn>
+            </template>
+            <span>Editar rutina</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{on}">
+              <!-- Cambiar por addFav en @click e isFav en condicional ? -->
+              <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)" @click="favorite=!favorite"><v-icon>{{ favorite ? 'mdi-heart':'mdi-heart-outline' }}</v-icon></v-btn>
+            </template>
+            <span>Añadir a favoritos</span>
+          </v-tooltip>
+        </v-card-title>
+
       <v-spacer/>
 
       <v-card-text class="ma-3" v-if="link">Link: {{"direccion.com/explore/" + routine.id}} (direccion.com sería la dirección final de la pagina)</v-card-text>
@@ -69,13 +70,14 @@
       <!--Ciclos y Ejercicios-->
       <v-row class="font-weight-bold mx-3 my-2">Ejercicios</v-row>
       <!-- reemplazar cycles por getCycles(routine) -->
-      <v-virtual-scroll bench="1" :items="cycles" height="200" item-height="415">
+      <!-- <v-virtual-scroll bench="1" :items="cycles" height="200" item-height="415">
         <template v-slot:default="{ item }">
-        <v-container :key="item.id">
+        <v-container :key="item.id"> -->
+        <v-container v-for="cycle in cycles" :key="cycle.id">
           <v-row class="px-3 py-2 sharkyPurple white--text font-weight-bold">
-            {{ item.name }}
+            {{ cycle.name }}
             <v-spacer/>
-            <span class="caption">Repeticiones: {{ item.repetitions }}</span>
+            <span class="caption">Repeticiones: {{ cycle.repetitions }}</span>
           </v-row>
           <v-row>
             <v-expansion-panels flat>
@@ -97,8 +99,8 @@
             </v-expansion-panels>
           </v-row>
         </v-container>
-        </template>
-      </v-virtual-scroll>
+        <!-- </template>
+      </v-virtual-scroll> -->
     </v-card>
 </template>
 
