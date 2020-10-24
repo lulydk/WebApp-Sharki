@@ -1,14 +1,10 @@
 <template>
   <v-container fluid pa-0>
-
-    <v-toolbar flat app dark class="hidden-sm-and-down">
+    <v-app-bar app flat dark class="hidden-sm-and-down">
       <v-col cols="2">
-        <v-row align="center" justify="start">
           <router-link to="/">
-            <v-img contain height="30" width="50" src="../assets/logo.png"/>
+            <v-img contain height="25" class="mr-10" src="../assets/Sharki-White.png"/>
           </router-link>
-          <v-toolbar-title class="d-flex font-weight-bold">Sharki</v-toolbar-title>
-        </v-row>
       </v-col>
       <v-col cols="10">
         <v-toolbar-items>
@@ -28,20 +24,17 @@
           </v-row>
         </v-toolbar-items>
       </v-col>
-    </v-toolbar>
+    </v-app-bar>
 
-    <v-toolbar flat app dark class="hidden-md-and-up">
-      <v-col cols="4">
-        <v-row align="center" justify="start">
+    <v-app-bar flat app dark class="hidden-md-and-up">
+      <v-col cols="3">
           <router-link to="/">
-            <v-img contain height="30" width="50" src="../assets/logo.png"/>
+            <v-img contain height="25" class="mr-5" src="../assets/Sharki-White.png"/>
           </router-link>
-          <v-toolbar-title class="font-weight-bold">Sharki</v-toolbar-title>
-        </v-row>
       </v-col>
         <v-text-field filled dense clearable shaped class="mt-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
         <v-app-bar-nav-icon @click.stop="navDraw=!navDraw;"></v-app-bar-nav-icon>
-    </v-toolbar>
+    </v-app-bar>
 
     <v-navigation-drawer dark hide-overlay right color="#5a00e0" app v-model="navDraw" class="hidden-md-and-up">
       <v-list dense nav>
@@ -75,12 +68,12 @@ export default {
       dialog: false,
       navDraw: false,
       barItems: [
-        { title: 'Rutinas', link: '', icon: 'mdi-compass-outline'},
+        { title: 'Rutinas', link: '/explore/0', icon: 'mdi-compass-outline'},
         { title: 'Crear una rutina', link: '/create', icon: 'mdi-plus-circle-multiple-outline'}
       ],
       accItems: [
         { title: 'Mi perfil', link: '/profile', color: '#eee5fc', icon: 'mdi-account'},
-        { title: 'Rutinas creadas', link: '', color: '#eee5fc', icon: 'mdi-timer-outline'},
+        { title: 'Rutinas creadas', link: '/routines', color: '#eee5fc', icon: 'mdi-timer-outline'},
         { title: 'Ejercicios creados', link: '/library', color: '#eee5fc', icon: 'mdi-dumbbell'},
         { title: 'Cerrar sesión', link:'', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}
       ]

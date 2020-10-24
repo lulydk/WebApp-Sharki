@@ -26,7 +26,7 @@
           <v-col>
             <v-row>
               <v-col>
-                <v-text-field class="pa-md-4 mx-lg-auto"
+                <v-text-field class="px-md-4"
                               v-model="first"
                               :rules="rules"
                               label="Nombre"
@@ -34,7 +34,7 @@
                 ></v-text-field>
               </v-col>
               <v-col>
-                <v-text-field class="pa-md-4 mx-lg-auto"
+                <v-text-field class="px-md-4"
                               v-model="first"
                               :rules="rules"
                               label="Apellido"
@@ -54,6 +54,8 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
+                    class="px-md-4"
+
                     v-model="date"
                     label="Picker in menu"
                     prepend-icon="mdi-calendar"
@@ -86,6 +88,7 @@
             </v-menu>
             <!--Biografia del usuario-->
             <v-textarea
+                class="pa-md-4"
                 v-model="title"
                 label="Biografia"
                 counter

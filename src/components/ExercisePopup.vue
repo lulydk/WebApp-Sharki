@@ -31,10 +31,10 @@
       </v-card-title>
 
       <v-slide-group>
-        <v-slide-item v-for="exc in exercise_db" :key="exc.id">
+        <v-slide-item v-for="(exc, index) in exercise_db" :key="exc.id">
           <ExerciseCard :exercise=exc
-                        :exercises_db=exercise_db
-                        :images_db=images_db
+                        :image=images_db[index]
+                        :index=index
                         class="mx-2 my-2"
                         v-on:cardClicked="changeCard($event)"
           />
@@ -47,18 +47,18 @@
       <h3 class="ml-5">Personalizado</h3>
     </v-card-title>
 
-    <v-container class="mb-0">
-      <v-text-field v-model="current_exercise.name"
+    <v-container class="mb-0" v-if="loaded">
+      <v-text-field v-model="exercise_db[current].name"
                     class="mx-10"
                     filled
                     label="Nombre"
       />
-      <v-text-field v-model="current_exercise.detail"
+      <v-text-field v-model="exercise_db[current].detail"
                     class="mx-10"
                     filled
                     label="Descripción"
       />
-      <v-text-field v-model="current_image.url"
+      <v-text-field v-model="images_db[current].url"
                     class="mx-10"
                     filled
                     hide-details
@@ -66,7 +66,7 @@
       />
     </v-container>
 
-    <v-card-actions>
+    <v-card-actions v-if="loaded">
       <v-radio-group class="ml-15" hide-details mandatory>
         <v-radio label="Repeticiones"
         />
@@ -78,7 +78,7 @@
         <!-- Text field de Repeticiones-->
         <v-text-field
             id="repes"
-            v-model="current_exercise.repetitions"
+            v-model="exercise_db[current].repetitions"
             class="repes"
             hide-details
             single-line
@@ -87,7 +87,7 @@
         <!--Text Field de Segundos -->
         <v-text-field
             id="repes"
-            v-model="current_exercise.duration"
+            v-model="exercise_db[current].duration"
             class="repes mt-5"
             hide-details
             single-line
@@ -96,8 +96,8 @@
       </v-container>
       <!--Imagen-->
       <v-img
-          v-if="current_image.url !== ''"
-          :src=current_image.url
+          v-if="images_db[current]"
+          :src=images_db[current].url
           class="mr-15"
           width="50%"
 
@@ -107,30 +107,43 @@
   </v-card>
 </template>
 
-<script>
-import ExerciseCard from "@/components/ExerciseCard";
+<script lang="ts">
+import { FullExercise, FullImage, ImagesApi, UsersApi } from '@/api';
+import ExerciseCard from "@/components/ExerciseCard.vue";
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   name: "ExercisePopup",
   components: {
     ExerciseCard
   },
+  data: function() {
+    return {
+    exercise_db: [] as FullExercise[],
+    images_db:  [] as (FullImage | null)[],
+    current: 0,
+    loaded: false,
+  }},
   props: {
     //Si es undefined no me pasaron el parametro
-    current_exercise: Object,
-    current_image: Object,
-    exercise_db: Array,
-    images_db: Array,
     library: Boolean,
     modify: Boolean
   },
+  async mounted() {
+    this.exercise_db = (await UsersApi.findLibraryExercises()).results;
+    const library = await UsersApi.getExerciseLibrary();
+    this.images_db = await Promise.all(this.exercise_db.map(async e => {
+      let images = (await ImagesApi.findExerciseImages(library.routine.id, library.cycle.id, e.id)).results;
+      return images.length > 0 ? images[0] : null;
+    }));
+    this.loaded = true;
+  },
   methods: {
-    changeCard: function (cardToChange) {
-      this.current_exercise = cardToChange.exercise;
-      this.current_image = cardToChange.image;
+    changeCard: function (index: number) {
+      this.current = index;
     },
     acceptClicked: function () {
-      this.$emit('acceptClicked', {'exercise': this.current_exercise, 'image': this.current_image});
+      this.$emit('acceptClicked', {'exercise': this.exercise_db[this.current], 'image': this.images_db[this.current]});
     },
     cancelClicked: function () {
       this.$emit('cancelClicked');
@@ -142,7 +155,7 @@ export default {
         return "Añadir ejercicio";
     }
   }
-}
+})
 </script>
 
 <style scoped>
