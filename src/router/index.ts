@@ -30,9 +30,10 @@ const routes = [
     component: Profile
   },
   {
-    path: '/create',
+    path: '/create/:routineId',
     name: 'Create',
-    component: Create
+    component: Create,
+    props: true
   },
   {
     path: '/contact',

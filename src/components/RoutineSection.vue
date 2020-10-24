@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Headings-->
-    <div class="sharkyPurple white--text" v-if="loaded">
+    <div v-if="loaded" class="sharkyPurple white--text">
       <h3 class="d-inline-block ml-3">Nombre:</h3>
       <v-text-field v-model="cycle.name"
                     class="pa-4 d-inline-block mb-0 my-text-style"
@@ -14,7 +14,7 @@
       <h3 class="d-inline-block mr-2">Repeticiones:</h3>
       <v-text-field
           id="repes"
-          v-model="cycle.repetitions"
+          v-model="repetitions"
           class="repes d-inline-block"
           hide-details
           single-line
@@ -56,10 +56,10 @@
               Añadir ejercicio
             </v-btn>
           </template>
-          <ExercisePopup 
-                         v-on:cancelClicked="dialog=false"
-                         v-on:acceptClicked="addCard($event)"
-                         library
+          <ExercisePopup
+              library
+              v-on:acceptClicked="addCard($event)"
+              v-on:cancelClicked="dialog=false"
           />
         </v-dialog>
       </v-slide-item>
@@ -73,7 +73,7 @@
 import ExercisePopup from "@/components/ExercisePopup.vue";
 import EditableExcCard from "@/components/EditableExcCard.vue";
 import Vue from 'vue';
-import { Cycle, CyclesApi, ExercisesApi, FullExercise, FullImage, Image, ImagesApi } from '@/api';
+import {Cycle, CyclesApi, ExercisesApi, FullExercise, FullImage, Image, ImagesApi} from '@/api';
 
 export default Vue.extend({
   name: "RoutineSection",
@@ -81,23 +81,32 @@ export default Vue.extend({
     EditableExcCard,
     ExercisePopup
   },
-  data: function() {
+  data: function () {
     return {
       exercises_db: [] as FullExercise[],
-      images_db: [] as (FullImage | null)[],
+      images_db: [] as (FullImage | undefined)[],
       dialog: false,
-      loaded: false
+      loaded: false,
+      repetitions: "0" as string
     }
   },
   props: {
     cycle: Object,
+    routineId: Number
   },
   async mounted() {
+    if(this.routineId != 0) {
+      this.repetitions = this.cycle.repetitions;
+      this.exercises_db = (await ExercisesApi.findExercises(this.routineId, this.cycle.id)).results;
+      for(let exc of this.exercises_db) {
+        this.images_db.push((await ImagesApi.findExerciseImages(this.routineId,this.cycle.id,exc.id)).results.pop());
+      }
+    }
     this.loaded = true;
     this.$emit('register', this.upload);
   },
   methods: {
-    addCard: async function (data: {exercise: FullExercise, image: FullImage | null}) {
+    addCard: async function (data: { exercise: FullExercise, image: FullImage | undefined }) {
       this.dialog = false;
       this.exercises_db.push(data.exercise);
       this.images_db.push(data.image);
@@ -113,13 +122,18 @@ export default Vue.extend({
       this.$emit('trashClicked', this.cycle.order)
     },
     async upload(routineId: number) {
-      console.log(this.cycle);
+      //console.log(this.cycle);
+      this.cycle.repetitions = +this.repetitions;
+      //Si el usuario ingresó 0, se le asigna 1 a la variable
+      if (this.cycle.repetitions == '0')
+        this.cycle.repetitions = 1;
       const cycle = await CyclesApi.addCycle(routineId, this.cycle as Cycle)
       await Promise.all(this.exercises_db.map(async (e, index) => {
         const exercise = await ExercisesApi.addExercise(routineId, cycle.id, e);
-        if(this.images_db[index])
+        if (this.images_db[index])
           await ImagesApi.addExerciseImage(routineId, cycle.id, exercise.id, this.images_db[index] as Image);
       }))
+
     }
   },
 })

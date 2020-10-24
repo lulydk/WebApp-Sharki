@@ -69,7 +69,7 @@ export default {
       navDraw: false,
       barItems: [
         { title: 'Rutinas', link: '/explore/0', icon: 'mdi-compass-outline'},
-        { title: 'Crear una rutina', link: '/create', icon: 'mdi-plus-circle-multiple-outline'}
+        { title: 'Crear una rutina', link: '/create/0', icon: 'mdi-plus-circle-multiple-outline'}
       ],
       accItems: [
         { title: 'Mi perfil', link: '/profile', color: '#eee5fc', icon: 'mdi-account'},

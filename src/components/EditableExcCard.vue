@@ -3,27 +3,30 @@
   <v-dialog v-model="dialog" max-width="60%">
     <template v-slot:activator="{}">
       <ExerciseCard
-                    clearable
-                    :exercise=exercise
-                    :image=image
-                    v-on:trashClicked="trashClicked()"
-                    v-on:cardClicked="dialog=true"
+          :exercise=exercise
+          :image=image
+          clearable
+          v-on:cardClicked="dialog=true"
+          v-on:trashClicked="trashClicked()"
       />
     </template>
-    <ExercisePopup 
-                   v-on:cancelClicked="dialog=false"
-                   v-on:acceptClicked="dialog=false"
-                   library
-                   modify
+    <ExercisePopup
+        :exercise=exercise
+        :image=image
+        library
+        modify
+        v-on:acceptClicked="dialog=false"
+        v-on:cancelClicked="dialog=false"
     />
   </v-dialog>
 </template>
 
-<script>
-import ExerciseCard from "@/components/ExerciseCard";
-import ExercisePopup from "@/components/ExercisePopup";
+<script lang="ts">
+import ExerciseCard from "@/components/ExerciseCard.vue";
+import ExercisePopup from "@/components/ExercisePopup.vue";
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   name: "EditableExcCard",
   components: {ExercisePopup, ExerciseCard},
   props: {
@@ -32,7 +35,7 @@ export default {
   },
   data: function () {
     return {
-      dialog: false
+      dialog: false,
     }
   },
   methods: {
@@ -40,7 +43,7 @@ export default {
       this.$emit('trashClicked', this.exercise.id)
     }
   }
-}
+})
 </script>
 
 <style scoped>

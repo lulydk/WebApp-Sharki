@@ -125,28 +125,39 @@ export default Vue.extend({
     exercises: [] as ExerciseImageCombo[],
     current: 0,
     loaded: false,
+    combo: {exercise: this.exercise, image: this.image} as ExerciseImageCombo
   }},
   props: {
+    exercise: Object,
+    image: Object,
     //Si es undefined no me pasaron el parametro
     library: Boolean,
     modify: Boolean
   },
   async mounted() {
-    if(this.library)
-      this.exercises = (await UsersApi.findLibraryExercises())
-        .map(e => {
-          // eslint-disable-next-line no-unused-vars
-          var {order, ...reduced} = e.exercise;
-          return { exercise: reduced, image: e.image ?? {number: 1} as Image};
-        });
-    else
-      this.exercises.push({exercise: {
-        name: "",
-        detail: "",
-        type: Exercise.TypeEnum.Exercise,
-        duration: 0,
-        repetitions: 0
-      }, image: {number: 1} as Image});
+    if(this.library) {
+      if(this.exercise) {
+        this.exercises.push(this.combo);
+      }
+      this.exercises = this.exercises.concat((await UsersApi.findLibraryExercises())
+          .map(e => {
+            // eslint-disable-next-line no-unused-vars
+            let {order, ...reduced} = e.exercise;
+            return {exercise: reduced, image: e.image ?? {number: 1} as Image};
+          }));
+    }
+    else {
+      const def = this.exercise ?? {
+        exercise: {
+          name: "",
+          detail: "",
+          type: Exercise.TypeEnum.Exercise,
+          duration: 0,
+          repetitions: 0
+        }, image: {number: 1} as Image
+      };
+      this.exercises.push(def);
+    }
     this.loaded = true;
   },
   methods: {

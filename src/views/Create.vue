@@ -7,18 +7,18 @@
         <v-icon class="pb-1" color="sharkyPurple" large>mdi-plus-circle</v-icon>
         Crear Rutina
       </h1>
-      <CreateButtons 
-                      v-on:cancelClicked="cancelEdit()"
-                      v-on:acceptClicked="publishRoutine()"
+      <CreateButtons
+          v-on:acceptClicked="publishRoutine()"
+          v-on:cancelClicked="cancelEdit()"
       />
     </div>
 
     <!--Ingreso de datos-->
     <div>
-      <v-text-field class="nameInput d-inline-block mt-1" clearable
+      <v-text-field v-model="routine.name" class="nameInput d-inline-block mt-1"
+                    clearable
                     hide-details
                     label="Nombre de la rutina"
-                    v-model="routine.name"
                     outlined/>
 
       <!--Boton de Toggle para publica/privada-->
@@ -41,9 +41,10 @@
       <div v-for="c in cycles" :key="c.order">
         <RoutineSection v-if="c.type === type"
                         :cycle=c
+                        :routine-id=realRoutineId
                         class="mb-8"
-                        v-on:trashClicked="deleteSection($event)"
                         v-on:register="registerSection($event)"
+                        v-on:trashClicked="deleteSection($event)"
         />
       </div>
       <!--Boton para agregar seccion-->
@@ -63,28 +64,28 @@
 
     <v-row class="mb-5">
       <v-col>
-    <!--Lista de Categorias-->
-    <div>
-      <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
-        Categoría de la rutina:
-      </h3>
-      <v-overflow-btn
-          v-if="category!==addCatString"
-          id="categoryBar"
-          v-model="category"
-          :items="categorias"
-          class="ml-5 categoryBar d-inline-block"
-          filled
-          hide-details
-          label="Seleccionar"
-      />
-      <span v-if="category===addCatString">
+        <!--Lista de Categorias-->
+        <div>
+          <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
+            Categoría de la rutina:
+          </h3>
+          <v-overflow-btn
+              v-if="category!==addCatString"
+              id="categoryBar"
+              v-model="category"
+              :items="categorias"
+              class="ml-5 categoryBar d-inline-block"
+              filled
+              hide-details
+              label="Seleccionar"
+          />
+          <span v-if="category===addCatString">
       <v-text-field
+          v-model="new_cat"
           class="ml-5 pt-4 categoryBar d-inline-block"
           filled
           hide-details
           label="Nueva categoría"
-          v-model="new_cat"
       />
       <v-btn class="mb-5 ml-3" color="red"
              icon
@@ -101,32 +102,32 @@
         <v-icon>mdi-check</v-icon>
       </v-btn>
       </span>
-    </div>
+        </div>
       </v-col>
       <v-col>
-    <!--Lista de dificultad-->
-    <div>
-      <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
-        Dificultad de la rutina:
-      </h3>
-      <v-overflow-btn
-          id="categoryBar"
-          v-model="dificulty"
-          :items="dificultades"
-          class="ml-5 categoryBar d-inline-block"
-          filled
-          hide-details
-          label="Seleccionar"
-      />
-    </div>
+        <!--Lista de dificultad-->
+        <div>
+          <h3 class="d-inline-block ml-5 mt-6 sharkyPurple--text">
+            Dificultad de la rutina:
+          </h3>
+          <v-overflow-btn
+              id="categoryBar"
+              v-model="dificulty"
+              :items="dificultades"
+              class="ml-5 categoryBar d-inline-block"
+              filled
+              hide-details
+              label="Seleccionar"
+          />
+        </div>
       </v-col>
     </v-row>
 
 
     <div>
       <CreateButtons class="mb-10"
-                     v-on:cancelClicked="cancelEdit()"
                      v-on:acceptClicked="publishRoutine()"
+                     v-on:cancelClicked="cancelEdit()"
       />
     </div>
 
@@ -136,10 +137,10 @@
 <script lang="ts">
 import RoutineSection from "@/components/RoutineSection.vue";
 import CreateButtons from "@/components/CreateButtons.vue";
-import { CategoriesApi, Cycle, Routine, RoutinesApi } from "@/api"
+import {CategoriesApi, Cycle, CyclesApi, Routine, RoutinesApi} from "@/api"
 import Vue from 'vue';
 
-const defaultCycles : Cycle[] = [
+const defaultCycles: Cycle[] = [
   {
     "name": "Calentamiento",
     "detail": "",
@@ -160,10 +161,10 @@ const defaultCycles : Cycle[] = [
     "type": Cycle.TypeEnum.Cooldown,
     "order": 3,
     "repetitions": 0
-}];
+  }];
 
 // eslint-disable-next-line no-unused-vars
-type SectionCallback = (id:number) => Promise<void>;
+type SectionCallback = (id: number) => Promise<void>;
 
 export default Vue.extend({
   name: "Create",
@@ -172,7 +173,7 @@ export default Vue.extend({
     CreateButtons
   },
   props: {
-    routineId: Number,
+    routineId: String,
   },
   data: function () {
     const ADD_CAT = 'Añadir...';
@@ -185,33 +186,35 @@ export default Vue.extend({
       dificulty: "",
       addCatString: ADD_CAT,
       new_cat: "",
-      // Datos de prueba
-      globalID: 4,
       cycles: [] as Cycle[],
       callbacks: [] as SectionCallback[],
       routine: {} as Routine,
+      realRoutineId: 0 as number
     }
   },
   async mounted() {
+    this.realRoutineId = +this.routineId;
     let categories = CategoriesApi.findCategories();
     let cats = (await categories).results || [];
-    for(let cat of cats) {
+    for (let cat of cats) {
       this.categorias.push(cat.name);
     }
 
-    if(this.routineId === undefined) {
+    if (this.realRoutineId === 0) {
+      //Si estoy haciendo una rutina nueva
       this.routine = {
-        name: "New routine",
+        name: "",
         detail: "",
         isPublic: false,
         category: cats[0],
         difficulty: Routine.DifficultyEnum.Rookie
       };
+      this.cycles = defaultCycles;
+    } else {
+      //Si quiero acceder a una rutina que ya existe
+      this.routine = await RoutinesApi.getRoutine(this.realRoutineId);
+      this.cycles = (await CyclesApi.findCycles(this.realRoutineId)).results;
     }
-    else
-      this.routine = await RoutinesApi.getRoutine(this.routineId);
-    
-    this.cycles = defaultCycles;
   },
   methods: {
     addSection: function (type: Cycle.TypeEnum) {
@@ -257,14 +260,15 @@ export default Vue.extend({
       this.callbacks.push(callback);
     },
     async publishRoutine() {
-      let id = this.routineId;
-      if(this.routineId == undefined)
+      let id = this.realRoutineId;
+      if (this.routineId == '0')
         id = (await RoutinesApi.addRoutine(this.routine)).id;
       else
-        await RoutinesApi.updateRoutine(this.routineId, this.routine);
+        await RoutinesApi.updateRoutine(this.realRoutineId, this.routine);
 
       await Promise.all(this.callbacks.map(c => c(id)))
       await this.$router.push("/");
+
     }
   },
 })
