@@ -106,6 +106,7 @@ export default Vue.extend({
           "password": this.password
         });
         this.dialog = false;
+        window.location.reload()
       } catch (e) {
         this.incorrect = true;
       }
@@ -114,7 +115,7 @@ export default Vue.extend({
       this.dialog = true;
       this.dialog2 = false;
       this.correct = true;
-    }
+    },
   }
 })
 </script>

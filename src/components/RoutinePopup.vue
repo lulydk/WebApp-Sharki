@@ -151,6 +151,8 @@
         favourites = (await UsersApi.favRoutines(0, 100)).results;
         this.cycles = (await CyclesApi.findCycles(this.routine_id, 0, 100)).results;
         for (let cyc of this.cycles) {
+          if (cyc.type != 'exercise')
+            continue;
           this.exercises[cyc.order] = (await ExercisesApi.findExercises(this.routine_id, cyc.id, 0, 100)).results;
           this.execImageCombo[cyc.order] = [];
           for (let exc of this.exercises[cyc.order]) {
@@ -160,7 +162,7 @@
               exercise: exc,
               image: image?.url
             };
-            if (cyc.type == 'exercise' && this.routine_image == "" && image !== undefined)
+            if (this.routine_image == "" && image !== undefined)
               this.routine_image = image.url;
           }
         }

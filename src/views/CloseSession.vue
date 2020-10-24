@@ -1,8 +1,14 @@
 <template>
-<v-container>
-  <h1 v-if="success" class="sharkyPurple--text">Ha cerrado sesión</h1>
-  <h1 v-if="error" class="red--text">No se ha podido cerrar la sesión</h1>
-</v-container>
+  <v-container>
+    <v-dialog v-model="dialog" max-width="60%" persistent>
+      <template v-slot:activator="{}">
+      </template>
+      <v-card>
+        <h1 v-if="success" class="sharkyPurple--text">Ha cerrado sesión</h1>
+        <h1 v-if="error" class="red--text">No se ha podido cerrar la sesión</h1>
+      </v-card>
+    </v-dialog>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -19,10 +25,11 @@ export default Vue.extend({
       this.error = true;
     }
   },
-  data(){
-    return{
+  data() {
+    return {
       success: false,
-      error: false
+      error: false,
+      dialog: true
     }
   }
 })
