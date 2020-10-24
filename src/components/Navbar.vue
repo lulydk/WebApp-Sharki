@@ -75,7 +75,7 @@ export default {
         { title: 'Mi perfil', link: '/profile', color: '#eee5fc', icon: 'mdi-account'},
         { title: 'Rutinas creadas', link: '/routines', color: '#eee5fc', icon: 'mdi-timer-outline'},
         { title: 'Ejercicios creados', link: '/library', color: '#eee5fc', icon: 'mdi-dumbbell'},
-        { title: 'Cerrar sesión', link:'', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}
+        { title: 'Cerrar sesión', link:'/close', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}
       ]
     }
   },

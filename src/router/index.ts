@@ -10,6 +10,7 @@ import Explore from '../views/Explore.vue'
 import ExerciseLibrary from '../views/ExerciseLibrary.vue'
 import RoutineLibrary from '../views/RoutineLibrary.vue'
 import Verification from '../views/Verification.vue'
+import CloseSession from "@/views/CloseSession.vue";
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,11 @@ const routes = [
     name: 'Verification',
     component: Verification,
     props: true
+  },
+  {
+    path: '/close',
+    name: 'Close Session',
+    component: CloseSession
   }
 ]
 
