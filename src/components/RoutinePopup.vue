@@ -10,7 +10,26 @@
       <v-card-title class="deg white--text font-weight-bold">
         <span>{{ routine.name }}</span>
         <v-spacer/>
-        <v-rating hover length="5" size="25" background-color="white" color="white" :value="routine.rating" empty-icon="mdi-star-outline" full-icon="mdi-star" half-icon="mdi-star-half-full"/>
+        <!-- <v-rating hover length="5" size="25" background-color="white" color="white" :value="routine.rating" empty-icon="mdi-star-outline" full-icon="mdi-star" half-icon="mdi-star-half-full"/> -->
+        <v-tooltip bottom>
+          <template v-slot:activator="{on}">
+            <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)"><v-icon>mdi-share-variant-outline</v-icon></v-btn>
+          </template>
+          <span>Compartir rutina</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{on}">
+            <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)" class="mx-2"><v-icon>mdi-circle-edit-outline</v-icon></v-btn>
+          </template>
+          <span>Editar rutina</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{on}">
+            <!-- Cambiar por addFav en @click e isFav en condicional ? -->
+            <v-btn v-on="on" fab small dark depressed color="rgb(0,0,0,0)" @click="favorite=!favorite"><v-icon>{{ favorite ? 'mdi-heart':'mdi-heart-outline' }}</v-icon></v-btn>
+          </template>
+          <span>Añadir a favoritos</span>
+        </v-tooltip>
       </v-card-title>
       <v-spacer/>
 
@@ -27,7 +46,7 @@
           </v-flex> -->
           <v-flex xs6 md4 class="mb-3">
             <v-icon small left>{{ routine.isPublic ? 'mdi-eye-outline':'mdi-eye-off-outline' }}</v-icon>
-            <span class="font-weight-bold">{{ routine.isPublic ? 'Publica':'Privada' }}</span>
+            <span class="font-weight-bold">{{ routine.isPublic ? 'Pública':'Privada' }}</span>
           </v-flex>
           <!-- <v-flex xs6 md4 class="mb-3" v-show="routine.equipment">
             <v-icon small left>mdi-dumbbell</v-icon>
@@ -35,7 +54,7 @@
           </v-flex> -->
           <v-flex xs12 md12 class="text-justify">
             <v-icon small left>mdi-information-outline</v-icon>
-            <span class="font-weight-bold">Descripcion: </span>{{ routine.description }}</v-flex>
+            <span class="font-weight-bold">Descripción: </span>{{ routine.description }}</v-flex>
         </v-layout>
       </v-card-subtitle>
       <v-divider/>
@@ -58,7 +77,7 @@
                 <v-expansion-panel-header>
                   <v-layout row>
                     <v-flex xs12 class="font-weight-bold">{{ exercise.name }}</v-flex>
-                    <v-flex class="caption">{{ exercise.repetitions===0 ? 'Duracion: '+ exercise.duration+' seg' : 'Repeticiones: ' + exercise.repetitions }}</v-flex>
+                    <v-flex class="caption">{{ exercise.repetitions===0 ? 'Duración: '+ exercise.duration+' seg' : 'Repeticiones: ' + exercise.repetitions }}</v-flex>
                   </v-layout>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -73,16 +92,6 @@
         </v-container>
         </template>
       </v-virtual-scroll>
-
-      <v-divider/>
-
-      <!--Fav y Share-->
-      <v-card-actions>
-        <v-spacer/>
-        <v-btn fab depressed small class="sharkyBack"><v-icon>mdi-share-variant-outline</v-icon></v-btn>
-        <!-- Cambiar por addFav en @click e isFav en condicional ? -->
-        <v-btn fab dark depressed small class="sharkyPurple" @click="favorite=!favorite"><v-icon>{{ favorite ? 'mdi-heart':'mdi-heart-outline' }}</v-icon></v-btn>
-      </v-card-actions>
     </v-card>
 </template>
 
