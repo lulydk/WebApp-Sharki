@@ -5292,7 +5292,7 @@ export const RoutinesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findRoutines(search?: string, difficulty?: 'rookie' | 'beginner' | 'intermediate' | 'advanced' | 'expert', page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Routines>> {
+        findRoutines(search?: string, difficulty?: 'rookie' | 'beginner' | 'intermediate' | 'advanced' | 'expert', page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Routines> {
             const localVarFetchArgs = RoutinesApiFetchParamCreator(configuration).findRoutines(search, difficulty, page, size, orderBy, direction, options);
             return async (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 const response = await fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options);
