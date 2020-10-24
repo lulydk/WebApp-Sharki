@@ -6,8 +6,7 @@
         <Home></Home>
       </router-view>
     </v-main>
-
-    <!--Aca iria el Footer-->
+    <Footer/>
   </v-app>
 </template>
 
@@ -15,12 +14,13 @@
 
 import Home from './views/Home';
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 export default {
   name: 'App',
 
   components: {
-    Home, Navbar,
+    Home, Navbar, Footer
   },
 
   data: () => ({
