@@ -6,7 +6,7 @@
           @click="cardClicked"
   >
     <v-img
-        :src=getImage(exercise.id).url
+        :src=getImage()
         height="100px"
     />
     <div class="white--text">
@@ -31,16 +31,16 @@ export default {
   name: "ExerciseCard",
   props: {
     exercise: Object,
-    exercises_db: Array,
-    images_db: Array,
+    image: Object,
     clearable: Boolean,
+    index: Number
   },
   methods: {
     trashClicked: function () {
       this.$emit('trashClicked')
     },
     cardClicked: function () {
-      this.$emit('cardClicked', {'exercise': this.exercise, 'image': this.getImage(this.exercise.id)})
+      this.$emit('cardClicked', this.index)
     },
     getExerciseCount: function () {
       if (this.exercise.repetitions !== 0) {
@@ -52,9 +52,8 @@ export default {
       }
       return "";
     },
-    //  Devuelve la imagen correspondiente al ejercicio
-    getImage: function (id) {
-      return this.images_db.find(im => im.id === id);
+    getImage() {
+      return this.image?.url ?? "";
     }
   }
 }

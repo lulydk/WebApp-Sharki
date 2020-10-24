@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Headings-->
-    <div class="sharkyPurple white--text">
+    <div class="sharkyPurple white--text" v-if="loaded">
       <h3 class="d-inline-block ml-3">Nombre:</h3>
       <v-text-field v-model="cycle.name"
                     class="pa-4 d-inline-block mb-0 my-text-style"
@@ -32,13 +32,15 @@
     <v-slide-group class="sharkyBack" show-arrows>
 
       <!--lista de ejercicios ya agregados a la seccion-->
-      <v-slide-item v-for="exc in section_exercises" :key="exc.id">
+      <v-slide-item v-for="(exc, index) in exercises_db" :key="exc.id">
         <EditableExcCard :exercise=exc
-                         :exercises_db=exercises_db
-                         :images_db=images_db
+                         :image=images_db[index]
                          v-on:trashClicked="deleteCard($event)"
-                         library modify
         />
+      </v-slide-item>
+
+      <v-slide-item>
+        <div/>
       </v-slide-item>
 
       <!--Boton para agregar nuevo ejercicio a la seccion-->
@@ -54,10 +56,7 @@
               Añadir ejercicio
             </v-btn>
           </template>
-          <ExercisePopup :current_exercise=new_exercise
-                         :current_image=new_image
-                         :exercise_db=exercises_db
-                         :images_db=images_db
+          <ExercisePopup 
                          v-on:cancelClicked="dialog=false"
                          v-on:acceptClicked="addCard($event)"
                          library
@@ -70,66 +69,60 @@
   </div>
 </template>
 
-<script>
-import ExercisePopup from "@/components/ExercisePopup";
-import EditableExcCard from "@/components/EditableExcCard";
+<script lang="ts">
+import ExercisePopup from "@/components/ExercisePopup.vue";
+import EditableExcCard from "@/components/EditableExcCard.vue";
+import Vue from 'vue';
+import { Cycle, CyclesApi, ExercisesApi, FullExercise, FullImage, Image, ImagesApi } from '@/api';
 
-export default {
+export default Vue.extend({
   name: "RoutineSection",
   components: {
     EditableExcCard,
     ExercisePopup
   },
+  data: function() {
+    return {
+      exercises_db: [] as FullExercise[],
+      images_db: [] as (FullImage | null)[],
+      dialog: false,
+      loaded: false
+    }
+  },
   props: {
     cycle: Object,
-    exercises_db: Array,
-    images_db: Array
+  },
+  async mounted() {
+    this.loaded = true;
+    this.$emit('register', this.upload);
   },
   methods: {
-    addCard: function (data) {
+    addCard: async function (data: {exercise: FullExercise, image: FullImage | null}) {
       this.dialog = false;
-      this.section_exercises.push(data.exercise);
       this.exercises_db.push(data.exercise);
       this.images_db.push(data.image);
     },
     //  Handler de card a borrar
-    deleteCard: function (id) {
-      this.section_exercises = this.section_exercises.filter(exc => exc.id !== id);
+    deleteCard: function (id: number) {
+      const index = this.exercises_db.findIndex(e => e.id == id);
+      this.exercises_db.splice(index, 1);
+      this.images_db.splice(index, 1);
     },
     //  Evento para eliminar esta rutine section
     trashClicked: function () {
-      this.$emit('trashClicked', this.cycle.id)
+      this.$emit('trashClicked', this.cycle.order)
+    },
+    async upload(routineId: number) {
+      console.log(this.cycle);
+      const cycle = await CyclesApi.addCycle(routineId, this.cycle as Cycle)
+      await Promise.all(this.exercises_db.map(async (e, index) => {
+        const exercise = await ExercisesApi.addExercise(routineId, cycle.id, e);
+        if(this.images_db[index])
+          await ImagesApi.addExerciseImage(routineId, cycle.id, exercise.id, this.images_db[index] as Image);
+      }))
     }
   },
-  data: function () {
-    return {
-      dialog: false,
-      new_exercise: {
-        "id": 10,
-        "name": "",
-        "detail": "",
-        "type": "exercise",
-        "duration": 0,
-        "repetitions": 0,
-        "order": 1
-      },
-      new_image: {
-        "id": 10,
-        "number": 1,
-        "url": ""
-      },
-      section_exercises: [{
-        "id": 1,
-        "name": "Plancha",
-        "detail": "",
-        "type": "exercise",
-        "duration": 30,
-        "repetitions": 0,
-        "order": 1
-      }],
-    }
-  }
-}
+})
 </script>
 
 <style scoped>

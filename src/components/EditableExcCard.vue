@@ -5,20 +5,16 @@
       <ExerciseCard
                     clearable
                     :exercise=exercise
-                    :exercises_db=exercises_db
-                    :images_db=images_db
+                    :image=image
                     v-on:trashClicked="trashClicked()"
                     v-on:cardClicked="dialog=true"
       />
     </template>
-    <ExercisePopup :current_exercise=exercise
-                   :current_image=getImage(exercise.id)
-                   :exercise_db=exercises_db
-                   :images_db=images_db
+    <ExercisePopup 
                    v-on:cancelClicked="dialog=false"
                    v-on:acceptClicked="dialog=false"
-                   :library="library"
-                   :modify="modify"
+                   library
+                   modify
     />
   </v-dialog>
 </template>
@@ -32,10 +28,7 @@ export default {
   components: {ExercisePopup, ExerciseCard},
   props: {
     exercise: Object,
-    exercises_db: Array,
-    images_db: Array,
-    library: Boolean,
-    modify: Boolean
+    image: Object,
   },
   data: function () {
     return {
@@ -43,10 +36,6 @@ export default {
     }
   },
   methods: {
-    //  Devuelve la imagen correspondiente al ejercicio
-    getImage: function (id) {
-      return this.images_db.find(im => im.id === id);
-    },
     trashClicked: function () {
       this.$emit('trashClicked', this.exercise.id)
     }
