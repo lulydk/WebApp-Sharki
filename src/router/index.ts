@@ -44,9 +44,10 @@ const routes = [
     component: PageNotFound
   },
   {
-    path: '/explore',
+    path: '/explore/:id',
     name: 'Explore',
-    component: Explore
+    component: Explore,
+    props: true
   },
   {
     path: '/library',
