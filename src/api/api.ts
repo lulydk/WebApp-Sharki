@@ -656,7 +656,7 @@ export interface FullCategory extends Category{
      * @type {number}
      * @memberof FullCategory
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {string}
@@ -736,37 +736,37 @@ export namespace FullCycle {
  * @export
  * @interface FullExecution
  */
-export interface FullExecution {
+export interface FullExecution extends Execution {
     /**
      * 
      * @type {number}
      * @memberof FullExecution
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {number}
      * @memberof FullExecution
      */
-    date?: number;
+    date: number;
     /**
      * 
      * @type {number}
      * @memberof FullExecution
      */
-    duration?: number;
+    duration: number;
     /**
      * 
      * @type {boolean}
      * @memberof FullExecution
      */
-    wasModified?: boolean;
+    wasModified: boolean;
     /**
      * 
      * @type {FullRoutine}
      * @memberof FullExecution
      */
-    routine?: FullRoutine;
+    routine: FullRoutine;
 }
 
 /**
@@ -865,37 +865,37 @@ export interface FullImage extends Image {
  * @export
  * @interface FullRating
  */
-export interface FullRating {
+export interface FullRating extends Rating {
     /**
      * 
      * @type {number}
      * @memberof FullRating
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {number}
      * @memberof FullRating
      */
-    date?: number;
+    date: number;
     /**
      * 
      * @type {number}
      * @memberof FullRating
      */
-    score?: number;
+    score: number;
     /**
      * 
      * @type {string}
      * @memberof FullRating
      */
-    review?: string;
+    review: string;
     /**
      * 
      * @type {FullRoutine}
      * @memberof FullRating
      */
-    routine?: FullRoutine;
+    routine: FullRoutine;
 }
 
 /**
@@ -927,13 +927,13 @@ export interface FullRoutine extends Routine{
      * @type {number}
      * @memberof FullRoutine
      */
-    dateCreated?: number;
+    dateCreated: number;
     /**
      * 
      * @type {number}
      * @memberof FullRoutine
      */
-    averageRating?: number;
+    averageRating: number;
     /**
      * 
      * @type {boolean}
@@ -957,7 +957,7 @@ export interface FullRoutine extends Routine{
      * @type {PublicUser}
      * @memberof FullRoutine
      */
-    creator?: PublicUser;
+    creator: PublicUser;
 }
 
 /**
@@ -1009,43 +1009,43 @@ export interface FullSport extends Sport {
  * @export
  * @interface FullUser
  */
-export interface FullUser {
+export interface FullUser extends User {
     /**
      * 
      * @type {number}
      * @memberof FullUser
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {string}
      * @memberof FullUser
      */
-    username?: string;
+    username: string;
     /**
      * 
      * @type {string}
      * @memberof FullUser
      */
-    fullName?: string;
+    fullName: string;
     /**
      * 
      * @type {string}
      * @memberof FullUser
      */
-    gender?: FullUser.GenderEnum;
+    gender: FullUser.GenderEnum;
     /**
      * 
      * @type {number}
      * @memberof FullUser
      */
-    birthdate?: number;
+    birthdate: number;
     /**
      * 
      * @type {string}
      * @memberof FullUser
      */
-    email?: string;
+    email: string;
     /**
      * 
      * @type {string}
@@ -1063,25 +1063,25 @@ export interface FullUser {
      * @type {number}
      * @memberof FullUser
      */
-    dateCreated?: number;
+    dateCreated: number;
     /**
      * 
      * @type {number}
      * @memberof FullUser
      */
-    dateLastActive?: number;
+    dateLastActive: number;
     /**
      * 
      * @type {boolean}
      * @memberof FullUser
      */
-    deleted?: boolean;
+    deleted: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof FullUser
      */
-    verified?: boolean;
+    verified: boolean;
 }
 
 /**
@@ -1105,25 +1105,25 @@ export namespace FullUser {
  * @export
  * @interface FullVideo
  */
-export interface FullVideo {
+export interface FullVideo extends Video {
     /**
      * 
      * @type {number}
      * @memberof FullVideo
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {number}
      * @memberof FullVideo
      */
-    number?: number;
+    number: number;
     /**
      * 
      * @type {string}
      * @memberof FullVideo
      */
-    url?: string;
+    url: string;
 }
 
 /**
@@ -1131,31 +1131,31 @@ export interface FullVideo {
  * @export
  * @interface FullWeighting
  */
-export interface FullWeighting {
+export interface FullWeighting extends Weighting {
     /**
      * 
      * @type {number}
      * @memberof FullWeighting
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {number}
      * @memberof FullWeighting
      */
-    date?: number;
+    date: number;
     /**
      * 
      * @type {number}
      * @memberof FullWeighting
      */
-    weight?: number;
+    weight: number;
     /**
      * 
      * @type {number}
      * @memberof FullWeighting
      */
-    height?: number;
+    height: number;
 }
 
 /**
@@ -1280,19 +1280,19 @@ export interface PublicUser {
      * @type {number}
      * @memberof PublicUser
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {string}
      * @memberof PublicUser
      */
-    username?: string;
+    username: string;
     /**
      * 
      * @type {string}
      * @memberof PublicUser
      */
-    gender?: PublicUser.GenderEnum;
+    gender: PublicUser.GenderEnum;
     /**
      * 
      * @type {string}
@@ -1304,13 +1304,13 @@ export interface PublicUser {
      * @type {number}
      * @memberof PublicUser
      */
-    dateCreated?: number;
+    dateCreated: number;
     /**
      * 
      * @type {number}
      * @memberof PublicUser
      */
-    dateLastActive?: number;
+    dateLastActive: number;
 }
 
 /**
