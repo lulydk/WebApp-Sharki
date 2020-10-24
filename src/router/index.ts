@@ -9,6 +9,7 @@ import Contact from '../views/Contact.vue'
 import Explore from '../views/Explore.vue'
 import ExerciseLibrary from '../views/ExerciseLibrary.vue'
 import RoutineLibrary from '../views/RoutineLibrary.vue'
+import Verification from '../views/Verification.vue'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,12 @@ const routes = [
     path: '/routines',
     name: 'Routines',
     component: RoutineLibrary
+  },
+  {
+    path: '/verification/:code',
+    name: 'Verification',
+    component: Verification,
+    props: true
   }
 ]
 

@@ -248,20 +248,20 @@ export default Vue.extend({
       this.new_cat = "";
     },
     async cancelEdit() {
-      this.$router.push("/");
+      await this.$router.push("/");
     },
     registerSection(callback: () => Promise<void>) {
       this.callbacks.push(callback);
     },
     async publishRoutine() {
       let id = this.routineId;
-      if(this.routineId === undefined)
+      if(this.routineId == undefined)
         id = (await RoutinesApi.addRoutine(this.routine)).id;
       else
         await RoutinesApi.updateRoutine(this.routineId, this.routine);
 
       await Promise.all(this.callbacks.map(c => c(id)))
-      this.$router.push("/");
+      await this.$router.push("/");
     }
   },
 })
