@@ -1,5 +1,5 @@
 <template>
-  <RoutinesBlock name="Favoritos"/>
+  <RoutinesBlock name="Favoritos" favorites/>
 </template>
 
 <script>
