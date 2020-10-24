@@ -7836,8 +7836,10 @@ export class UsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersApi
      */
-    public static findCurrentUserRoutines(difficulty?: 'rookie' | 'beginner' | 'intermediate' | 'advanced' | 'expert', page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any) {
-        return UsersApiFp(this.configuration).findCurrentUserRoutines(difficulty, page, size, orderBy, direction, options)(this.fetch, this.basePath);
+    public static async findCurrentUserRoutines(difficulty?: 'rookie' | 'beginner' | 'intermediate' | 'advanced' | 'expert', page?: number, size?: number, orderBy?: 'id' | 'name' | 'detail' | 'dateCreated' | 'averageRating' | 'difficulty' | 'categoryId' | 'creatorId', direction?: 'asc' | 'desc', options?: any) {
+        const routines = await UsersApiFp(this.configuration).findCurrentUserRoutines(difficulty, page, size, orderBy, direction, options)(this.fetch, this.basePath);
+        routines.results = routines.results.filter(r => r.name != EXERCISE_LIBRARY_NAME);
+        return routines;
     }
 
     /**
