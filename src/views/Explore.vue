@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div>
-			<h1 class="ma-2">
+			<h1 class="mx-8 my-4">
 				<v-icon class="icon" size=33px>mdi-compass-outline</v-icon>
-				Explorar
+				Explorar Rutinas
 			</h1>
 		</div>
 		<div class="search-options">
@@ -62,9 +62,7 @@
 			</v-container>
 		</div>
 		<v-layout class="mx-auto" row wrap>
-			<v-flex xs12 md12>
-				<h2 class="ma-5">Rutinas</h2>
-			</v-flex>
+
 			<v-flex class="mb-6" v-for="routine in routines" :key="routine.name">
 				<RoutineCard :routine="routine"/>
 			</v-flex>
@@ -148,7 +146,7 @@ h1 {
 	color: var(--v-sharkyPurple-base);
 }
 .icon {
-	color: var(--v-sharkyLight-base);
+	color: var(--v-sharkyPurple-base);
 }
 .search-options {
 	background-color: var(--v-sharkyBack-base);

@@ -6,7 +6,7 @@
     <div class="my-4 mx-10">
       <h1 class="d-inline-block sharkyPurple--text">
         <v-icon class="pb-1" color="sharkyPurple" large>mdi-book-open-blank-variant</v-icon>
-        Biblioteca de ejercicios
+        Biblioteca de Ejercicios
       </h1>
     </div>
 
