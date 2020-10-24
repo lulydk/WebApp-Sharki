@@ -15,12 +15,12 @@
     <!--Cards de los ejercicios del usuario-->
     <v-container class="sharkyBack" fluid>
       <v-row class="ml-5" dense>
-        <v-col v-for="exc in exercises_db" :key="exc.id">
-          <EditableExcCard :exercise=exc
-                           :exercises_db=exercises_db
-                           :images_db=images_db
-                           v-on:trashClicked="deleteExercise($event)"
-                           modify
+        <v-col v-for="exc in exercises" :key="exc.exercise.id">
+          <EditableExcCard 
+                          :exercise=exc.exercise
+                          :image=exc.image
+                          v-on:trashClicked="deleteExercise($event)"
+                          modify
           />
         </v-col>
       </v-row>
@@ -43,142 +43,59 @@
           </v-btn>
         </div>
       </template>
-      <ExercisePopup :current_exercise=new_exercise
-                     :current_image=new_image
-                     :exercise_db=exercises_db
-                     :images_db=images_db
-                     v-on:cancelClicked="dialog=false"
-                     v-on:acceptClicked="addCard($event)"
+      <ExercisePopup
+                    v-on:cancelClicked="dialog=false"
+                    v-on:acceptClicked="addCard($event)"
       />
     </v-dialog>
 
   </div>
 </template>
 
-<script>
-import EditableExcCard from "@/components/EditableExcCard";
-import ExercisePopup from "@/components/ExercisePopup";
+<script lang="ts">
+import { Exercise, ExerciseImageCombo, FullExerciseImageCombo, Image, UsersApi } from '@/api';
+import EditableExcCard from "@/components/EditableExcCard.vue";
+import ExercisePopup from "@/components/ExercisePopup.vue";
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
   name: "ExerciseLibrary",
   components: {ExercisePopup, EditableExcCard},
+  async mounted() {
+    this.exercises = await UsersApi.findLibraryExercises();
+  },
   methods: {
-    addCard: function (data) {
+    addCard: async function (data: ExerciseImageCombo) {
       this.dialog = false;
-      this.exercises_db.push(data.exercise);
-      this.images_db.push(data.image);
+
+      const exerciseCombo = await UsersApi.addLibraryExercise(data.exercise, data.image ?? undefined);
+      this.exercises.push(exerciseCombo);
     },
-    deleteExercise: function (id) {
-      this.exercises_db = this.exercises_db.filter(exc => exc.id !== id);
+    deleteExercise: async function (id: number) {
+      await UsersApi.deleteLibraryExercise(id);
+      const index = this.exercises.findIndex(e => e.exercise.id == id);
+      this.exercises.splice(index, 1);
     }
   },
   data: function () {
     return {
       dialog: false,
       new_exercise: {
-        "id": 10,
-        "name": "",
-        "detail": "",
-        "type": "exercise",
-        "duration": 0,
-        "repetitions": 0,
-        "order": 1
-      },
+        name: "",
+        detail: "",
+        type: "exercise",
+        duration: 0,
+        repetitions: 0,
+      } as Exercise,
       new_image: {
-        "id": 10,
-        "number": 1,
-        "url": ""
-      },
-      exercises_db: [
-        {
-          "id": 1,
-          "name": "Plancha",
-          "detail": "",
-          "type": "exercise",
-          "duration": 30,
-          "repetitions": 0,
-          "order": 1
-        },
-        {
-          "id": 2,
-          "name": "Push-up",
-          "detail": "",
-          "type": "exercise",
-          "duration": 0,
-          "repetitions": 15,
-          "order": 1
-        },
-        {
-          "id": 3,
-          "name": "Sentadilla",
-          "detail": "",
-          "type": "exercise",
-          "duration": 0,
-          "repetitions": 10,
-          "order": 1
-        },
-        {
-          "id": 5,
-          "name": "Plancha",
-          "detail": "",
-          "type": "exercise",
-          "duration": 30,
-          "repetitions": 0,
-          "order": 1
-        },
-        {
-          "id": 7,
-          "name": "Push-up",
-          "detail": "",
-          "type": "exercise",
-          "duration": 0,
-          "repetitions": 15,
-          "order": 1
-        },
-        {
-          "id": 9,
-          "name": "Sentadilla",
-          "detail": "",
-          "type": "exercise",
-          "duration": 0,
-          "repetitions": 10,
-          "order": 1
-        },
-      ],
-      images_db: [
-        {
-          "id": 1,
-          "number": 1,
-          "url": "https://www.t-nation.com/system/publishing/articles/10001096/original/Unconventional-Workout-Abs.jpg?1515713332"
-        },
-        {
-          "id": 2,
-          "number": 1,
-          "url": "https://lmimirror3pvr.azureedge.net/static/media/12867/2d5a7ea5-1c56-40e1-aba6-dbbfe959f35a/pushup-study_960x540.jpg"
-        },
-        {
-          "id": 3,
-          "number": 1,
-          "url": "https://www.inposture.com/wp-content/uploads/2020/05/Sit-ups.jpg"
-        },
-        {
-          "id": 5,
-          "number": 1,
-          "url": "https://www.t-nation.com/system/publishing/articles/10001096/original/Unconventional-Workout-Abs.jpg?1515713332"
-        },
-        {
-          "id": 7,
-          "number": 1,
-          "url": "https://lmimirror3pvr.azureedge.net/static/media/12867/2d5a7ea5-1c56-40e1-aba6-dbbfe959f35a/pushup-study_960x540.jpg"
-        },
-        {
-          "id": 9,
-          "number": 1,
-          "url": "https://www.inposture.com/wp-content/uploads/2020/05/Sit-ups.jpg"
-        }]
+        id: 10,
+        number: 1,
+        url: ""
+      } as Image,
+      exercises: [] as FullExerciseImageCombo[]
     }
   }
-}
+})
 </script>
 
 <style scoped>
