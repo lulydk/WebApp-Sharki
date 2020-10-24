@@ -29,9 +29,9 @@
             <v-card-text v-if="incorrect" class="red--text" align="center">
               Datos Incorrectos
             </v-card-text>
-            <v-card-text v-if="correct" class="green--text" align="center">
+            <v-czard-text v-if="correct" class="green--text" align="center">
               Registro correcto! Espere mail de confirmación
-            </v-card-text>
+            </v-czard-text>
             <div class="d-flex justify-center ">
                 <v-btn class="sharkyPurple white--text" depressed large
                        @click="inicioSesion()"

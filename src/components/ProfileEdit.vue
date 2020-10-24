@@ -10,96 +10,40 @@
         </v-card-title>
         <v-row>
           <v-col class="px-md-8">
-              <v-img src="https://runnersexperiencedotcom.files.wordpress.com/2013/12/profile.jpg"
-                     max-width="550"
-                     class=" flex align-md-center rounded-xl"
-                     align="center"
-
-              >
-                <v-btn class="pa-md-4 sharkyLight white--text" depressed large>
-                  <v-icon>mdi-plus</v-icon>
-                  Subir Foto
-                </v-btn>
-              </v-img>
+            <v-text-field class="px-md-4"
+                          v-model="user.avatarUrl"
+                          label="Link a la imagen"
+            ></v-text-field>
+            <v-overflow-btn
+                v-model="user.gender"
+                class="my-2"
+                :items="generos"
+                label="Género"
+                item-value="text"
+            ></v-overflow-btn>
           </v-col>
           <!--CAMPOS PARA EDITAR PERFIL-->
           <v-col>
-            <v-row>
-              <v-col>
-                <v-text-field class="px-md-4"
-                              v-model="first"
-                              :rules="rules"
-                              label="Nombre"
+              <v-text-field class="px-md-4"
+                            v-model="user.username"
+                            :rules="rules"
+                            label="Nombre de usuario"
 
-                ></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field class="px-md-4"
-                              v-model="first"
-                              :rules="rules"
-                              label="Apellido"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-
-            <!--CALENDARIO PARA SELECCIONAR EDAD-->
-            <v-menu
-                ref="menu"
-                v-model="menu"
-                :close-on-content-click="false"
-                :return-value.sync="date"
-                transition="scale-transition"
-                offset-y
-                min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                    class="px-md-4"
-
-                    v-model="date"
-                    label="Picker in menu"
-                    prepend-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                  v-model="date"
-                  no-title
-                  scrollable
-              >
-                <v-spacer></v-spacer>
-                <v-btn
-                    text
-                    color="primary"
-                    @click="menu = false"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                    text
-                    color="primary"
-                    @click="$refs.menu.save(date)"
-                >
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
-            <!--Biografia del usuario-->
-            <v-textarea
-                class="pa-md-4"
-                v-model="title"
-                label="Biografia"
-                counter
-                maxlength="200"
-            ></v-textarea>
+              ></v-text-field>
+              <v-text-field class="px-md-4"
+                            v-model="user.email"
+                            :rules="rules"
+                            label="Email"
+              ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-spacer/>
           <div class="d-flex justify-center pa-md-4" >
-            <v-btn class="pa-md-4 sharkyPurple white--text" depressed large>
+            <v-btn class="pa-md-4 sharkyPurple white--text"
+                   depressed large
+                   @click="changeInfo()"
+            >
               Guardar
             </v-btn>
           </div>
@@ -109,25 +53,41 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 
-export default {
+import { UsersApi, UserWithoutPassword} from "@/api";
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'ProfileEdit',
-  data: () => ({
-    rules: [
-      value => !!value || 'Campo obligatorio.',
-      value => (value && value.length >= 3) || 'Min 3 characters',
-    ],
-  }),
+  data() {
+    return {
+      generos: ['Masculino', 'Femenino', 'Otro'],
+      user: {
+        "username": "",
+        "password": "",
+        "fullName": "",
+        "gender": "other",
+        "birthdate": 0,
+        "email": ""
+      } as UserWithoutPassword,
+      rules: [
+        (value: String) => !!value || 'Campo obligatorio.',
+        (value: String) => (value && value.length >= 3) || 'Min 3 characters',
+      ],
+    };
+  },
   methods: {
-    closeEdit: function (){
+    closeEdit: function () {
       this.$emit('closeEdit');
-    }
-  }
-}
 
+    },
+    async changeInfo () {
+        await UsersApi.updateUser(this.user);
+    },
+  },
+})
 </script>
-
 <style scoped>
 
 </style>
