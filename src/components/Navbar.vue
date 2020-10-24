@@ -2,12 +2,9 @@
   <v-container fluid pa-0>
     <v-app-bar app flat dark class="hidden-sm-and-down">
       <v-col cols="2">
-        <v-row align="center" justify="start">
           <router-link to="/">
-            <v-img contain height="30" width="50" src="../assets/logo.png"/>
+            <v-img contain height="25" class="mr-10" src="../assets/Sharki-White.png"/>
           </router-link>
-          <v-toolbar-title class="d-flex font-weight-bold">Sharki</v-toolbar-title>
-        </v-row>
       </v-col>
       <v-col cols="10">
         <v-toolbar-items>
@@ -30,13 +27,10 @@
     </v-app-bar>
 
     <v-app-bar flat app dark class="hidden-md-and-up">
-      <v-col cols="4">
-        <v-row align="center" justify="start">
+      <v-col cols="3">
           <router-link to="/">
-            <v-img contain height="30" width="50" src="../assets/logo.png"/>
+            <v-img contain height="25" class="mr-5" src="../assets/Sharki-White.png"/>
           </router-link>
-          <v-toolbar-title class="font-weight-bold">Sharki</v-toolbar-title>
-        </v-row>
       </v-col>
         <v-text-field filled dense clearable shaped class="mt-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
         <v-app-bar-nav-icon @click.stop="navDraw=!navDraw;"></v-app-bar-nav-icon>
