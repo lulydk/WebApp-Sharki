@@ -1,11 +1,12 @@
 <template>
   <v-container fluid pa-0>
     <v-app-bar app flat dark class="hidden-sm-and-down">
-      <v-col cols="2">
+      <v-app-bar-nav-icon class="ml-10 pl-10">
           <router-link to="/">
             <v-img contain height="25" class="mr-10" src="../assets/Sharki-White.png"/>
           </router-link>
-      </v-col>
+      </v-app-bar-nav-icon>
+      <v-spacer/>
       <v-col cols="10">
         <v-toolbar-items>
           <v-row dense align="center" justify="end">
@@ -27,18 +28,19 @@
     </v-app-bar>
 
     <v-app-bar flat app dark class="hidden-md-and-up">
-      <v-col cols="3">
+        <v-app-bar-nav-icon class="pl-5 mx-10">
           <router-link to="/">
-            <v-img contain height="25" class="mr-5" src="../assets/Sharki-White.png"/>
+            <v-img contain height="25" class="mr-10" src="../assets/Sharki-White.png"/>
           </router-link>
-      </v-col>
+        </v-app-bar-nav-icon>
+        <v-spacer/>
         <v-text-field filled dense clearable shaped class="mt-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
         <v-app-bar-nav-icon @click.stop="navDraw=!navDraw;"></v-app-bar-nav-icon>
     </v-app-bar>
 
     <v-navigation-drawer dark hide-overlay right color="#5a00e0" app v-model="navDraw" class="hidden-md-and-up">
       <v-list dense nav>
-        <v-list-item v-for="item in barItems" :key="item.title" link>
+        <v-list-item v-for="item in barItems" :key="item.title" link :to="item.link">
           <v-list-item-icon><v-icon>{{ item.icon }}</v-icon></v-list-item-icon>
           <v-list-item-content @click="navBar=false;">
             <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -48,7 +50,7 @@
       <v-divider></v-divider>
       <v-subheader>Mi cuenta</v-subheader>
       <v-list dense nav>
-        <v-list-item v-for="item in accItems" :key="item.title" link>
+        <v-list-item v-for="item in accItems" :key="item.title" link :to="item.link">
           <v-list-item-icon><v-icon>{{ item.icon }}</v-icon></v-list-item-icon>
           <v-list-item-content color="white">
             <v-list-item-title>{{ item.title }}</v-list-item-title>
@@ -75,7 +77,7 @@ export default {
         { title: 'Mi perfil', link: '/profile', color: '#eee5fc', icon: 'mdi-account'},
         { title: 'Rutinas creadas', link: '/routines', color: '#eee5fc', icon: 'mdi-timer-outline'},
         { title: 'Ejercicios creados', link: '/library', color: '#eee5fc', icon: 'mdi-dumbbell'},
-        { title: 'Cerrar sesión', link:'', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}
+        { title: 'Cerrar sesión', link:'/close', color: '#5a00e0', mode:'white--text', icon: 'mdi-logout-variant'}
       ]
     }
   },

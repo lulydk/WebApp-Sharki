@@ -3,20 +3,20 @@
   <v-dialog v-model="dialog" max-width="60%">
     <template v-slot:activator="{}">
       <ExerciseCard
-          :exercise=exercise
-          :image=image
-          clearable
-          v-on:cardClicked="dialog=true"
-          v-on:trashClicked="trashClicked()"
+                    clearable
+                    :exercise=exercise
+                    :image=image
+                    v-on:trashClicked="trashClicked()"
+                    v-on:cardClicked="dialog=true"
       />
     </template>
-    <ExercisePopup
-        :exercise=exercise
-        :image=image
-        library
-        modify
-        v-on:acceptClicked="dialog=false"
-        v-on:cancelClicked="dialog=false"
+    <ExercisePopup 
+                    v-on:cancelClicked="dialog=false"
+                    v-on:acceptClicked="dialog=false"
+                    :exercise=exercise
+                    :image=image
+                    library
+                    modify
     />
   </v-dialog>
 </template>
@@ -35,7 +35,7 @@ export default Vue.extend({
   },
   data: function () {
     return {
-      dialog: false,
+      dialog: false
     }
   },
   methods: {

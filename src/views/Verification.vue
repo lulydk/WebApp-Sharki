@@ -3,7 +3,7 @@
     <template v-slot:activator="{}">
     </template>
     <v-card>
-      <v-card-title>Verificación</v-card-title>
+      <v-card-title class="sharkyPurple--text">Verificación</v-card-title>
       <v-container>
       <v-text-field v-model="email"
                     label="email"
@@ -11,8 +11,9 @@
       <v-text-field v-model="code"
                     label="codigo"
       />
-      <v-btn @click="verify()">Aceptar</v-btn>
+      <v-btn v-if="!correct" @click="verify()">Aceptar</v-btn>
         <v-card-text v-if="correct" class="green--text">Verificación correcta! Ahora puede loguearse en la página principal</v-card-text>
+        <v-btn v-if="correct" :to="'/'">Home</v-btn>
         <v-card-text v-if="incorrect" class="red--text">Verificación incorrecta! Intente de nuevo</v-card-text>
       </v-container>
     </v-card>

@@ -1,12 +1,12 @@
 <template>
     <v-container>
-      <v-dialog v-model="dialog" persistent max-width="60%">
-        <v-card height="90%" >
+      <v-dialog v-model="dialog" persistent width="600">
+        <v-card width="600">
           <v-layout row class="pa-5">
             <v-flex xs12><v-img src="../assets/Sharki-Purple.png" max-width="200" class="mx-auto"></v-img></v-flex>
             <span class="sharkyPurple--text mx-auto mt-2 font-weight-bold">Iniciar sesión</span>
           </v-layout>
-          <v-card flat max-width="400" class="mx-auto">
+          <v-card flat max-width="400" class="mx-auto px-5">
             <v-form lazy-validation>
               <v-text-field
                   v-model="first"
@@ -38,7 +38,7 @@
                 >Iniciar sesión</v-btn>
             </div>
             <div class="d-flex justify-center">
-              <v-dialog v-model="dialog2" max-width="45%">
+              <v-dialog v-model="dialog2" width="65%">
                 <template v-slot:activator="{on}">
                   <v-btn text depressed small
                         color="sharkyPurple"

@@ -1,5 +1,4 @@
 <template>
-
   <div class="profile">
     <v-container>
       <v-row>
@@ -11,11 +10,11 @@
         <v-col>
           <v-row>
             <v-img max-width="500px" max-height="250px"  class="rounded-xl"
-                   src="https://runnersexperiencedotcom.files.wordpress.com/2013/12/profile.jpg"
+                   src= user.avatarUrl
             ></v-img>
           </v-row>
           <v-row class="flex-row align-center">
-            <h1>Diego Rodriguez</h1>
+            <h1>{{  this.user.username }}</h1>
             <v-spacer/>
                 <v-btn small outlined color="sharkyPurple" :to="'/routines'">Mis Rutinas</v-btn>
             <v-btn depressed icon color="sharkyPurple"><v-icon>mdi-share</v-icon></v-btn>
@@ -28,13 +27,8 @@
               />
             </v-dialog>
             <v-spacer></v-spacer>
-
           </v-row>
-          <p> <strong>Biografia: </strong> Hombre, 50 años, Argentina</p>
-          <p>
-            aca va toda la infor del amigo que tiene su perfil en la app alas
-            no se que mas ponerle y estoy escribiendo cosas sin sentido.
-            capaz tendria que poner a que se dedica y esas cosaslalsdla</p>
+          <p> <strong>Género: </strong> {{ user.gender }}</p>
         </v-col>
         <v-col>
           <v-container>
@@ -59,26 +53,36 @@
   </div>
 </template>
 
-<script>
-import Favorites from "@/components/Favorites.vue";
-import ProfileEdit from "@/components/ProfileEdit";
 
-export default {
+<script lang="ts">
+import Favorites from "@/components/Favorites.vue";
+import ProfileEdit from "@/components/ProfileEdit.vue";
+import Vue from  "vue";
+import {UsersApi, FullUser} from "@/api";
+
+export default Vue.extend({
   name: "Profile",
+
   components: {
     ProfileEdit,
     Favorites
   },
   data(){
     return{
+      user: {} as FullUser,
       dialog: false,
-      routines: false
+      routines: false,
     }
+  },
+  async mounted(){
+    this.user = await UsersApi.getLoggedUser();
+  },
+  methods: {
+
   }
 
-}
+})
 </script>
-
 <style scoped>
   .profileBtns {
     padding: 4px;
