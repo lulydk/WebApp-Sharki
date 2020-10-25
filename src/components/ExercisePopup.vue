@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts">
-import { Exercise, ExerciseImageCombo, UsersApi, Image } from '@/api';
+import { Exercise, UsersApi, Image, FullExerciseImageCombo } from '@/api';
 import ExerciseCard from "@/components/ExerciseCard.vue";
 import Vue from 'vue';
 
@@ -120,10 +120,10 @@ export default Vue.extend({
   },
   data: function() {
     return {
-    exercises: [] as ExerciseImageCombo[],
+    exercises: [] as FullExerciseImageCombo[],
     current: 0,
     loaded: false,
-    combo: {exercise: this.exercise, image: this.image} as ExerciseImageCombo
+    combo: {exercise: this.exercise, image: this.image} as FullExerciseImageCombo
   }},
   props: {
     exercise: Object,
@@ -134,15 +134,10 @@ export default Vue.extend({
   },
   async mounted() {
     if(this.library) {
-      if(this.exercise) {
-        this.exercises.push(this.combo);
+      this.exercises = await UsersApi.findLibraryExercises();
+      if(this.exercise && !this.exercises.find(e => e.exercise.id == this.exercise.id)) {
+        this.exercises.splice(0, 0, this.combo);
       }
-      this.exercises = this.exercises.concat((await UsersApi.findLibraryExercises())
-          .map(e => {
-            // eslint-disable-next-line no-unused-vars
-            let {order, ...reduced} = e.exercise;
-            return {exercise: reduced, image: e.image ?? {number: 1} as Image};
-          }));
     }
     else {
       const def = this.exercise ?? {

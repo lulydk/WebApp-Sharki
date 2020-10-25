@@ -12,7 +12,7 @@
     </template>
     <ExercisePopup 
                     v-on:cancelClicked="dialog=false"
-                    v-on:acceptClicked="dialog=false"
+                    v-on:acceptClicked="editCard($event)"
                     :exercise=exercise
                     :image=image
                     library
@@ -22,6 +22,7 @@
 </template>
 
 <script lang="ts">
+import { FullExerciseImageCombo } from '@/api';
 import ExerciseCard from "@/components/ExerciseCard.vue";
 import ExercisePopup from "@/components/ExercisePopup.vue";
 import Vue from 'vue';
@@ -41,6 +42,10 @@ export default Vue.extend({
   methods: {
     trashClicked: function () {
       this.$emit('trashClicked', this.exercise.id)
+    },
+    editCard(selected: FullExerciseImageCombo) {
+      this.$emit('cardEditted', selected, this.exercise.id);
+      this.dialog = false;
     }
   }
 })

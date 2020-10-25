@@ -35,7 +35,8 @@
       <v-slide-item v-for="e in exercises" :key="e.exercise.id">
         <EditableExcCard :exercise=e.exercise
                          :image=e.image
-                         v-on:trashClicked="deleteCard($event)"
+                         v-on:trashClicked="deleteCard"
+                         v-on:cardEditted="cardEditted"
         />
       </v-slide-item>
 
@@ -128,6 +129,7 @@ export default Vue.extend({
         image: data.image,
         exists: false
       });
+      this.exercises.forEach((e, i) => e.exercise.order = i + 1);
     },
     //  Handler de card a borrar
     deleteCard: function (id: number) {
@@ -137,10 +139,16 @@ export default Vue.extend({
       if(entry.exists) {
         ExercisesApi.deleteExercise(this.routineId, this.cycle.id, entry.exercise.id);
       }
+      this.exercises.forEach((e, i) => e.exercise.order = i + 1);
     },
     //  Evento para eliminar esta rutine section
     trashClicked: function () {
       this.$emit('trashClicked', this.cycle.order)
+    },
+    cardEditted(selected: FullExerciseImageCombo, id: number) {
+      const index = this.exercises.findIndex(e => e.exercise.id == id);
+      this.exercises.splice(index, 1, { exists: false, exercise: selected.exercise, image: selected.image });
+      this.exercises.forEach((e, i) => e.exercise.order = i + 1);
     },
     async upload(routineId: number) {
       //console.log(this.cycle);
