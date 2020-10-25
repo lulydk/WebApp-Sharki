@@ -3,10 +3,15 @@
 
     <!--Heading y botones-->
     <div class="mb-2">
-      <h1 class="d-inline-block">
+      <h1 v-if="routineId==='0'" class="d-inline-block">
         <v-icon class="pb-1" color="sharkyPurple" large>mdi-plus-circle</v-icon>
         Crear Rutina
       </h1>
+      <h1 v-if="routineId!=='0'" class="d-inline-block">
+        <v-icon class="pb-1" color="sharkyPurple" large>mdi-lead-pencil</v-icon>
+        Modificar Rutina
+      </h1>
+
       <CreateButtons
           v-on:acceptClicked="publishRoutine()"
           v-on:cancelClicked="cancelEdit()"

@@ -10,7 +10,7 @@
       <v-col cols="10">
         <v-toolbar-items>
           <v-row dense align="center" justify="end">
-            <v-text-field filled dense clearable shaped class="mt-6 mr-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
+            <v-text-field filled dense clearable shaped disabled class="mt-6 mr-6 font-weight-regular rounded-lg" placeholder="Busca rutinas y entrenadores" append-icon="mdi-magnify" @click:append="search"></v-text-field>
             <v-btn outlined class="menuBtn mr-6 custom-transform-class text-none font-weight-bold rounded-lg" v-for="item in barItems" :key="item.title" :to="`${item.link}`">{{item.title}}</v-btn>
             <v-menu flat rounded="lg" offset-y nudge-bottom="5">
               <template v-slot:activator="{ on, attrs }">
