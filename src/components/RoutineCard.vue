@@ -57,6 +57,8 @@ export default Vue.extend({
     try {
       let cycles = (await CyclesApi.findCycles(this.routine_id, 0, 100)).results;
       for (let cyc of cycles) {
+        if (cyc.type != 'exercise')
+          continue;
         let exercises = (await ExercisesApi.findExercises(this.routine_id, cyc.id, 0, 100)).results;
         for (let exc of exercises) {
           let image = (await ImagesApi.findExerciseImages(this.routine_id, cyc.id, exc.id, 0, 100)).results.pop();

@@ -32,7 +32,9 @@
         </v-tooltip>
         <v-tooltip bottom v-if="routine.creator.id === currentUser.id">
           <template v-slot:activator="{on}">
-            <v-btn v-on="on" class="mx-2" color="rgb(0,0,0,0)" dark depressed fab small>
+            <v-btn v-on="on" class="mx-2" color="rgb(0,0,0,0)" dark depressed fab small
+                   :to="'/create/'+ routine_id"
+            >
               <v-icon>mdi-circle-edit-outline</v-icon>
             </v-btn>
           </template>
@@ -46,6 +48,14 @@
             </v-btn>
           </template>
           <span>Añadir a favoritos</span>
+        </v-tooltip>
+        <v-tooltip bottom v-if="routine.creator.id === currentUser.id">
+          <template v-slot:activator="{on}">
+            <v-btn v-on="on" color="rgb(0,0,0,0)" dark depressed fab small @click="deleteRoutine()">
+              <v-icon>mdi-trash-can</v-icon>
+            </v-btn>
+          </template>
+          <span>Eliminar rutina</span>
         </v-tooltip>
       </v-card-title>
       <v-spacer />
@@ -67,12 +77,16 @@
           <span class="font-weight-bold">Duracion: </span>{{ routine.duration }}
         </v-flex> -->
           <v-flex class="mb-3" md4 xs6>
-            <v-icon left small>{{ routine.isPublic ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}</v-icon>
-            <span class="font-weight-bold">{{ routine.isPublic ? 'Pública' : 'Privada' }}</span>
+            <span class="font-weight-bold">Categoria:</span>
+            <span> {{routine.category.name}}</span>
           </v-flex>
           <v-flex class="mb-3" md4 xs6>
             <span class="font-weight-bold">Creador:</span>
             <span> {{routine.creator.username}}</span>
+          </v-flex>
+          <v-flex class="mb-3" md4 xs6>
+            <v-icon left small>{{ routine.isPublic ? 'mdi-eye-outline' : 'mdi-eye-off-outline' }}</v-icon>
+            <span class="font-weight-bold">{{ routine.isPublic ? 'Pública' : 'Privada' }}</span>
           </v-flex>
           <!--v-flex class="text-justify" md12 xs12>
           <v-icon left small>mdi-information-outline</v-icon>
@@ -151,6 +165,8 @@
         favourites = (await UsersApi.favRoutines(0, 100)).results;
         this.cycles = (await CyclesApi.findCycles(this.routine_id, 0, 100)).results;
         for (let cyc of this.cycles) {
+          if (cyc.type != 'exercise')
+            continue;
           this.exercises[cyc.order] = (await ExercisesApi.findExercises(this.routine_id, cyc.id, 0, 100)).results;
           this.execImageCombo[cyc.order] = [];
           for (let exc of this.exercises[cyc.order]) {
@@ -160,7 +176,7 @@
               exercise: exc,
               image: image?.url
             };
-            if (cyc.type == 'exercise' && this.routine_image == "" && image !== undefined)
+            if (this.routine_image == "" && image !== undefined)
               this.routine_image = image.url;
           }
         }
@@ -211,6 +227,15 @@
           this.favorite = !this.favorite;
         } catch (e) {
           console.log('NO SE PUDO CAMBIAR EL FAVORITO');
+        }
+      },
+      async deleteRoutine() {
+        try {
+          await RoutinesApi.deleteRoutine(this.routine_id);
+          this.closePop();
+          window.location.reload();
+        } catch (e) {
+          console.log('No se ha podido eliminar la rutina');
         }
       }
     }
