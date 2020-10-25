@@ -49,6 +49,14 @@
           </template>
           <span>Añadir a favoritos</span>
         </v-tooltip>
+        <v-tooltip bottom v-if="routine.creator.id === currentUser.id">
+          <template v-slot:activator="{on}">
+            <v-btn v-on="on" color="rgb(0,0,0,0)" dark depressed fab small @click="deleteRoutine()">
+              <v-icon>mdi-trash-can</v-icon>
+            </v-btn>
+          </template>
+          <span>Eliminar rutina</span>
+        </v-tooltip>
       </v-card-title>
       <v-spacer />
 
@@ -219,6 +227,15 @@
           this.favorite = !this.favorite;
         } catch (e) {
           console.log('NO SE PUDO CAMBIAR EL FAVORITO');
+        }
+      },
+      async deleteRoutine() {
+        try {
+          await RoutinesApi.deleteRoutine(this.routine_id);
+          this.closePop();
+          window.location.reload();
+        } catch (e) {
+          console.log('No se ha podido eliminar la rutina');
         }
       }
     }

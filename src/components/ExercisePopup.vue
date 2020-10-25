@@ -79,7 +79,6 @@
         <!-- Text field de Repeticiones-->
         <v-text-field
             id="repes"
-            type=number
             v-model.number="exercises[current].exercise.repetitions"
             class="repes"
             hide-details
@@ -89,7 +88,6 @@
         <!--Text Field de Segundos -->
         <v-text-field
             id="repes"
-            type=number
             v-model.number="exercises[current].exercise.duration"
             class="repes mt-5"
             hide-details
