@@ -9,12 +9,13 @@
       <v-row>
         <v-col>
           <v-row>
+
             <v-img max-width="500px" max-height="250px"  class="rounded-xl"
-                   src= user.avatarUrl
+                   :src="user.avatarUrl"
             ></v-img>
           </v-row>
           <v-row class="flex-row align-center">
-            <h1>{{  this.user.username }}</h1>
+            <h1>{{  user.username }}</h1>
             <v-spacer/>
                 <v-btn small outlined color="sharkyPurple" :to="'/routines'">Mis Rutinas</v-btn>
             <v-btn depressed icon color="sharkyPurple"><v-icon>mdi-share</v-icon></v-btn>
@@ -24,11 +25,12 @@
               </template>
               <ProfileEdit
                   v-on:closeEdit="dialog=false"
+                  v-on:changeInfo="update();"
               />
             </v-dialog>
             <v-spacer></v-spacer>
           </v-row>
-          <p> <strong>Género: </strong> {{ user.gender }}</p>
+          <p> <strong>Informacion: </strong> {{ user.gender }}, {{user.birthdate}} años</p>
         </v-col>
         <v-col>
           <v-container>
@@ -75,9 +77,13 @@ export default Vue.extend({
     }
   },
   async mounted(){
-    this.user = await UsersApi.getLoggedUser();
+    this.user = (await UsersApi.getLoggedUser());
   },
   methods: {
+    update: async function (){
+      this.user = await UsersApi.getLoggedUser();
+    },
+
 
   }
 
