@@ -8071,7 +8071,8 @@ export class UsersApi extends BaseAPI {
     }
 
     public static async getExerciseLibrary() {
-        const routines = (await this.findCurrentUserRoutines("rookie", undefined, 9999, "id", "asc")).results.filter(r => r.name == EXERCISE_LIBRARY_NAME);
+        const routines = (await UsersApiFp(this.configuration).findCurrentUserRoutines("rookie", undefined, 9999, "id", "asc")(this.fetch, this.basePath))
+            .results.filter(r => r.name == EXERCISE_LIBRARY_NAME);
         if(routines.length > 0) {
             const routine = routines[0];
             const cycle = (await CyclesApi.findCycles(routine.id)).results[0];

@@ -192,7 +192,7 @@ export default Vue.extend({
       categories: [] as FullCategory[],
       dificultades: Object.values(Routine.DifficultyEnum),
       types: Object.values(Cycle.TypeEnum),
-      category: "",
+      category: "None",
       addCatString: ADD_CAT,
       new_cat: "",
       cycles: [] as RoutineEntry[],
@@ -212,7 +212,7 @@ export default Vue.extend({
         name: "New routine",
         detail: "",
         isPublic: false,
-        category: this.categories[0],
+        category: {id : 0},
         difficulty: Routine.DifficultyEnum.Rookie
       };
       this.cycles = defaultCycles.map(c => ({ cycle: c, exists: false}));
@@ -273,7 +273,7 @@ export default Vue.extend({
     },
     async publishRoutine() {
       let id = this.realRoutineId;
-      this.routine.category = this.categories.find(c => c.name == this.category) ?? {id: 0};
+      this.routine.category = this.categories.find(c => c.name == this.category) ?? this.categories[0];
       if (this.routineId == '0')
         id = (await RoutinesApi.addRoutine(this.routine)).id;
       else
