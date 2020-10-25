@@ -1,34 +1,27 @@
 <template>
-    <v-card flat class="mx-auto" max-width="500">
-        <v-card-title>Contactanos</v-card-title>
-        <v-card-subtitle>Te estaremos respondiendo en la brevedad.</v-card-subtitle>
-        <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field v-model="name" :rules="nameRules" class="mx-3" label="Nombre" required outlined></v-text-field>
-            <v-text-field v-model="email" :rules="emailRules" class="mx-3" label="E-mail" required outlined></v-text-field>
-            <v-textarea outlined class="mx-3" label="Mensaje"></v-textarea>
-            <v-btn to='/' class="mx-3" color="grey">Cancelar</v-btn>
-            <v-btn dark color="#5a00e0" @click="send">Enviar</v-btn>
-        </v-form>
+    <v-card flat class="mx-auto pa-5">
+        <h1 class="d-inline-block ml-4 sharkyPurple--text">
+          <v-icon class="pb-1" color="sharkyPurple" large>mdi-mail</v-icon>
+          Contactanos
+        </h1>
+        <v-card-text v-for="i in integrantes" :key="i.name">
+          <h3>{{ i.name }}</h3>
+          <h5>{{ i.mail }}</h5>
+        </v-card-text>
     </v-card>
 </template>
 
 <script>
 export default {
     name: 'Contact',
-    data: () => ({
-      nameRules: [
-        v => !!v || 'Name is required'
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ]
-    }),
-
-    methods: {
-      send () {
-        return null;
+    data () {
+      return {
+        integrantes: [
+          { name:'Colonello, Joaquín Román', mail:'jcolonello@itba.edu.ar'},
+          { name:'Diaz Kralj, Luciana', mail:'lucidiaz@itba.edu.ar'},
+          { name:'Gomez, Lucas Sebastian', mail:'lugomez@itba.edu.ar'},
+          { name:'Parma, Manuel Félix', mail:'mparma@itba.edu.ar'}
+        ]
       }
     }
   }

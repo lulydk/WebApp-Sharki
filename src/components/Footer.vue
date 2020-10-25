@@ -17,7 +17,7 @@ export default {
         return {
             links: [ 
                 { name:'Inicio', to:'/' },
-                { name:'Acerca de', to: ''},
+                { name:'Contactanos', to: '/contact'},
             ]
         }
     }

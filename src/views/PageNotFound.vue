@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container fluid class="pb-4">
         <v-col align-self="center">
             <h1 class="text-center">ERROR 404:</h1>
             <h1 class="text-center">Page not found</h1>
