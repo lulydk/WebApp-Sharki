@@ -2,10 +2,10 @@
   <div>
     <div class="create mx-8 mb-4">
       <!--Heading-->
-      <div class="mb-4">
-        <h1 class="d-inline-block sharkyPurple--text">
+      <div  class="mb-4">
+        <h1 v-if="loaded" class="d-inline-block sharkyPurple--text">
           <v-icon class="pb-2 sharkyPurple--text" large>mdi-home</v-icon>
-          Bienvenido, {{user.fullName}}
+          Bienvenido, {{user.username}}
         </h1>
       </div>
       <Carousel/>
@@ -38,7 +38,8 @@ export default Vue.extend({
     return {
       categories: [] as string[],
       routines: [] as FullRoutine[],
-      user: {} as FullUser
+      user: {} as FullUser,
+      loaded: false
     }
   },
   async mounted(){
@@ -47,6 +48,7 @@ export default Vue.extend({
       this.routines = (await RoutinesApi.findRoutines(undefined, undefined, 0, 100))
           .results.filter(routine => routine.isPublic);
       this.user = (await UsersApi.getLoggedUser());
+      this.loaded = true;
     } catch (e) {
       console.log('ERROR AL CARGAR RUTINAS');
     }
