@@ -15,7 +15,7 @@
                     v-on:acceptClicked="editCard($event)"
                     :exercise=exercise
                     :image=image
-                    library
+                    :library=library
                     modify
     />
   </v-dialog>
@@ -33,6 +33,7 @@ export default Vue.extend({
   props: {
     exercise: Object,
     image: Object,
+    library: Boolean,
   },
   data: function () {
     return {

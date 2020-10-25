@@ -58,7 +58,7 @@
                     filled
                     label="Descripción"
       />
-      <v-text-field v-if="exercises[current].image"
+      <v-text-field 
                     v-model="exercises[current].image.url"
                     class="mx-10"
                     filled
@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts">
-import { Exercise, UsersApi, Image, FullExerciseImageCombo } from '@/api';
+import { Exercise, UsersApi, FullExerciseImageCombo } from '@/api';
 import ExerciseCard from "@/components/ExerciseCard.vue";
 import Vue from 'vue';
 
@@ -140,14 +140,15 @@ export default Vue.extend({
       }
     }
     else {
-      const def = this.exercise ?? {
-        exercise: {
+      const def = {
+        exercise: this.exercise ?? {
           name: "",
           detail: "",
           type: Exercise.TypeEnum.Exercise,
           duration: 0,
           repetitions: 0
-        }, image: {number: 1} as Image
+        }, 
+        image: this.image ?? {number: 1}
       };
       this.exercises.push(def);
     }
@@ -158,7 +159,9 @@ export default Vue.extend({
       this.current = index;
     },
     acceptClicked: function () {
-      this.$emit('acceptClicked', this.exercises[this.current]);
+      const curr = this.exercises[this.current];
+      const combo = { exercise: curr.exercise, image: (curr.image?.url ? curr.image : null)}
+      this.$emit('acceptClicked', combo);
     },
     cancelClicked: function () {
       this.$emit('cancelClicked');

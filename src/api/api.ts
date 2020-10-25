@@ -8108,10 +8108,18 @@ export class UsersApi extends BaseAPI {
         return ExercisesApi.deleteExercise(library.routine.id, library.cycle.id, exerciseId);
     }
 
-    public static async updateLibraryExercise(exerciseId: number, exercise: Exercise) {
+    public static async updateLibraryExercise(exerciseId: number, data: ExerciseImageCombo) {
         const library = await this.getExerciseLibrary();
 
-        return ExercisesApi.updateExercise(library.routine.id, library.cycle.id, exerciseId, exercise);
+        const exercise = ExercisesApi.updateExercise(library.routine.id, library.cycle.id, exerciseId, data.exercise);
+        await Promise.all((await ImagesApi.findExerciseImages(library.routine.id, library.cycle.id, exerciseId, undefined, 10000))
+            .results
+            .map(i => ImagesApi.deleteExerciseImage(library.routine.id, library.cycle.id, exerciseId, i.id))
+        );
+        let img = null;
+        if(data.image)
+            img = await ImagesApi.addExerciseImage(library.routine.id, library.cycle.id, exerciseId, data.image);
+        return { exercise: await exercise, image: img};
     }
 }
 

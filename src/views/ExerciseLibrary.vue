@@ -20,7 +20,7 @@
                           :exercise=exc.exercise
                           :image=exc.image
                           v-on:trashClicked="deleteExercise($event)"
-                          modify
+                          v-on:cardEditted=cardEditted
           />
         </v-col>
       </v-row>
@@ -46,6 +46,7 @@
       <ExercisePopup
                     v-on:cancelClicked="dialog=false"
                     v-on:acceptClicked="addCard($event)"
+                    library
       />
     </v-dialog>
 
@@ -67,14 +68,22 @@ export default Vue.extend({
   methods: {
     addCard: async function (data: ExerciseImageCombo) {
       this.dialog = false;
-
-      const exerciseCombo = await UsersApi.addLibraryExercise(data.exercise, data.image ?? undefined);
+      // eslint-disable-next-line no-unused-vars
+      var { order, ...exc} = data.exercise;
+      const exerciseCombo = await UsersApi.addLibraryExercise(exc, data.image ?? undefined);
       this.exercises.push(exerciseCombo);
     },
     deleteExercise: async function (id: number) {
       await UsersApi.deleteLibraryExercise(id);
       const index = this.exercises.findIndex(e => e.exercise.id == id);
       this.exercises.splice(index, 1);
+    },
+    async cardEditted(selected: FullExerciseImageCombo, id: number) {
+      const index = this.exercises.findIndex(e => e.exercise.id == id);
+      // eslint-disable-next-line no-unused-vars
+      var { order, ...exc} = selected.exercise;
+      const exercise = await UsersApi.updateLibraryExercise(id, {exercise: exc, image: selected.image});
+      this.exercises.splice(index, 1, exercise);
     }
   },
   data: function () {
