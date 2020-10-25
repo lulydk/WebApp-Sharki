@@ -5,7 +5,7 @@
       <div  class="mb-4">
         <h1 v-if="loaded" class="d-inline-block sharkyPurple--text">
           <v-icon class="pb-2 sharkyPurple--text" large>mdi-home</v-icon>
-          Bienvenido, {{user.username}}
+          Bienvenido, {{ user.username }}
         </h1>
       </div>
       <Carousel/>
