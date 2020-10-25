@@ -30,7 +30,7 @@
             </v-dialog>
             <v-spacer></v-spacer>
           </v-row>
-          <p> <strong>Informacion: </strong> {{ user.gender }}, {{user.birthdate}} años</p>
+          <p> <strong>Informacion: </strong> {{ user.gender }}, {{age}} años</p>
         </v-col>
         <v-col>
           <v-container>
@@ -61,6 +61,7 @@ import Favorites from "@/components/Favorites.vue";
 import ProfileEdit from "@/components/ProfileEdit.vue";
 import Vue from  "vue";
 import {UsersApi, FullUser} from "@/api";
+import moment from 'moment';
 
 export default Vue.extend({
   name: "Profile",
@@ -74,14 +75,17 @@ export default Vue.extend({
       user: {} as FullUser,
       dialog: false,
       routines: false,
+      age: 0
     }
   },
   async mounted(){
     this.user = (await UsersApi.getLoggedUser());
+    this.age = moment().diff(this.user.birthdate, 'years');
   },
   methods: {
     update: async function (){
       this.user = await UsersApi.getLoggedUser();
+      this.age = moment().diff(this.user.birthdate, 'years');
     },
 
 

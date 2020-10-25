@@ -101,6 +101,7 @@ export default Vue.extend({
         (value: String) => !!value || 'Campo obligatorio.',
         (value: String) => (value && value.length >= 3) || 'Min 3 characters',
       ],
+      menu: false
     };
   },
   methods: {
@@ -110,13 +111,10 @@ export default Vue.extend({
     },
     async changeInfo () {
       try{
-        console.log(this.date);
         this.u = await UsersApi.getLoggedUser();
         this.user.email = this.u.email;
 
-        this.user.birthdate = new Date(Date.now() - new Date(this.date).getTime()).getFullYear();
-        console.log(new Date(this.date).getTime());
-        console.log(Date.now());
+        this.user.birthdate = new Date(this.date).getTime();
         await UsersApi.updateUser(this.user);
         this.$emit('changeInfo');
 

@@ -10,9 +10,6 @@ export default {
     RoutinesBlock
   },
   props: ['name'],
-  data () {
-
-  }
 }
 </script>
 

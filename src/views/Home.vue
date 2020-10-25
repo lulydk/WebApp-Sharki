@@ -13,7 +13,7 @@
         <h3 class="d-inline-block mb-3">Categoría: {{ cat }}</h3>
         <v-slide-group show-arrows class="sharkyBack py-2">
           <v-slide-item v-for="r in routines" :key="r.id">
-            <RoutineCard v-if="r.category.name === cat" :routine="r" :routine_id="r.id" />
+            <span><RoutineCard v-if="r.category.name === cat" :routine="r" :routine_id="r.id" /></span>
           </v-slide-item>
         </v-slide-group>
       </v-flex>
